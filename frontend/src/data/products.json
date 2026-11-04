@@ -1,0 +1,4592 @@
+[
+  {
+    "id": "product-001",
+    "slug": "blush-pink-pearl-silk-thread-jhumka",
+    "name": "Blush Pink Pearl Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/blush_pink_pearl_silk_thread_jhumka_01.png",
+      "/images/silk_thread_jhumka/blush_pink_pearl_silk_thread_jhumka_02.png",
+      "/images/silk_thread_jhumka/blush_pink_pearl_silk_thread_jhumka_03.png"
+    ],
+    "photographedAt": "2026-03-07T21:37:22",
+    "isNewArrival": false,
+    "homepageBanner": true
+  },
+  {
+    "id": "product-002",
+    "slug": "ruby-red-star-stud-silk-thread-jhumka",
+    "name": "Ruby Red Star Stud Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/ruby_red_star_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-003",
+    "slug": "emerald-green-swirl-stud-silk-thread-jhumka",
+    "name": "Emerald Green Swirl Stud Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/emerald_green_swirl_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": true
+  },
+  {
+    "id": "product-004",
+    "slug": "ivory-pearl-silk-thread-jhumka",
+    "name": "Ivory Pearl Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/ivory_pearl_silk_thread_jhumka_01.png",
+      "/images/silk_thread_jhumka/ivory_pearl_silk_thread_jhumka_02.png"
+    ],
+    "photographedAt": "2026-03-03T18:39:54",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-005",
+    "slug": "orange-and-pink-kundan-silk-thread-jhumka",
+    "name": "Orange & Pink Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/orange_pink_kundan_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": "2026-03-03T18:36:31",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-006",
+    "slug": "sky-blue-swirl-stud-silk-thread-jhumka",
+    "name": "Sky Blue Swirl Stud Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/sky_blue_swirl_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-007",
+    "slug": "hot-pink-star-stud-silk-thread-jhumka",
+    "name": "Hot Pink Star Stud Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/hot_pink_star_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-008",
+    "slug": "yellow-and-green-kundan-silk-thread-jhumka",
+    "name": "Yellow & Green Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/yellow_green_kundan_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": "2026-03-03T18:38:33",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-009",
+    "slug": "pink-and-green-striped-silk-thread-jhumka",
+    "name": "Pink & Green Striped Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/pink_green_striped_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": "2026-03-03T18:41:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-010",
+    "slug": "royal-blue-kundan-star-silk-thread-jhumka",
+    "name": "Royal Blue Kundan Star Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/royal_blue_kundan_star_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": "2026-03-03T18:43:30",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-011",
+    "slug": "golden-yellow-and-green-kundan-silk-thread-jhumka",
+    "name": "Golden Yellow & Green Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/golden_yellow_green_kundan_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": "2026-03-03T18:49:16",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-012",
+    "slug": "purple-kundan-silk-thread-jhumka",
+    "name": "Purple Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/purple_kundan_silk_thread_jhumka_01.png"
+    ],
+    "photographedAt": "2026-03-03T18:51:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-013",
+    "slug": "lilac-silk-thread-jhumka-with-purple-stone-stud",
+    "name": "Lilac Silk Thread Jhumka with Purple Stone Stud",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/lilac_purple_stone_silk_thread_jhumka_01.jpg"
+    ],
+    "photographedAt": "2026-09-29T10:14:53",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-014",
+    "slug": "sky-blue-kundan-silk-thread-jhumka",
+    "name": "Sky Blue Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/sky_blue_kundan_silk_thread_jhumka_01.jpg"
+    ],
+    "photographedAt": "2026-09-29T10:16:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-015",
+    "slug": "maroon-pearl-stud-silk-thread-jhumka",
+    "name": "Maroon Pearl Stud Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/maroon_pearl_stud_silk_thread_jhumka_01.jpg"
+    ],
+    "photographedAt": "2026-09-29T10:17:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-016",
+    "slug": "purple-mirror-kundan-silk-thread-jhumka",
+    "name": "Purple Mirror Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/purple_mirror_kundan_silk_thread_jhumka_01.jpg"
+    ],
+    "photographedAt": "2026-09-29T10:18:34",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-017",
+    "slug": "bottle-green-pearl-and-kundan-silk-thread-jhumka",
+    "name": "Bottle Green Pearl & Kundan Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/bottle_green_pearl_kundan_silk_thread_jhumka_01.jpg"
+    ],
+    "photographedAt": "2026-09-29T10:20:27",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-018",
+    "slug": "green-and-yellow-kundan-flower-silk-thread-jhumka",
+    "name": "Green & Yellow Kundan Flower Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/green_yellow_kundan_flower_silk_thread_jhumka_01.jpg",
+      "/images/silk_thread_jhumka/green_yellow_kundan_flower_silk_thread_jhumka_02.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:20:05",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-019",
+    "slug": "pink-and-yellow-pearl-hoop-silk-thread-jhumka",
+    "name": "Pink & Yellow Pearl Hoop Silk Thread Jhumka",
+    "collection": "silk-thread-jhumka",
+    "category": "Silk Thread Jhumka",
+    "images": [
+      "/images/silk_thread_jhumka/pink_yellow_pearl_hoop_silk_thread_jhumka_01.jpg"
+    ],
+    "photographedAt": "2026-10-04T11:30:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-020",
+    "slug": "ruby-and-emerald-kundan-silk-thread-bangle-set",
+    "name": "Ruby & Emerald Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/ruby_emerald_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:35:57",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-021",
+    "slug": "ruby-and-green-kundan-bangle-pair",
+    "name": "Ruby & Green Kundan Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/ruby_green_kundan_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:56:10",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-022",
+    "slug": "blue-and-ruby-kundan-silk-thread-bangle-set",
+    "name": "Blue & Ruby Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/blue_ruby_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:27:47",
+    "isNewArrival": true,
+    "homepageBanner": true
+  },
+  {
+    "id": "product-023",
+    "slug": "magenta-and-gold-kundan-silk-thread-bangle-set",
+    "name": "Magenta & Gold Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/magenta_gold_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:34:11",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-024",
+    "slug": "navy-lotus-kundan-silk-thread-bangle-pair",
+    "name": "Navy Lotus Kundan Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/navy_lotus_kundan_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:42:04",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-025",
+    "slug": "lime-green-kundan-flower-silk-thread-bangle-pair",
+    "name": "Lime Green Kundan Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lime_green_kundan_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:45:52",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-026",
+    "slug": "yellow-gold-flower-silk-thread-bangle-pair",
+    "name": "Yellow Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/yellow_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:47:36",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-027",
+    "slug": "lilac-purple-flower-silk-thread-bangle-pair",
+    "name": "Lilac Purple Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lilac_purple_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:48:27",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-028",
+    "slug": "red-gold-flower-silk-thread-bangle-pair",
+    "name": "Red Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:08:40",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-029",
+    "slug": "pink-and-blue-striped-kundan-silk-thread-bangle-pair",
+    "name": "Pink & Blue Striped Kundan Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/pink_blue_striped_kundan_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:43:02",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-030",
+    "slug": "purple-and-blue-mirror-work-silk-thread-bangle-set",
+    "name": "Purple & Blue Mirror-Work Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/purple_blue_mirror_work_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:24:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-031",
+    "slug": "maroon-and-green-pearl-silk-thread-bangle-set",
+    "name": "Maroon & Green Pearl Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/maroon_green_pearl_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:24:57",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-032",
+    "slug": "green-and-yellow-cowrie-mirror-silk-thread-bangle-set",
+    "name": "Green & Yellow Cowrie Mirror Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/green_yellow_cowrie_mirror_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:25:07",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-033",
+    "slug": "red-and-green-pearl-mirror-silk-thread-bangle-set",
+    "name": "Red & Green Pearl Mirror Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_green_pearl_mirror_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:25:18",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-034",
+    "slug": "navy-and-beige-mirror-work-silk-thread-bangle-set",
+    "name": "Navy & Beige Mirror-Work Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/navy_beige_mirror_work_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:25:30",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-035",
+    "slug": "red-and-blue-zari-mirror-silk-thread-bangle-set",
+    "name": "Red & Blue Zari Mirror Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_blue_zari_mirror_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:25:43",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-036",
+    "slug": "lavender-and-white-cowrie-mirror-silk-thread-bangle-set",
+    "name": "Lavender & White Cowrie Mirror Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lavender_white_cowrie_mirror_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:25:59",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-037",
+    "slug": "lilac-and-aqua-pearl-mirror-silk-thread-bangle-set",
+    "name": "Lilac & Aqua Pearl Mirror Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lilac_aqua_pearl_mirror_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:26:10",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-038",
+    "slug": "maroon-and-cream-pearl-silk-thread-bangle-set",
+    "name": "Maroon & Cream Pearl Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/maroon_cream_pearl_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:26:26",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-039",
+    "slug": "lilac-and-purple-sequin-mirror-silk-thread-bangle-set",
+    "name": "Lilac & Purple Sequin Mirror Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lilac_purple_sequin_mirror_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-07-05T09:26:38",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-040",
+    "slug": "pink-checkered-silk-thread-bangle",
+    "name": "Pink Checkered Silk Thread Bangle",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/pink_checkered_bangle_01.jpg"
+    ],
+    "photographedAt": "2026-07-08T11:19:43",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-041",
+    "slug": "green-and-yellow-zigzag-silk-thread-bangle-pair",
+    "name": "Green & Yellow Zigzag Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/green_yellow_zigzag_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-07-08T17:34:36",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-042",
+    "slug": "sky-blue-pearl-silk-thread-bangle-pair",
+    "name": "Sky Blue Pearl Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/sky_blue_pearl_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-07-09T20:06:13",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-043",
+    "slug": "red-and-green-kundan-stone-bangle",
+    "name": "Red & Green Kundan Stone Bangle",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_green_kundan_stone_bangle_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:31:28",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-044",
+    "slug": "bottle-green-mirror-zari-silk-thread-bangle-set",
+    "name": "Bottle Green Mirror Zari Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/bottle_green_mirror_zari_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-09-18T12:00:32",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-045",
+    "slug": "yellow-and-pink-stone-studded-silk-thread-bangle-pair",
+    "name": "Yellow & Pink Stone-Studded Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/yellow_pink_stone_studded_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-10-04T11:29:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-046",
+    "slug": "yellow-and-lime-kundan-silk-thread-bangle-pair",
+    "name": "Yellow & Lime Kundan Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/yellow_lime_kundan_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-10-04T11:31:37",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-047",
+    "slug": "red-kundan-silk-thread-bangle-set",
+    "name": "Red Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-22T16:25:28",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-048",
+    "slug": "teal-and-pink-kundan-silk-thread-bangles",
+    "name": "Teal & Pink Kundan Silk Thread Bangles",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/teal_pink_kundan_bangles_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:25:29",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-049",
+    "slug": "gold-kundan-silk-thread-bangle-stack",
+    "name": "Gold Kundan Silk Thread Bangle Stack",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/gold_kundan_bangle_stack_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:26:29",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-050",
+    "slug": "baby-pink-kundan-silk-thread-bangle-set",
+    "name": "Baby Pink Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/baby_pink_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:29:00",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-051",
+    "slug": "pink-kundan-silk-thread-bangle-stack",
+    "name": "Pink Kundan Silk Thread Bangle Stack",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/pink_kundan_bangle_stack_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:30:21",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-052",
+    "slug": "blue-and-pink-kundan-silk-thread-bangle-set",
+    "name": "Blue & Pink Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/blue_pink_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:31:17",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-053",
+    "slug": "maroon-pearl-and-kundan-silk-thread-bangle-set",
+    "name": "Maroon Pearl & Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/maroon_pearl_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:34:34",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-054",
+    "slug": "lime-green-and-pink-kundan-silk-thread-bangle-set",
+    "name": "Lime Green & Pink Kundan Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lime_green_pink_kundan_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:37:04",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-055",
+    "slug": "purple-kundan-stone-silk-thread-bangle-set",
+    "name": "Purple Kundan Stone Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/purple_kundan_stone_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:38:08",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-056",
+    "slug": "lime-green-kundan-leaf-silk-thread-bangle-pair",
+    "name": "Lime Green Kundan Leaf Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lime_green_kundan_leaf_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:41:40",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-057",
+    "slug": "red-and-green-kundan-silk-thread-bangle-pair",
+    "name": "Red & Green Kundan Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_green_kundan_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:44:00",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-058",
+    "slug": "red-kundan-flower-silk-thread-bangle-pair",
+    "name": "Red Kundan Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_kundan_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:44:57",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-059",
+    "slug": "royal-blue-and-gold-kundan-silk-thread-bangle-pair",
+    "name": "Royal Blue & Gold Kundan Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/royal_blue_gold_kundan_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:46:47",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-060",
+    "slug": "peach-silk-thread-bangle-pair-with-ruby-flowers",
+    "name": "Peach Silk Thread Bangle Pair with Ruby Flowers",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/peach_ruby_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T10:49:24",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-061",
+    "slug": "lavender-gold-flower-silk-thread-bangle-pair",
+    "name": "Lavender Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/lavender_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:08:25",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-062",
+    "slug": "olive-green-gold-flower-silk-thread-bangle-pair",
+    "name": "Olive Green Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/olive_green_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:09:14",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-063",
+    "slug": "pink-gold-flower-silk-thread-bangle-pair",
+    "name": "Pink Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/pink_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:09:33",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-064",
+    "slug": "royal-blue-pearl-zari-silk-thread-bangle-set",
+    "name": "Royal Blue Pearl Zari Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/royal_blue_pearl_zari_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:01:57",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-065",
+    "slug": "red-and-white-pearl-zari-silk-thread-bangle-set",
+    "name": "Red & White Pearl Zari Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/red_white_pearl_zari_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:02:26",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-066",
+    "slug": "teal-green-mirror-zari-silk-thread-bangle-set",
+    "name": "Teal Green Mirror Zari Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/teal_green_mirror_zari_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:02:42",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-067",
+    "slug": "purple-pearl-zari-silk-thread-bangle-set",
+    "name": "Purple Pearl Zari Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/purple_pearl_zari_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:03:06",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-068",
+    "slug": "orange-mirror-zari-silk-thread-bangle-set",
+    "name": "Orange Mirror Zari Silk Thread Bangle Set",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/orange_mirror_zari_bangle_set_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:03:31",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-069",
+    "slug": "blue-gold-flower-silk-thread-bangle-pair",
+    "name": "Blue Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/blue_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:03:59",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-070",
+    "slug": "orange-gold-flower-silk-thread-bangle-pair",
+    "name": "Orange Gold Flower Silk Thread Bangle Pair",
+    "collection": "bangles",
+    "category": "Bangles",
+    "images": [
+      "/images/bangles/orange_gold_flower_bangle_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T11:04:20",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-071",
+    "slug": "peach-pink-petal-pearl-alligator-clip",
+    "name": "Peach Pink Petal Pearl Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/peach_pink_petal_pearl_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:07:19",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-072",
+    "slug": "lavender-petal-pearl-alligator-clip",
+    "name": "Lavender Petal Pearl Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/lavender_petal_pearl_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:05:43",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-073",
+    "slug": "yellow-petal-pearl-alligator-clip",
+    "name": "Yellow Petal Pearl Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/yellow_petal_pearl_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:06:11",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-074",
+    "slug": "aqua-blue-petal-pearl-alligator-clip",
+    "name": "Aqua Blue Petal Pearl Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/aqua_blue_petal_pearl_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:06:41",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-075",
+    "slug": "mint-green-petal-pearl-alligator-clip",
+    "name": "Mint Green Petal Pearl Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/mint_green_petal_pearl_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:07:01",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-076",
+    "slug": "red-rose-and-pearl-cluster-alligator-clip-pair",
+    "name": "Red Rose & Pearl Cluster Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_pearl_cluster_alligator_clip_pair_01.jpg",
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_pearl_cluster_alligator_clip_pair_02.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:15:54",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-077",
+    "slug": "iridescent-yellow-petal-red-rose-alligator-clip",
+    "name": "Iridescent Yellow Petal Red Rose Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/iridescent_yellow_petal_red_rose_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:07:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-078",
+    "slug": "iridescent-lilac-petal-red-rose-alligator-clip",
+    "name": "Iridescent Lilac Petal Red Rose Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/iridescent_lilac_petal_red_rose_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:08:05",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-079",
+    "slug": "iridescent-pink-petal-red-rose-alligator-clip",
+    "name": "Iridescent Pink Petal Red Rose Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/iridescent_pink_petal_red_rose_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:09:54",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-080",
+    "slug": "iridescent-peach-petal-red-rose-alligator-clip",
+    "name": "Iridescent Peach Petal Red Rose Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/iridescent_peach_petal_red_rose_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:10:45",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-081",
+    "slug": "iridescent-white-petal-red-rose-alligator-clip",
+    "name": "Iridescent White Petal Red Rose Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/iridescent_white_petal_red_rose_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:11:10",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-082",
+    "slug": "pastel-shell-alligator-clip-collection",
+    "name": "Pastel Shell Alligator Clip Collection",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pastel_shell_alligator_clip_collection_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:11:47",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-083",
+    "slug": "red-rose-twin-pearl-alligator-clip-pair",
+    "name": "Red Rose Twin Pearl Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_twin_pearl_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:12:13",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-084",
+    "slug": "red-rose-trio-alligator-clip-pair",
+    "name": "Red Rose Trio Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_trio_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:12:42",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-085",
+    "slug": "pearl-cluster-alligator-clip-pair",
+    "name": "Pearl Cluster Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pearl_cluster_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:13:22",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-086",
+    "slug": "red-rose-pearl-bar-alligator-clip-pair",
+    "name": "Red Rose Pearl Bar Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_pearl_bar_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:13:59",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-087",
+    "slug": "jasmine-bud-and-red-rose-alligator-clip-pair",
+    "name": "Jasmine Bud & Red Rose Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/jasmine_bud_red_rose_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:14:26",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-088",
+    "slug": "silver-pearl-cluster-alligator-clip-pair",
+    "name": "Silver Pearl Cluster Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/silver_pearl_cluster_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:14:52",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-089",
+    "slug": "pearl-cluster-double-rose-alligator-clip-pair",
+    "name": "Pearl Cluster Double Rose Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pearl_cluster_double_rose_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T23:15:19",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-090",
+    "slug": "pink-rose-alligator-clip-set",
+    "name": "Pink Rose Alligator Clip Set",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pink_rose_alligator_clip_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-29T09:23:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-091",
+    "slug": "red-rose-pearl-petal-alligator-clip-pair",
+    "name": "Red Rose Pearl Petal Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_pearl_petal_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-08-31T09:59:49",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-092",
+    "slug": "red-rose-kundan-flower-alligator-clip",
+    "name": "Red Rose Kundan Flower Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/red_rose_kundan_flower_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-08-31T10:00:05",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-093",
+    "slug": "mint-flower-cluster-alligator-clip",
+    "name": "Mint Flower Cluster Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/mint_flower_cluster_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:42:06",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-094",
+    "slug": "lilac-pink-flower-cluster-alligator-clip",
+    "name": "Lilac Pink Flower Cluster Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/lilac_pink_flower_cluster_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:42:24",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-095",
+    "slug": "crystal-flower-alligator-clip-with-red-beads",
+    "name": "Crystal Flower Alligator Clip with Red Beads",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/crystal_red_bead_flower_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:42:32",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-096",
+    "slug": "peach-pink-flower-cluster-alligator-clip",
+    "name": "Peach Pink Flower Cluster Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/peach_pink_flower_cluster_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:42:41",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-097",
+    "slug": "sky-blue-flower-cluster-alligator-clip",
+    "name": "Sky Blue Flower Cluster Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/sky_blue_flower_cluster_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:42:51",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-098",
+    "slug": "pastel-mixed-flower-alligator-clip",
+    "name": "Pastel Mixed Flower Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pastel_mixed_flower_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:43:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-099",
+    "slug": "pink-rose-and-tulle-alligator-clip-pair",
+    "name": "Pink Rose & Tulle Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pink_rose_tulle_alligator_clip_pair_01.jpg",
+      "/images/handmade_jewellerycollections/alligator_clips/pink_rose_tulle_alligator_clip_pair_02.jpg"
+    ],
+    "photographedAt": "2026-11-03T13:46:21",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-100",
+    "slug": "white-shell-alligator-clip",
+    "name": "White Shell Alligator Clip",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/white_shell_alligator_clip_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T13:47:44",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-101",
+    "slug": "pink-shell-alligator-clip-pair",
+    "name": "Pink Shell Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/pink_shell_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T13:48:07",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-102",
+    "slug": "aqua-blue-shell-alligator-clip-pair",
+    "name": "Aqua Blue Shell Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/aqua_blue_shell_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T13:48:24",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-103",
+    "slug": "yellow-shell-alligator-clip-pair",
+    "name": "Yellow Shell Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/yellow_shell_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T13:48:43",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-104",
+    "slug": "lilac-shell-alligator-clip-pair",
+    "name": "Lilac Shell Alligator Clip Pair",
+    "collection": "alligator-clips",
+    "category": "Alligator Clips",
+    "images": [
+      "/images/handmade_jewellerycollections/alligator_clips/lilac_shell_alligator_clip_pair_01.jpg"
+    ],
+    "photographedAt": "2026-11-03T13:48:59",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-105",
+    "slug": "white-pearl-and-green-kundan-brooch-pin",
+    "name": "White Pearl & Green Kundan Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/white_pearl_green_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:13:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-106",
+    "slug": "assorted-kundan-brooch-pin-collection",
+    "name": "Assorted Kundan Brooch Pin Collection",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/assorted_kundan_brooch_pin_collection_01.jpg"
+    ],
+    "photographedAt": "2026-08-08T11:38:20",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-107",
+    "slug": "peacock-kundan-brooch-pin-set",
+    "name": "Peacock Kundan Brooch Pin Set",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/peacock_kundan_brooch_pin_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-11T11:53:28",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-108",
+    "slug": "assorted-stone-and-pearl-brooch-pin-collection",
+    "name": "Assorted Stone & Pearl Brooch Pin Collection",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/assorted_stone_pearl_brooch_pin_collection_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T09:41:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-109",
+    "slug": "gold-pearl-flower-brooch-pin",
+    "name": "Gold Pearl Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/gold_pearl_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:11:19",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-110",
+    "slug": "iridescent-crystal-pearl-brooch-pin",
+    "name": "Iridescent Crystal Pearl Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/iridescent_crystal_pearl_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:11:27",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-111",
+    "slug": "purple-crystal-pearl-brooch-pin",
+    "name": "Purple Crystal Pearl Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/purple_crystal_pearl_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:11:43",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-112",
+    "slug": "red-crystal-pearl-brooch-pin",
+    "name": "Red Crystal Pearl Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/red_crystal_pearl_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:11:54",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-113",
+    "slug": "silver-star-stone-brooch-pin",
+    "name": "Silver Star Stone Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/silver_star_stone_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:01",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-114",
+    "slug": "white-heart-and-green-kundan-brooch-pin",
+    "name": "White Heart & Green Kundan Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/white_heart_green_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:07",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-115",
+    "slug": "champagne-heart-and-green-kundan-brooch-pin",
+    "name": "Champagne Heart & Green Kundan Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/champagne_heart_green_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:13",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-116",
+    "slug": "champagne-pearl-flower-brooch-pin",
+    "name": "Champagne Pearl Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/champagne_pearl_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:20",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-117",
+    "slug": "blue-and-green-leaf-stone-brooch-pin",
+    "name": "Blue & Green Leaf Stone Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/blue_green_leaf_stone_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:30",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-118",
+    "slug": "green-swirl-kundan-brooch-pin",
+    "name": "Green Swirl Kundan Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/green_swirl_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-119",
+    "slug": "red-and-green-kundan-flower-brooch-pin",
+    "name": "Red & Green Kundan Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/red_green_kundan_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:50",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-120",
+    "slug": "pearl-and-iridescent-crystal-flower-brooch-pin",
+    "name": "Pearl & Iridescent Crystal Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pearl_iridescent_crystal_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:12:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-121",
+    "slug": "iridescent-crystal-flower-brooch-pin",
+    "name": "Iridescent Crystal Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/iridescent_crystal_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:13:02",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-122",
+    "slug": "white-pink-and-green-kundan-flower-brooch-pin",
+    "name": "White, Pink & Green Kundan Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/white_pink_green_kundan_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:13:16",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-123",
+    "slug": "pearl-crystal-flower-brooch-pin",
+    "name": "Pearl Crystal Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pearl_crystal_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-09-09T11:13:29",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-124",
+    "slug": "white-heart-and-green-kundan-star-brooch-pin",
+    "name": "White Heart & Green Kundan Star Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/white_heart_green_kundan_star_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-10-05T16:41:58",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-125",
+    "slug": "pearl-and-ruby-kundan-brooch-pin",
+    "name": "Pearl & Ruby Kundan Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pearl_ruby_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:29:33",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-126",
+    "slug": "blue-swirl-kundan-brooch-pin",
+    "name": "Blue Swirl Kundan Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/blue_swirl_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:29:56",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-127",
+    "slug": "pink-lotus-brooch-pin-with-blue-kundan",
+    "name": "Pink Lotus Brooch Pin with Blue Kundan",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pink_lotus_blue_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:30:19",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-128",
+    "slug": "pink-lotus-brooch-pin-with-pink-kundan",
+    "name": "Pink Lotus Brooch Pin with Pink Kundan",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pink_lotus_pink_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:30:38",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-129",
+    "slug": "pink-and-green-kundan-flower-brooch-pin",
+    "name": "Pink & Green Kundan Flower Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pink_green_kundan_flower_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:30:59",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-130",
+    "slug": "pink-lotus-brooch-pin-with-green-kundan",
+    "name": "Pink Lotus Brooch Pin with Green Kundan",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/pink_lotus_green_kundan_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:31:27",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-131",
+    "slug": "white-pearl-peacock-brooch-pin",
+    "name": "White Pearl Peacock Brooch Pin",
+    "collection": "brooch-pins",
+    "category": "Brooch Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/brooch_pins/white_pearl_peacock_brooch_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:31:43",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-132",
+    "slug": "lotus-haldi-kumkum-return-gift-set",
+    "name": "Lotus Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/lotus_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:39:42",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-133",
+    "slug": "baby-shower-red-saree-haldi-kumkum-return-gift-set",
+    "name": "Baby Shower (Red Saree) Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/baby_shower_red_saree_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:36:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-134",
+    "slug": "assorted-haldi-kumkum-return-gift-collection",
+    "name": "Assorted Haldi Kumkum Return Gift Collection",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/assorted_haldi_kumkum_return_gift_collection_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:33:04",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-135",
+    "slug": "classical-dancer-haldi-kumkum-return-gift-set",
+    "name": "Classical Dancer Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/classical_dancer_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:03:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-136",
+    "slug": "bride-and-women-ceremony-haldi-kumkum-return-gift-set",
+    "name": "Bride & Women Ceremony Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/bride_and_women_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:35:18",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-137",
+    "slug": "baby-shower-green-saree-haldi-kumkum-return-gift-set",
+    "name": "Baby Shower (Green Saree) Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/baby_shower_green_saree_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:35:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-138",
+    "slug": "farmer-and-cow-haldi-kumkum-return-gift-set",
+    "name": "Farmer & Cow Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/farmer_and_cow_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:36:14",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-139",
+    "slug": "family-baby-ceremony-haldi-kumkum-return-gift-set",
+    "name": "Family Baby Ceremony Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/family_baby_ceremony_haldi_kumkum_set_01.jpg",
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/family_baby_ceremony_haldi_kumkum_set_02.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:37:22",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-140",
+    "slug": "ganesha-haldi-kumkum-return-gift-set",
+    "name": "Ganesha Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/ganesha_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:37:50",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-141",
+    "slug": "wedding-couple-haldi-kumkum-return-gift-set",
+    "name": "Wedding Couple Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/wedding_couple_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:38:17",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-142",
+    "slug": "green-paisley-haldi-kumkum-return-gift-set",
+    "name": "Green Paisley Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/green_paisley_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:38:49",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-143",
+    "slug": "baby-in-cradle-haldi-kumkum-return-gift-set",
+    "name": "Baby in Cradle Haldi Kumkum Return Gift Set",
+    "collection": "haldi-kumkum-sets",
+    "category": "Haldi Kumkum Sets",
+    "images": [
+      "/images/handmade_jewellerycollections/haldi_kumkum_sets/baby_in_cradle_haldi_kumkum_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-27T14:39:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-144",
+    "slug": "white-rose-flower-crown-headband",
+    "name": "White Rose Flower Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/white_rose_flower_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T20:02:51",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-145",
+    "slug": "assorted-rose-and-pearl-headband-collection",
+    "name": "Assorted Rose & Pearl Headband Collection",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/assorted_rose_pearl_headband_collection_01.jpg"
+    ],
+    "photographedAt": "2026-06-22T11:05:28",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-146",
+    "slug": "red-rose-pearl-headband",
+    "name": "Red Rose Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/red_rose_pearl_headband_01.jpg",
+      "/images/handmade_jewellerycollections/headbands/red_rose_pearl_headband_02.jpg"
+    ],
+    "photographedAt": "2026-06-22T11:07:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-147",
+    "slug": "yellow-rose-pearl-headband",
+    "name": "Yellow Rose Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/yellow_rose_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-22T11:07:12",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-148",
+    "slug": "pink-rose-pearl-headband",
+    "name": "Pink Rose Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/pink_rose_pearl_headband_01.jpg",
+      "/images/handmade_jewellerycollections/headbands/pink_rose_pearl_headband_02.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:02:15",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-149",
+    "slug": "pink-petal-pearl-headband",
+    "name": "Pink Petal Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/pink_petal_pearl_headband_01.jpg",
+      "/images/handmade_jewellerycollections/headbands/pink_petal_pearl_headband_02.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:07:04",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-150",
+    "slug": "yellow-rose-and-leaf-headband",
+    "name": "Yellow Rose & Leaf Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/yellow_rose_leaf_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T20:58:57",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-151",
+    "slug": "yellow-rose-crown-headband",
+    "name": "Yellow Rose Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/yellow_rose_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:00:01",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-152",
+    "slug": "yellow-rose-crystal-headband",
+    "name": "Yellow Rose Crystal Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/yellow_rose_crystal_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:01:06",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-153",
+    "slug": "red-rose-crown-headband",
+    "name": "Red Rose Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/red_rose_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:01:26",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-154",
+    "slug": "red-rose-pearl-crown-headband",
+    "name": "Red Rose Pearl Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/red_rose_pearl_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:01:53",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-155",
+    "slug": "lilac-petal-pearl-headband",
+    "name": "Lilac Petal Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/lilac_petal_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-06-29T21:09:19",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-156",
+    "slug": "mint-tulle-bow-pearl-headband",
+    "name": "Mint Tulle Bow Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/mint_tulle_bow_pearl_headband_01.jpg",
+      "/images/handmade_jewellerycollections/headbands/mint_tulle_bow_pearl_headband_02.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:20:43",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-157",
+    "slug": "assorted-rose-flower-crown-collection",
+    "name": "Assorted Rose Flower Crown Collection",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/assorted_rose_flower_crown_collection_01.jpg"
+    ],
+    "photographedAt": "2026-07-24T17:15:41",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-158",
+    "slug": "pink-rose-flower-crown-headband",
+    "name": "Pink Rose Flower Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/pink_rose_flower_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-07-24T17:16:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-159",
+    "slug": "red-rose-and-peach-pearl-headband",
+    "name": "Red Rose & Peach Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/red_rose_peach_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-07-25T19:52:23",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-160",
+    "slug": "red-rose-and-pearl-green-headband",
+    "name": "Red Rose & Pearl Green Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/red_rose_pearl_green_headband_01.jpg"
+    ],
+    "photographedAt": "2026-07-25T19:54:32",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-161",
+    "slug": "white-bud-and-mirror-hairband-set",
+    "name": "White Bud & Mirror Hairband Set",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/white_bud_and_mirror_hairband_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-11T17:25:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-162",
+    "slug": "silk-thread-and-mirror-hairband-set",
+    "name": "Silk Thread & Mirror Hairband Set",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/silk_thread_and_mirror_hairband_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-11T22:25:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-163",
+    "slug": "purple-kundan-twin-flower-hairband",
+    "name": "Purple Kundan Twin Flower Hairband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/purple_kundan_twin_flower_hairband_01.jpg"
+    ],
+    "photographedAt": "2026-09-20T22:30:45",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-164",
+    "slug": "kundan-swirl-flower-hairband",
+    "name": "Kundan Swirl Flower Hairband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/kundan_swirl_flower_hairband_01.jpg"
+    ],
+    "photographedAt": "2026-09-20T22:32:25",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-165",
+    "slug": "green-and-pink-kundan-hairband",
+    "name": "Green & Pink Kundan Hairband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/green_pink_kundan_hairband_01.jpg"
+    ],
+    "photographedAt": "2026-09-20T22:32:53",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-166",
+    "slug": "green-kundan-flower-hairband",
+    "name": "Green Kundan Flower Hairband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/green_kundan_flower_hairband_01.jpg"
+    ],
+    "photographedAt": "2026-09-20T22:33:10",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-167",
+    "slug": "purple-and-green-kundan-flower-hairband",
+    "name": "Purple & Green Kundan Flower Hairband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/purple_green_kundan_flower_hairband_01.jpg",
+      "/images/handmade_jewellerycollections/headbands/purple_green_kundan_flower_hairband_02.jpg"
+    ],
+    "photographedAt": "2026-09-20T22:33:45",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-168",
+    "slug": "assorted-kundan-hairband-collection",
+    "name": "Assorted Kundan Hairband Collection",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/assorted_kundan_hairband_collection_01.jpg",
+      "/images/handmade_jewellerycollections/headbands/assorted_kundan_hairband_collection_02.jpg",
+      "/images/handmade_jewellerycollections/headbands/assorted_kundan_hairband_collection_03.jpg"
+    ],
+    "photographedAt": "2026-09-20T22:35:46",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-169",
+    "slug": "green-flower-pearl-headband",
+    "name": "Green Flower Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/green_flower_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:29:32",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-170",
+    "slug": "white-shell-pearl-headband",
+    "name": "White Shell Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/white_shell_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:34:54",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-171",
+    "slug": "red-rose-pearl-cluster-headband",
+    "name": "Red Rose Pearl Cluster Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/red_rose_pearl_cluster_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:50:20",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-172",
+    "slug": "lilac-flower-pearl-headband",
+    "name": "Lilac Flower Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/lilac_flower_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:56:00",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-173",
+    "slug": "white-flower-and-red-rose-headband",
+    "name": "White Flower & Red Rose Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/white_flower_red_rose_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:58:27",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-174",
+    "slug": "pearl-cluster-headband",
+    "name": "Pearl Cluster Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/pearl_cluster_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:58:45",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-175",
+    "slug": "aqua-flower-pearl-headband",
+    "name": "Aqua Flower Pearl Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/aqua_flower_pearl_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T19:59:11",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-176",
+    "slug": "white-rose-and-leaf-flower-crown-headband",
+    "name": "White Rose & Leaf Flower Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/white_rose_leaf_flower_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T20:00:45",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-177",
+    "slug": "lilac-rose-flower-crown-headband",
+    "name": "Lilac Rose Flower Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/lilac_rose_flower_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T20:02:00",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-178",
+    "slug": "peach-flower-crown-headband",
+    "name": "Peach Flower Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/peach_flower_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T20:03:48",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-179",
+    "slug": "coral-red-flower-crown-headband",
+    "name": "Coral Red Flower Crown Headband",
+    "collection": "headbands",
+    "category": "Headbands",
+    "images": [
+      "/images/handmade_jewellerycollections/headbands/coral_red_flower_crown_headband_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T20:04:57",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-180",
+    "slug": "crystal-star-pendant-invisible-chain",
+    "name": "Crystal Star Pendant Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/crystal_star_pendant_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-181",
+    "slug": "gold-coin-pendant-invisible-chain",
+    "name": "Gold Coin Pendant Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/gold_coin_pendant_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-182",
+    "slug": "pearl-drop-invisible-chain",
+    "name": "Pearl Drop Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pearl_drop_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-183",
+    "slug": "assorted-invisible-chain-collection",
+    "name": "Assorted Invisible Chain Collection",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/assorted_invisible_chain_collection_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-184",
+    "slug": "gold-leaf-pendant-invisible-chain",
+    "name": "Gold Leaf Pendant Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/gold_leaf_pendant_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-05-15T17:44:25",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-185",
+    "slug": "lilac-teardrop-stone-invisible-chain",
+    "name": "Lilac Teardrop Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/lilac_teardrop_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:42:51",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-186",
+    "slug": "champagne-oval-stone-invisible-chain",
+    "name": "Champagne Oval Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/champagne_oval_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:42:59",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-187",
+    "slug": "pink-square-stone-invisible-chain",
+    "name": "Pink Square Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pink_square_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:43:22",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-188",
+    "slug": "blue-opal-look-stone-invisible-chain",
+    "name": "Blue Opal-Look Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/blue_opal_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:43:42",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-189",
+    "slug": "magenta-stone-invisible-chain",
+    "name": "Magenta Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/magenta_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:44:08",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-190",
+    "slug": "orange-stone-invisible-chain",
+    "name": "Orange Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/orange_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:44:18",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-191",
+    "slug": "olive-green-stone-invisible-chain",
+    "name": "Olive Green Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/olive_green_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:44:27",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-192",
+    "slug": "ruby-triangle-stone-invisible-chain",
+    "name": "Ruby Triangle Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/ruby_triangle_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:44:35",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-193",
+    "slug": "amber-oval-stone-invisible-chain",
+    "name": "Amber Oval Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/amber_oval_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:44:58",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-194",
+    "slug": "peach-oval-stone-invisible-chain",
+    "name": "Peach Oval Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/peach_oval_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:05",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-195",
+    "slug": "clear-oval-crystal-invisible-chain",
+    "name": "Clear Oval Crystal Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/clear_oval_crystal_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:13",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-196",
+    "slug": "blue-lotus-invisible-chain",
+    "name": "Blue Lotus Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/blue_lotus_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-197",
+    "slug": "pink-lotus-invisible-chain",
+    "name": "Pink Lotus Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pink_lotus_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:29",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-198",
+    "slug": "red-lotus-pearl-invisible-chain",
+    "name": "Red Lotus Pearl Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/red_lotus_pearl_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:37",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-199",
+    "slug": "green-oval-stone-invisible-chain",
+    "name": "Green Oval Stone Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_oval_stone_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-200",
+    "slug": "crystal-flower-invisible-chain",
+    "name": "Crystal Flower Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/crystal_flower_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:45:53",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-201",
+    "slug": "emerald-flower-invisible-chain",
+    "name": "Emerald Flower Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/emerald_flower_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:01",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-202",
+    "slug": "sapphire-blue-flower-invisible-chain",
+    "name": "Sapphire Blue Flower Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/sapphire_blue_flower_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:12",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-203",
+    "slug": "ruby-and-emerald-flower-invisible-chain",
+    "name": "Ruby & Emerald Flower Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/ruby_emerald_flower_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:19",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-204",
+    "slug": "green-bead-lakshmi-coin-invisible-chain",
+    "name": "Green Bead Lakshmi Coin Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_bead_lakshmi_coin_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:27",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-205",
+    "slug": "emerald-bead-lakshmi-coin-invisible-chain",
+    "name": "Emerald Bead Lakshmi Coin Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/emerald_bead_lakshmi_coin_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:35",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-206",
+    "slug": "gold-bead-lakshmi-coin-invisible-chain",
+    "name": "Gold Bead Lakshmi Coin Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/gold_bead_lakshmi_coin_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:43",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-207",
+    "slug": "pink-flower-bead-invisible-chain",
+    "name": "Pink Flower Bead Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pink_flower_bead_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:46:51",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-208",
+    "slug": "red-bead-lakshmi-coin-invisible-chain",
+    "name": "Red Bead Lakshmi Coin Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/red_bead_lakshmi_coin_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:47:01",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-209",
+    "slug": "red-lotus-pearl-cluster-invisible-chain",
+    "name": "Red Lotus Pearl Cluster Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/red_lotus_pearl_cluster_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:47:12",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-210",
+    "slug": "red-lotus-invisible-chain",
+    "name": "Red Lotus Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/red_lotus_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:47:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-211",
+    "slug": "magenta-bead-lakshmi-coin-invisible-chain",
+    "name": "Magenta Bead Lakshmi Coin Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/magenta_bead_lakshmi_coin_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:47:31",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-212",
+    "slug": "pearl-lakshmi-coin-invisible-chain",
+    "name": "Pearl Lakshmi Coin Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pearl_lakshmi_coin_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:47:43",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-213",
+    "slug": "gold-peacock-pendant-invisible-chain",
+    "name": "Gold Peacock Pendant Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/gold_peacock_pendant_invisible_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-22T09:47:54",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-214",
+    "slug": "green-crystal-wave-chain",
+    "name": "Green Crystal Wave Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_crystal_wave_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-24T11:58:02",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-215",
+    "slug": "pink-crystal-wave-chain",
+    "name": "Pink Crystal Wave Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pink_crystal_wave_chain_01.jpg"
+    ],
+    "photographedAt": "2026-07-24T15:41:11",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-216",
+    "slug": "green-kundan-drop-invisible-chain-with-studs",
+    "name": "Green Kundan Drop Invisible Chain with Studs",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_kundan_drop_invisible_chain_with_studs_01.png"
+    ],
+    "photographedAt": "2026-03-02T21:08:49",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-217",
+    "slug": "green-flower-invisible-chain-with-studs",
+    "name": "Green Flower Invisible Chain with Studs",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_flower_invisible_chain_with_studs_01.png"
+    ],
+    "photographedAt": "2026-03-02T21:18:41",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-218",
+    "slug": "green-flower-pearl-invisible-chain",
+    "name": "Green Flower Pearl Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_flower_pearl_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-219",
+    "slug": "floating-pearl-invisible-chain",
+    "name": "Floating Pearl Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/floating_pearl_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-220",
+    "slug": "white-flower-station-invisible-chain",
+    "name": "White Flower Station Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/white_flower_station_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-221",
+    "slug": "green-mango-kundan-station-invisible-chain",
+    "name": "Green Mango Kundan Station Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_mango_kundan_station_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-222",
+    "slug": "green-kundan-drop-pearl-invisible-chain",
+    "name": "Green Kundan Drop Pearl Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/green_kundan_drop_pearl_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-223",
+    "slug": "gold-flower-pearl-invisible-chain",
+    "name": "Gold Flower Pearl Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/gold_flower_pearl_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-224",
+    "slug": "pearl-station-invisible-chain",
+    "name": "Pearl Station Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pearl_station_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-225",
+    "slug": "pearl-mini-pendant-invisible-chain",
+    "name": "Pearl Mini Pendant Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/pearl_mini_pendant_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-226",
+    "slug": "gold-filigree-drop-invisible-chain",
+    "name": "Gold Filigree Drop Invisible Chain",
+    "collection": "invisible-chains",
+    "category": "Invisible Chains",
+    "images": [
+      "/images/handmade_jewellerycollections/invisible_chains/gold_filigree_drop_invisible_chain_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-227",
+    "slug": "kemp-stone-surya-jasmine-bun",
+    "name": "Kemp Stone Surya Jasmine Bun",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_surya_jasmine_bun_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:07:08",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-228",
+    "slug": "kemp-stone-surya-jasmine-bun-design-2",
+    "name": "Kemp Stone Surya Jasmine Bun – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_surya_jasmine_bun_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:12:20",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-229",
+    "slug": "kemp-stone-bridal-jasmine-bun",
+    "name": "Kemp Stone Bridal Jasmine Bun",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_bridal_jasmine_bun_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:47:06",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-230",
+    "slug": "kemp-stone-surya-jasmine-bun-design-3",
+    "name": "Kemp Stone Surya Jasmine Bun – Design 3",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_surya_jasmine_bun_03.jpg"
+    ],
+    "photographedAt": "2026-10-30T20:38:36",
+    "isNewArrival": false,
+    "homepageBanner": true
+  },
+  {
+    "id": "product-231",
+    "slug": "jasmine-bud-bun-with-gold-leaves",
+    "name": "Jasmine Bud Bun with Gold Leaves",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_bun_with_gold_leaves_01.jpg"
+    ],
+    "photographedAt": "2026-08-08T18:18:51",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-232",
+    "slug": "white-jasmine-bud-hair-clip",
+    "name": "White Jasmine Bud Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/white_jasmine_bud_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:43:01",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-233",
+    "slug": "assorted-jasmine-and-rose-hair-accessory-collection",
+    "name": "Assorted Jasmine & Rose Hair Accessory Collection",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/assorted_jasmine_rose_hair_accessory_collection_01.jpg"
+    ],
+    "photographedAt": "2026-08-29T09:21:46",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-234",
+    "slug": "pink-rose-hair-clip-set",
+    "name": "Pink Rose Hair Clip Set",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/pink_rose_hair_clip_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-29T09:26:08",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-235",
+    "slug": "pink-rose-and-jasmine-hair-clip-set",
+    "name": "Pink Rose & Jasmine Hair Clip Set",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/pink_rose_jasmine_hair_clip_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-29T09:26:17",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-236",
+    "slug": "red-rose-jasmine-flower-hair-pins",
+    "name": "Red Rose Jasmine Flower Hair Pins",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/red_rose_jasmine_flower_hair_pins_01.jpg"
+    ],
+    "photographedAt": "2026-09-01T11:04:05",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-237",
+    "slug": "jasmine-bud-veni-strands",
+    "name": "Jasmine Bud Veni Strands",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_veni_strands_01.jpg"
+    ],
+    "photographedAt": "2026-09-11T15:37:16",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-238",
+    "slug": "emerald-kundan-jasmine-hair-flower",
+    "name": "Emerald Kundan Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/emerald_kundan_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:40:55",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-239",
+    "slug": "sapphire-kundan-jasmine-hair-flower",
+    "name": "Sapphire Kundan Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/sapphire_kundan_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:41:05",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-240",
+    "slug": "green-kundan-jasmine-hair-flower",
+    "name": "Green Kundan Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/green_kundan_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:41:16",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-241",
+    "slug": "ruby-kundan-jasmine-hair-flower",
+    "name": "Ruby Kundan Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/ruby_kundan_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:41:29",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-242",
+    "slug": "red-kundan-jasmine-hair-flower",
+    "name": "Red Kundan Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/red_kundan_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:41:38",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-243",
+    "slug": "multicolour-knot-kundan-jasmine-hair-clip",
+    "name": "Multicolour Knot Kundan Jasmine Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/multicolour_knot_kundan_jasmine_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-09-17T11:43:20",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-244",
+    "slug": "red-rose-jasmine-bridal-bun-cover",
+    "name": "Red Rose Jasmine Bridal Bun Cover",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/red_rose_jasmine_bridal_bun_cover_01.jpg"
+    ],
+    "photographedAt": "2026-09-20T11:24:16",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-245",
+    "slug": "kundan-jasmine-hair-flower-pair",
+    "name": "Kundan Jasmine Hair Flower Pair",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kundan_jasmine_hair_flower_pair_01.jpg"
+    ],
+    "photographedAt": "2026-10-10T18:25:10",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-246",
+    "slug": "pink-rose-jasmine-hair-flower",
+    "name": "Pink Rose Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/pink_rose_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:11:02",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-247",
+    "slug": "jasmine-bud-and-red-rose-hair-clip",
+    "name": "Jasmine Bud & Red Rose Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_red_rose_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:14:13",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-248",
+    "slug": "jasmine-and-red-rose-trio-hair-clip",
+    "name": "Jasmine & Red Rose Trio Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_red_rose_trio_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:15:08",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-249",
+    "slug": "gold-leaf-jasmine-and-red-rose-hair-clip",
+    "name": "Gold Leaf Jasmine & Red Rose Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/gold_leaf_jasmine_red_rose_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:15:32",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-250",
+    "slug": "jasmine-petal-kundan-hair-flower",
+    "name": "Jasmine Petal Kundan Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_petal_kundan_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:16:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-251",
+    "slug": "jasmine-petal-and-red-rose-hair-flower",
+    "name": "Jasmine Petal & Red Rose Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_petal_red_rose_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:18:37",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-252",
+    "slug": "jasmine-and-red-rose-cluster-hair-flower",
+    "name": "Jasmine & Red Rose Cluster Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_red_rose_cluster_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:20:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-253",
+    "slug": "ruby-kemp-jasmine-bun-cover",
+    "name": "Ruby Kemp Jasmine Bun Cover",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/ruby_kemp_jasmine_bun_cover_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:21:39",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-254",
+    "slug": "jasmine-bud-and-red-rose-hair-clip-design-2",
+    "name": "Jasmine Bud & Red Rose Hair Clip – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_red_rose_hair_clip_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:22:45",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-255",
+    "slug": "jasmine-bud-single-rose-hair-clip",
+    "name": "Jasmine Bud Single Rose Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_single_rose_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:23:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-256",
+    "slug": "jasmine-bud-three-rose-hair-clip",
+    "name": "Jasmine Bud Three Rose Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_three_rose_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:24:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-257",
+    "slug": "jasmine-bud-and-red-rose-hair-flower",
+    "name": "Jasmine Bud & Red Rose Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_red_rose_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:25:37",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-258",
+    "slug": "sapphire-and-teal-stone-jasmine-hair-flower",
+    "name": "Sapphire & Teal Stone Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/sapphire_teal_stone_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:26:34",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-259",
+    "slug": "jasmine-bud-three-rose-hair-clip-design-2",
+    "name": "Jasmine Bud Three Rose Hair Clip – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_three_rose_hair_clip_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:27:53",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-260",
+    "slug": "ruby-stone-jasmine-hair-flower",
+    "name": "Ruby Stone Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/ruby_stone_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:29:08",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-261",
+    "slug": "jasmine-bud-three-rose-hair-clip-design-3",
+    "name": "Jasmine Bud Three Rose Hair Clip – Design 3",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_three_rose_hair_clip_03.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:30:11",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-262",
+    "slug": "jasmine-bud-and-red-rose-hair-flower-design-2",
+    "name": "Jasmine Bud & Red Rose Hair Flower – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_red_rose_hair_flower_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:32:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-263",
+    "slug": "assorted-jasmine-and-red-rose-hair-clip-collection",
+    "name": "Assorted Jasmine & Red Rose Hair Clip Collection",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/assorted_jasmine_red_rose_hair_clip_collection_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T16:33:28",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-264",
+    "slug": "assorted-kemp-jasmine-hair-accessory-collection",
+    "name": "Assorted Kemp Jasmine Hair Accessory Collection",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/assorted_kemp_jasmine_hair_accessory_collection_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:02:12",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-265",
+    "slug": "kemp-stone-chandra-jasmine-bun",
+    "name": "Kemp Stone Chandra Jasmine Bun",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:10:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-266",
+    "slug": "kemp-stone-chandra-jasmine-bun-design-2",
+    "name": "Kemp Stone Chandra Jasmine Bun – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:11:38",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-267",
+    "slug": "kemp-stone-chandra-jasmine-bun-design-3",
+    "name": "Kemp Stone Chandra Jasmine Bun – Design 3",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_03.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:13:07",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-268",
+    "slug": "kemp-stone-chandra-jasmine-bun-design-4",
+    "name": "Kemp Stone Chandra Jasmine Bun – Design 4",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_04.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:14:11",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-269",
+    "slug": "kemp-stone-surya-jasmine-bun-design-4",
+    "name": "Kemp Stone Surya Jasmine Bun – Design 4",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_surya_jasmine_bun_04.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:14:48",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-270",
+    "slug": "kemp-stone-chandra-jasmine-bun-design-5",
+    "name": "Kemp Stone Chandra Jasmine Bun – Design 5",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_05.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:15:21",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-271",
+    "slug": "kemp-stone-small-jasmine-hair-flower",
+    "name": "Kemp Stone Small Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_small_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:15:49",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-272",
+    "slug": "kemp-stone-small-jasmine-hair-flower-design-2",
+    "name": "Kemp Stone Small Jasmine Hair Flower – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_small_jasmine_hair_flower_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:16:23",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-273",
+    "slug": "kemp-stone-chandra-jasmine-bun-design-6",
+    "name": "Kemp Stone Chandra Jasmine Bun – Design 6",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_06.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:16:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-274",
+    "slug": "kemp-stone-surya-jasmine-bun-design-5",
+    "name": "Kemp Stone Surya Jasmine Bun – Design 5",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_surya_jasmine_bun_05.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:17:28",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-275",
+    "slug": "kemp-stone-chandra-jasmine-bun-design-7",
+    "name": "Kemp Stone Chandra Jasmine Bun – Design 7",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_jasmine_bun_07.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:19:58",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-276",
+    "slug": "white-jasmine-bud-hair-flower",
+    "name": "White Jasmine Bud Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/white_jasmine_bud_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:20:42",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-277",
+    "slug": "purple-and-green-kundan-jasmine-hair-flower",
+    "name": "Purple & Green Kundan Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/purple_green_kundan_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:21:14",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-278",
+    "slug": "blue-stone-flower-jasmine-hair-flower",
+    "name": "Blue Stone Flower Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/blue_stone_flower_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:22:18",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-279",
+    "slug": "green-kundan-jasmine-hair-flower-design-2",
+    "name": "Green Kundan Jasmine Hair Flower – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/green_kundan_jasmine_hair_flower_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:23:12",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-280",
+    "slug": "magenta-stone-jasmine-hair-flower",
+    "name": "Magenta Stone Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/magenta_stone_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:24:50",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-281",
+    "slug": "green-kundan-knot-jasmine-hair-flower",
+    "name": "Green Kundan Knot Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/green_kundan_knot_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:37:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-282",
+    "slug": "assorted-kemp-jasmine-bun-collection",
+    "name": "Assorted Kemp Jasmine Bun Collection",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/assorted_kemp_jasmine_bun_collection_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:45:02",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-283",
+    "slug": "kemp-stone-bridal-jasmine-bun-design-2",
+    "name": "Kemp Stone Bridal Jasmine Bun – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_bridal_jasmine_bun_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:45:47",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-284",
+    "slug": "kemp-stone-bridal-jasmine-bun-design-3",
+    "name": "Kemp Stone Bridal Jasmine Bun – Design 3",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_bridal_jasmine_bun_03.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:46:29",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-285",
+    "slug": "kemp-stone-chandra-bridal-jasmine-bun",
+    "name": "Kemp Stone Chandra Bridal Jasmine Bun",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_bridal_jasmine_bun_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:47:45",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-286",
+    "slug": "kemp-stone-chandra-bridal-jasmine-bun-design-2",
+    "name": "Kemp Stone Chandra Bridal Jasmine Bun – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_bridal_jasmine_bun_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:48:14",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-287",
+    "slug": "kemp-stone-chandra-bridal-jasmine-bun-design-3",
+    "name": "Kemp Stone Chandra Bridal Jasmine Bun – Design 3",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/kemp_stone_chandra_bridal_jasmine_bun_03.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:48:42",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-288",
+    "slug": "jasmine-bud-kemp-hair-clip",
+    "name": "Jasmine Bud Kemp Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_bud_kemp_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:50:37",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-289",
+    "slug": "gold-kundan-jasmine-hair-clip",
+    "name": "Gold Kundan Jasmine Hair Clip",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/gold_kundan_jasmine_hair_clip_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:51:14",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-290",
+    "slug": "gold-kundan-jasmine-bun",
+    "name": "Gold Kundan Jasmine Bun",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/gold_kundan_jasmine_bun_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:51:44",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-291",
+    "slug": "jasmine-and-red-rose-cluster-hair-flower-design-2",
+    "name": "Jasmine & Red Rose Cluster Hair Flower – Design 2",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_red_rose_cluster_hair_flower_02.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:52:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-292",
+    "slug": "jasmine-single-red-rose-hair-flower",
+    "name": "Jasmine Single Red Rose Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/jasmine_single_red_rose_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:52:38",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-293",
+    "slug": "sapphire-blue-stone-jasmine-hair-flower",
+    "name": "Sapphire Blue Stone Jasmine Hair Flower",
+    "collection": "jasmine-hair-accessories",
+    "category": "Jasmine Hair Accessories",
+    "images": [
+      "/images/handmade_jewellerycollections/jasmine_hair_accessories/sapphire_blue_stone_jasmine_hair_flower_01.jpg"
+    ],
+    "photographedAt": "2026-10-30T21:53:11",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-294",
+    "slug": "red-crystal-butterfly-keychain",
+    "name": "Red Crystal Butterfly Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/red_crystal_butterfly_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:46:37",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-295",
+    "slug": "purple-pearl-flower-keychain",
+    "name": "Purple Pearl Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/purple_pearl_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:42:30",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-296",
+    "slug": "red-gold-flower-keychain",
+    "name": "Red Gold Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/red_gold_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:44:25",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-297",
+    "slug": "red-pearl-flower-keychain",
+    "name": "Red Pearl Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/red_pearl_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:44:48",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-298",
+    "slug": "teal-pearl-flower-keychain",
+    "name": "Teal Pearl Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/teal_pearl_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:45:02",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-299",
+    "slug": "green-pearl-flower-keychain",
+    "name": "Green Pearl Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/green_pearl_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:45:28",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-300",
+    "slug": "purple-gold-flower-keychain",
+    "name": "Purple Gold Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/purple_gold_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:45:44",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-301",
+    "slug": "teal-gold-flower-keychain",
+    "name": "Teal Gold Flower Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/teal_gold_flower_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:45:57",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-302",
+    "slug": "blue-swirl-drop-keychain",
+    "name": "Blue Swirl Drop Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/blue_swirl_drop_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:46:50",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-303",
+    "slug": "gold-bead-heart-keychain",
+    "name": "Gold Bead Heart Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/gold_bead_heart_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:47:09",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-304",
+    "slug": "purple-bead-grape-keychain",
+    "name": "Purple Bead Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/purple_bead_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:49:05",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-305",
+    "slug": "lavender-crystal-grape-keychain",
+    "name": "Lavender Crystal Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/lavender_crystal_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:49:31",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-306",
+    "slug": "red-bead-grape-keychain",
+    "name": "Red Bead Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/red_bead_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:49:44",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-307",
+    "slug": "maroon-bead-grape-keychain",
+    "name": "Maroon Bead Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/maroon_bead_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:50:19",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-308",
+    "slug": "blue-bead-grape-keychain",
+    "name": "Blue Bead Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/blue_bead_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:50:27",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-309",
+    "slug": "green-bead-grape-keychain",
+    "name": "Green Bead Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/green_bead_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T19:37:33",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-310",
+    "slug": "pink-bead-grape-keychain",
+    "name": "Pink Bead Grape Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/pink_bead_grape_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T19:37:55",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-311",
+    "slug": "lime-fluffy-basket-keychain",
+    "name": "Lime Fluffy Basket Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/lime_fluffy_basket_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:51:36",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-312",
+    "slug": "purple-fluffy-heart-keychain",
+    "name": "Purple Fluffy Heart Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/purple_fluffy_heart_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:52:00",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-313",
+    "slug": "purple-fluffy-cherry-keychain",
+    "name": "Purple Fluffy Cherry Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/purple_fluffy_cherry_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:52:21",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-314",
+    "slug": "purple-fluffy-bunny-keychain",
+    "name": "Purple Fluffy Bunny Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/purple_fluffy_bunny_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:52:37",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-315",
+    "slug": "fluffy-letter-a-keychain",
+    "name": "Fluffy Letter A Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/fluffy_letter_a_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:52:51",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-316",
+    "slug": "turquoise-fluffy-basket-keychain",
+    "name": "Turquoise Fluffy Basket Keychain",
+    "collection": "keychains",
+    "category": "Keychains",
+    "images": [
+      "/images/handmade_jewellerycollections/keychains/turquoise_fluffy_basket_keychain_01.jpg"
+    ],
+    "photographedAt": "2026-11-01T17:53:54",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-317",
+    "slug": "white-petal-flower-ring",
+    "name": "White Petal Flower Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/white_petal_flower_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-318",
+    "slug": "emerald-three-stone-paisley-ring",
+    "name": "Emerald Three-Stone Paisley Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/emerald_three_stone_paisley_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": true
+  },
+  {
+    "id": "product-319",
+    "slug": "pink-and-green-lotus-ring",
+    "name": "Pink & Green Lotus Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/pink_green_lotus_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-320",
+    "slug": "white-enamel-swirl-flower-ring",
+    "name": "White Enamel Swirl Flower Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/white_enamel_swirl_flower_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-321",
+    "slug": "copper-tone-flower-ring",
+    "name": "Copper-Tone Flower Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/copper_flower_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-322",
+    "slug": "black-diamond-motif-ring",
+    "name": "Black Diamond-Motif Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/black_diamond_motif_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-323",
+    "slug": "black-flower-pearl-ring",
+    "name": "Black Flower Pearl Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/black_flower_pearl_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-324",
+    "slug": "white-hexagon-pearl-ring",
+    "name": "White Hexagon Pearl Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/white_hexagon_pearl_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-325",
+    "slug": "white-heart-ring",
+    "name": "White Heart Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/white_heart_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-326",
+    "slug": "pearl-heart-ring",
+    "name": "Pearl Heart Ring",
+    "collection": "rings",
+    "category": "Rings",
+    "images": [
+      "/images/handmade_jewellerycollections/rings/pearl_heart_ring_01.png"
+    ],
+    "photographedAt": null,
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-327",
+    "slug": "pink-and-green-kundan-crystal-bun-u-pin",
+    "name": "Pink & Green Kundan Crystal Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_green_kundan_crystal_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T22:52:59",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-328",
+    "slug": "blue-butterfly-pearl-u-pin",
+    "name": "Blue Butterfly Pearl U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/blue_butterfly_pearl_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T12:59:38",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-329",
+    "slug": "red-rose-pearl-u-pin",
+    "name": "Red Rose Pearl U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/red_rose_pearl_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T12:59:59",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-330",
+    "slug": "teal-pearl-heart-u-pin",
+    "name": "Teal Pearl Heart U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/teal_pearl_heart_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:00:40",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-331",
+    "slug": "ruby-pearl-heart-u-pin",
+    "name": "Ruby Pearl Heart U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/ruby_pearl_heart_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:00:52",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-332",
+    "slug": "pink-stone-pearl-flower-u-pin",
+    "name": "Pink Stone Pearl Flower U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_stone_pearl_flower_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:01:32",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-333",
+    "slug": "orange-pearl-flower-u-pin",
+    "name": "Orange Pearl Flower U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/orange_pearl_flower_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:02:00",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-334",
+    "slug": "pink-pearl-flower-u-pin",
+    "name": "Pink Pearl Flower U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_pearl_flower_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:02:12",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-335",
+    "slug": "green-pearl-flower-u-pin",
+    "name": "Green Pearl Flower U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/green_pearl_flower_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:02:23",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-336",
+    "slug": "purple-pearl-flower-u-pin",
+    "name": "Purple Pearl Flower U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_pearl_flower_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:02:48",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-337",
+    "slug": "teal-square-pearl-u-pin",
+    "name": "Teal Square Pearl U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/teal_square_pearl_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-07-23T13:02:56",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-338",
+    "slug": "pink-and-teal-kundan-bun-u-pin",
+    "name": "Pink & Teal Kundan Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_teal_kundan_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-08-08T11:34:37",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-339",
+    "slug": "purple-crystal-bun-u-pin",
+    "name": "Purple Crystal Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_crystal_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-08-08T11:34:57",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-340",
+    "slug": "pink-and-green-kundan-bun-u-pin",
+    "name": "Pink & Green Kundan Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_green_kundan_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:23:16",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-341",
+    "slug": "pink-and-green-crystal-bun-u-pin",
+    "name": "Pink & Green Crystal Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_green_crystal_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:24:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-342",
+    "slug": "assorted-kundan-bun-u-pin-set",
+    "name": "Assorted Kundan Bun U Pin Set",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/assorted_kundan_bun_u_pin_set_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:24:54",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-343",
+    "slug": "purple-and-green-spike-bun-u-pin",
+    "name": "Purple & Green Spike Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_green_spike_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:25:29",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-344",
+    "slug": "purple-and-green-crystal-bun-u-pin",
+    "name": "Purple & Green Crystal Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_green_crystal_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:33:09",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-345",
+    "slug": "purple-and-green-spike-bun-u-pin-design-2",
+    "name": "Purple & Green Spike Bun U Pin – Design 2",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_green_spike_bun_u_pin_02.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:33:22",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-346",
+    "slug": "pink-and-green-crystal-bun-u-pin-design-2",
+    "name": "Pink & Green Crystal Bun U Pin – Design 2",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_green_crystal_bun_u_pin_02.jpg"
+    ],
+    "photographedAt": "2026-08-25T10:33:33",
+    "isNewArrival": false,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-347",
+    "slug": "red-green-and-pearl-bun-u-pin",
+    "name": "Red, Green & Pearl Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/red_green_pearl_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:16:33",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-348",
+    "slug": "pearl-and-blue-kundan-bun-u-pin",
+    "name": "Pearl & Blue Kundan Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pearl_blue_kundan_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:16:56",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-349",
+    "slug": "purple-and-green-kundan-bun-u-pin",
+    "name": "Purple & Green Kundan Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_green_kundan_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:17:46",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-350",
+    "slug": "red-pearl-bun-u-pin",
+    "name": "Red Pearl Bun U Pin",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/red_pearl_bun_u_pin_01.jpg"
+    ],
+    "photographedAt": "2026-11-02T21:18:21",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-351",
+    "slug": "purple-and-green-spike-bun-u-pin-design-3",
+    "name": "Purple & Green Spike Bun U Pin – Design 3",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/purple_green_spike_bun_u_pin_03.jpg"
+    ],
+    "photographedAt": "2026-11-02T22:52:09",
+    "isNewArrival": true,
+    "homepageBanner": false
+  },
+  {
+    "id": "product-352",
+    "slug": "pink-and-green-kundan-bun-u-pin-design-2",
+    "name": "Pink & Green Kundan Bun U Pin – Design 2",
+    "collection": "u-pins",
+    "category": "U Pins",
+    "images": [
+      "/images/handmade_jewellerycollections/u_pins/pink_green_kundan_bun_u_pin_02.jpg"
+    ],
+    "photographedAt": "2026-11-02T22:52:35",
+    "isNewArrival": true,
+    "homepageBanner": false
+  }
+]
