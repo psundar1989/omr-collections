@@ -13,6 +13,8 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            // Category part of product SKUs (OMR-<CODE>-001); null until the first SKU is generated.
+            'sku_code' => $this->sku_code,
             'description' => $this->description,
             'section' => $this->section,
             'image_url' => $this->image_url,

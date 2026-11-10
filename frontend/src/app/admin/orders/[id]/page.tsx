@@ -170,7 +170,7 @@ function ItemsPanel({ order, closed, send }: { order: AdminOrder; closed: boolea
                   <OrderItemImage src={i.image_url} name={i.product_name} />
                   <div className="min-w-0">
                     {i.product_id ? <Link href={`/admin/products/${i.product_id}`} className="font-medium hover:text-gold-dark">{i.product_name}</Link> : <p className="font-medium">{i.product_name}</p>}
-                    <p className="text-xs text-muted">{[i.sku && `Code ${i.sku}`, i.colour && `Colour: ${i.colour}`, i.size && `Size: ${i.size}`].filter(Boolean).join(" · ")}</p>
+                    <p className="text-xs text-muted">{[i.sku && `SKU ${i.sku}`, i.colour && `Colour: ${i.colour}`, i.size && `Size: ${i.size}`].filter(Boolean).join(" · ")}</p>
                   </div>
                 </div>
               </td>

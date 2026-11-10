@@ -95,7 +95,7 @@ export default function OrdersPage() {
       <div className="mb-4 flex flex-wrap items-end gap-2">
         <form className="relative min-w-60 flex-1" onSubmit={(e) => { e.preventDefault(); setParam({ search }); }}>
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
-          <input className="input pl-9" placeholder="Order no, customer name, phone, city, pincode…" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input className="input pl-9" placeholder="Order no, customer, phone, city, pincode, SKU…" value={search} onChange={(e) => setSearch(e.target.value)} />
         </form>
         <select className="input w-auto" aria-label="Delivery person" value={sp.get("delivery_person_id") ?? ""} onChange={(e) => setParam({ delivery_person_id: e.target.value })}>
           <option value="">All delivery persons</option>

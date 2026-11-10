@@ -78,7 +78,7 @@ class ProductOrderingTest extends TestCase
             'Hello! I would like to place an order.', '',
             '*Product Details*', '',
             'Product Name: Olive Green Gold Flower Silk Thread Bangle Pair',
-            'Product Code: product-062',
+            'SKU: product-062-26-OLIGRE',
             'Price: ₹499',
             'Colour: Olive Green',
             'Size: 2.6',
@@ -293,9 +293,10 @@ class ProductOrderingTest extends TestCase
         $this->assertSame(0, Product::count());
 
         $r = $importer->import(self::entries(), defaultSizes: ['bangles' => ['2.2', '2.4', '2.6', '2.8']]);
-        $this->assertSame(['created' => 2, 'updated' => 0, 'unchanged' => 0, 'skipped' => 0, 'categories_created' => 1, 'images_added' => 3], $r['stats']);
+        $this->assertSame(['created' => 2, 'updated' => 0, 'unchanged' => 0, 'skipped' => 0, 'categories_created' => 1, 'images_added' => 3, 'skus_assigned' => 2], $r['stats']);
 
-        $jhumka = Product::where('sku', 'product-001')->firstOrFail();
+        $jhumka = Product::where('catalog_code', 'product-001')->firstOrFail();
+        $this->assertSame('OMR-JH-001', $jhumka->sku);
         $this->assertSame('blush-pink-pearl-silk-thread-jhumka', $jhumka->slug);
         $this->assertTrue($jhumka->price_on_request);
         $this->assertFalse($jhumka->track_stock);
@@ -303,14 +304,17 @@ class ProductOrderingTest extends TestCase
         $this->assertSame('2026-03-07 21:37:22', $jhumka->created_at->format('Y-m-d H:i:s'));
         $this->assertSame('collections', $jhumka->category->section);
         $this->assertSame(Product::SOURCE_PHOTO_CATALOGUE, $jhumka->source);
-        $bangle = Product::where('sku', 'product-062')->firstOrFail();
+        $bangle = Product::where('catalog_code', 'product-062')->firstOrFail();
+        $this->assertSame('OMR-BG-001', $bangle->sku);
         $this->assertSame($this->bangles->id, $bangle->category_id); // existing category reused
         $this->assertSame(['2.2', '2.4', '2.6', '2.8'], $bangle->sizes);
 
         $this->getJson('/api/products/blush-pink-pearl-silk-thread-jhumka')->assertOk()
-            ->assertJsonPath('data.sku', 'product-001')->assertJsonPath('data.image_url', '/images/silk_thread_jhumka/a_01.png')
+            ->assertJsonPath('data.sku', 'OMR-JH-001')->assertJsonPath('data.catalog_code', 'product-001')->assertJsonPath('data.image_url', '/images/silk_thread_jhumka/a_01.png')
             ->assertJsonPath('data.images.1.url', '/images/silk_thread_jhumka/a_02.png');
-        $this->getJson('/api/products/by-ids?skus[]=product-062&skus[]=product-001')->assertJsonPath('data.0.sku', 'product-062');
+        // Catalogue cards still find products by catalogue code; SKUs work too.
+        $this->getJson('/api/products/by-ids?skus[]=product-062&skus[]=product-001')->assertJsonPath('data.0.sku', 'OMR-BG-001')->assertJsonPath('data.1.sku', 'OMR-JH-001');
+        $this->getJson('/api/products/by-ids?skus[]=OMR-JH-001')->assertJsonPath('data.0.catalog_code', 'product-001');
 
         // Admin edits survive a re-run, nothing is duplicated.
         $jhumka->update(['name' => 'Edited name', 'price_on_request' => false, 'regular_price' => 450]);

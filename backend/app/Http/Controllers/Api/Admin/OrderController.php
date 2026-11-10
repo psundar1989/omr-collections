@@ -170,7 +170,8 @@ class OrderController extends Controller
                     $q->where('order_number', 'like', "%{$term}%")
                         ->orWhere('customer_name', 'like', "%{$term}%")
                         ->orWhere('city', 'like', "%{$term}%")
-                        ->orWhere('pincode', $term);
+                        ->orWhere('pincode', $term)
+                        ->orWhereHas('items', fn ($i) => $i->where('sku', 'like', "%{$term}%"));
                     if (strlen($digits) >= 4) {
                         $q->orWhere('phone', 'like', "%{$digits}%")->orWhere('whatsapp_number', 'like', "%{$digits}%");
                     }

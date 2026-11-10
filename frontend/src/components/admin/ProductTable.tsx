@@ -85,7 +85,7 @@ export default function ProductTable({ mode }: { mode: "products" | "stock" }) {
       <div className="mb-4 flex flex-wrap gap-2">
         <form className="relative min-w-56 flex-1" onSubmit={(e) => { e.preventDefault(); setParam("search", search.trim() || null); }}>
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
-          <input className="input pl-9" placeholder="Search product name or code" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input className="input pl-9" placeholder="Search name, SKU or variant SKU" value={search} onChange={(e) => setSearch(e.target.value)} />
         </form>
         <select className="input w-auto" value={sp.get("category_id") ?? ""} onChange={(e) => setParam("category_id", e.target.value || null)} aria-label="Category">
           <option value="">All categories</option>
@@ -146,7 +146,7 @@ export default function ProductTable({ mode }: { mode: "products" | "stock" }) {
               <option value="oldest">Oldest first</option>
               <option value="name">Name A–Z</option>
               <option value="name_desc">Name Z–A</option>
-              <option value="sku">Product code</option>
+              <option value="sku">SKU</option>
               <option value="price_asc">Price: low to high</option>
               <option value="price_desc">Price: high to low</option>
               <option value="status">Sold out first</option>

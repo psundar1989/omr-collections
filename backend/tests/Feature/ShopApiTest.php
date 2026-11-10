@@ -100,7 +100,7 @@ class ShopApiTest extends TestCase
 
         $this->assertStringContainsString("1. Product Name: Kundan Bangle\n\n   Product Image:\n   https://shop.example/images/bangles/kundan%20set.jpg\n\n", $message);
         $this->assertStringContainsString("2. Product Name: Pearl Bracelet\n\n   Product Image:\n   https://cdn.example/pearl.jpg\n\n", $message);
-        $this->assertStringContainsString("3. Product Name: Plain Bracelet\n   Product Link: https://shop.example/products/{$noPhoto->slug}\n   Product Code:", $message);
+        $this->assertStringContainsString("3. Product Name: Plain Bracelet\n   Product Link: https://shop.example/products/{$noPhoto->slug}\n   SKU:", $message);
     }
 
     public function test_whatsapp_message_links_to_the_product_page_after_the_image(): void
@@ -114,7 +114,7 @@ class ShopApiTest extends TestCase
         ])->assertOk()->json('data.message');
 
         $this->assertStringContainsString(
-            "Product Image:\nhttps://cdn.example/kundan.jpg\n\nProduct Link: https://shop.example/products/{$product->slug}\nProduct Code:",
+            "Product Image:\nhttps://cdn.example/kundan.jpg\n\nProduct Link: https://shop.example/products/{$product->slug}\nSKU:",
             $message,
         );
     }
@@ -132,7 +132,7 @@ class ShopApiTest extends TestCase
 
         $this->assertStringNotContainsString('Product Image:', $message);
         $this->assertStringNotContainsString('Product Link:', $message);
-        $this->assertStringContainsString("Product Name: Kundan Bangle\nProduct Code:", $message);
+        $this->assertStringContainsString("Product Name: Kundan Bangle\nSKU:", $message);
     }
 
     /** @return array<string, array{string}> */

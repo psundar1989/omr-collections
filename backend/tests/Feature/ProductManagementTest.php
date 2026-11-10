@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\User;
 use App\Services\PhotoCatalogueImporter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -87,7 +88,7 @@ class ProductManagementTest extends TestCase
         $this->admin();
         $p = $this->product();
 
-        $images = $this->post("/api/admin/products/{$p->id}/images", ['images' => [UploadedFile::fake()->image('a.jpg'), UploadedFile::fake()->image('b.jpg')]], ['Accept' => 'application/json'])
+        $images = $this->post("/api/admin/products/{$p->id}/images", ['images' => [UploadedFile::fake()->image('a.jpg', 600, 600), UploadedFile::fake()->image('b.jpg', 600, 600)]], ['Accept' => 'application/json'])
             ->assertOk()->json('data.images');
         $this->assertCount(2, $images);
         $this->assertTrue($images[0]['is_primary']);
@@ -329,7 +330,7 @@ class ProductManagementTest extends TestCase
         $q = $this->postJson('/api/cart/quote', ['items' => [['product_id' => $p->id, 'colour' => 'olive green', 'size' => '2.4', 'quantity' => 2, 'price' => 1]]])->json('data');
 
         $this->assertTrue($q['valid']);
-        foreach (['Product Name: Silk Thread Bangle', 'Product Code: product-800', 'Price: ₹450', 'Colour: Olive Green', 'Size: 2.4', 'Quantity: 2', 'Total Amount: ₹900'] as $line) {
+        foreach (['Product Name: Silk Thread Bangle', 'SKU: product-800-24-OLIGRE', 'Price: ₹450', 'Colour: Olive Green', 'Size: 2.4', 'Quantity: 2', 'Total Amount: ₹900'] as $line) {
             $this->assertStringContainsString($line, $q['message']);
         }
     }
@@ -367,7 +368,7 @@ class ProductManagementTest extends TestCase
         $this->assertSame(count($entries), Product::count());
 
         // Every imported product keeps its code, slug, collection, new-arrival flag and photos.
-        $byCode = Product::with(['category', 'images'])->get()->keyBy('sku');
+        $byCode = Product::with(['category', 'images', 'variants'])->get()->keyBy('catalog_code');
         foreach ($entries as $e) {
             $p = $byCode[$e['id']];
             $this->assertSame($e['slug'], $p->slug);
@@ -377,6 +378,14 @@ class ProductManagementTest extends TestCase
             $this->assertSame($e['images'], $p->images->pluck('path')->all());
             $this->assertSame('available', $p->availability_status);
             $this->assertTrue($p->is_active);
+            $this->assertMatchesRegularExpression('/^OMR-[A-Z0-9]{2,6}-\d{3,}$/', $p->sku);
+            // Colour options: one variant (with its own SKU) per colour, each photo tagged with its colour.
+            $this->assertSame(array_column($e['colours'] ?? [], 'colour'), $p->variants->pluck('colour')->all());
+            foreach ($e['colours'] ?? [] as $c) {
+                $this->assertSame(array_fill(0, count($c['images']), $c['colour']), $p->images->whereIn('path', $c['images'])->pluck('colour')->values()->all());
+            }
         }
+        $skus = Product::pluck('sku')->merge(ProductVariant::pluck('sku'));
+        $this->assertSame($skus->count(), $skus->unique()->count(), 'SKUs must be unique');
     }
 }

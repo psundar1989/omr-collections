@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  */
 class CartQuoteService
 {
-    public function __construct(private PricingService $pricing, private SettingsService $settings) {}
+    public function __construct(private PricingService $pricing, private SettingsService $settings, private SkuGenerator $skus) {}
 
     public function quote(array $items, array $customer = []): array
     {
@@ -137,7 +137,8 @@ class CartQuoteService
         $base = [
             ...$base,
             'variant_id' => $variant?->id,
-            'sku' => $variant?->sku ?: $product->sku,
+            // The SKU of exactly what was chosen: the variant's, or product SKU + size + colour.
+            'sku' => $variant?->sku ?: $this->skus->selectionSku($product->sku, $colour, $size),
             'image_url' => $this->imageUrl($product, $colour),
             'colour' => $colour,
             'size' => $size,
@@ -157,13 +158,14 @@ class CartQuoteService
     }
 
     /**
-     * Photo of the ordered colour, identified by the "Product name – Colour" alt text of the
-     * product's images. Falls back to the primary image.
+     * Photo of the ordered colour: the image tagged with that colour in the admin, else one
+     * whose alt text ends in "– Colour" (older convention). Falls back to the primary image.
      */
     private function imageUrl(Product $product, ?string $colour): ?string
     {
         $image = $colour
-            ? $product->images->first(fn (ProductImage $image) => $this->same(Str::afterLast((string) $image->alt_text, ' – '), $colour))
+            ? ($product->images->first(fn (ProductImage $image) => $image->colour !== null && $this->same($image->colour, $colour))
+                ?? $product->images->first(fn (ProductImage $image) => $this->same(Str::afterLast((string) $image->alt_text, ' – '), $colour)))
             : null;
         $image ??= $product->images->first();
 
@@ -202,7 +204,7 @@ class CartQuoteService
             if (! empty($l['slug']) && $link = Media::shareableUrl('/products/'.$l['slug'])) {
                 $block[] = 'Product Link: '.$link;
             }
-            $block[] = 'Product Code: '.$l['sku'];
+            $block[] = 'SKU: '.$l['sku'];
             $block[] = 'Price: '.$this->priceText($l, $symbol);
             if ($l['colour']) {
                 $block[] = 'Colour: '.$l['colour'];

@@ -70,8 +70,14 @@ class CategoryController extends Controller
     {
         $req = $category ? 'sometimes|required' : 'required';
 
+        if ($request->filled('sku_code')) {
+            $request->merge(['sku_code' => strtoupper(trim((string) $request->input('sku_code')))]);
+        }
+
         return $request->validate([
             'name' => "{$req}|string|max:120",
+            // Changing it only affects SKUs generated afterwards; existing SKUs never change.
+            'sku_code' => ['nullable', 'string', 'regex:/^[A-Z0-9]{2,6}$/', Rule::unique('categories', 'sku_code')->ignore($category?->id)],
             'slug' => ['nullable', 'string', 'max:140', 'alpha_dash', Rule::unique('categories', 'slug')->ignore($category?->id)],
             'description' => 'nullable|string|max:2000',
             'section' => ['nullable', Rule::in(Category::SECTIONS)],
@@ -79,7 +85,7 @@ class CategoryController extends Controller
             'is_active' => 'sometimes|boolean',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'remove_image' => 'sometimes|boolean',
-        ]);
+        ], ['sku_code.regex' => 'SKU code: 2 to 6 capital letters or digits, e.g. BG.']);
     }
 
     private function handleImage(Request $request, array &$data, ?Category $category = null): void

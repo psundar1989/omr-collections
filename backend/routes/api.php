@@ -47,6 +47,7 @@ Route::prefix('admin')->group(function () {
         Route::apiResource('categories', Admin\CategoryController::class);
 
         Route::post('products/bulk', [Admin\ProductController::class, 'bulk']);
+        Route::get('products/next-sku', [Admin\ProductController::class, 'nextSku']);
         Route::apiResource('products', Admin\ProductController::class);
         Route::patch('products/{product}/flags', [Admin\ProductController::class, 'flags']);
         Route::patch('products/{product}/stock', [Admin\ProductController::class, 'stock']);
@@ -56,6 +57,7 @@ Route::prefix('admin')->group(function () {
         Route::post('products/{product}/images/reorder', [Admin\ProductController::class, 'reorderImages']);
         Route::patch('product-images/{image}', [Admin\ProductController::class, 'updateImage']);
         Route::post('product-images/{image}/primary', [Admin\ProductController::class, 'setPrimaryImage']);
+        Route::post('product-images/{image}/replace', [Admin\ProductController::class, 'replaceImage']);
         Route::delete('product-images/{image}', [Admin\ProductController::class, 'deleteImage']);
 
         Route::post('prices/bulk/preview', [Admin\PriceController::class, 'preview']);

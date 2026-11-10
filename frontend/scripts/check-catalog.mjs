@@ -2,6 +2,8 @@
 /**
  * Verifies src/data/products.json against public/images:
  *  - every catalogued image exists on disk, ids and slugs are unique;
+ *  - photos are named after their product: <product-slug>[-n].ext or <product-slug>-<colour>[-n].ext;
+ *  - colour options only use the product's own photos, with no colour listed twice;
  *  - lists photos on disk that no product uses (add them to products.json, or to
  *    src/data/unlisted-images.json if they should stay hidden).
  * Usage: npm run catalog:check   (exits 1 on errors)
@@ -25,17 +27,26 @@ for (const p of products) {
     if (used.has(src)) errors.push(`${src} is used by more than one product`);
     used.add(src);
     if (!fs.existsSync(path.join(publicDir, src))) errors.push(`${p.id} (${p.slug}): missing file ${src}`);
+    if (!path.posix.basename(src).startsWith(p.slug)) errors.push(`${p.id}: ${src} is not named after the product slug "${p.slug}"`);
+  }
+  const colourNames = new Set();
+  for (const c of p.colours ?? []) {
+    const key = String(c.colour ?? "").trim().toLowerCase();
+    if (!key) errors.push(`${p.id}: colour without a name`);
+    if (colourNames.has(key)) errors.push(`${p.id}: colour "${c.colour}" listed twice`);
+    colourNames.add(key);
+    for (const src of c.images ?? []) if (!p.images.includes(src)) errors.push(`${p.id}: colour "${c.colour}" uses ${src}, which is not one of its images`);
   }
 }
 
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? walk(path.join(dir, d.name)) : [path.join(dir, d.name)]));
 const onDisk = walk(path.join(publicDir, "images")).filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f)).map((f) => "/" + path.relative(publicDir, f).split(path.sep).join("/"));
 const uncatalogued = onDisk.filter((src) => !used.has(src) && !unlisted.has(src));
-const badNames = onDisk.filter((src) => !/^\/images\/[a-z0-9_/]+_\d{2}\.(jpg|png|webp|avif)$/.test(src));
+const badNames = onDisk.filter((src) => !/^\/images\/[a-z0-9/-]+\.(jpg|png|webp|avif)$/.test(src));
 
-console.log(`${products.length} products, ${used.size} catalogued images, ${onDisk.length} images on disk, ${products.filter((p) => p.isNewArrival).length} new arrivals`);
+console.log(`${products.length} products, ${used.size} catalogued images, ${onDisk.length} images on disk, ${products.filter((p) => p.isNewArrival).length} new arrivals, ${products.reduce((n, p) => n + (p.colours?.length ?? 0), 0)} colour options`);
 if (uncatalogued.length) console.log(`\nNot in the catalogue yet (${uncatalogued.length}):\n  ${uncatalogued.join("\n  ")}`);
-if (badNames.length) console.log(`\nNot following the <descriptor>_NN.ext naming pattern (${badNames.length}):\n  ${badNames.join("\n  ")}`);
+if (badNames.length) console.log(`\nNot following the lowercase-kebab-case naming pattern (${badNames.length}):\n  ${badNames.join("\n  ")}`);
 if (errors.length) {
   console.error(`\nErrors (${errors.length}):\n  ${errors.join("\n  ")}`);
   process.exit(1);

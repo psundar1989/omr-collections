@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Services\SettingsService;
+use App\Services\SkuGenerator;
 use App\Support\Media;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -31,6 +32,8 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'sku' => $this->sku,
+            // Stable photo-catalogue code ("product-062"); null for products added in the admin.
+            'catalog_code' => $this->catalog_code,
             'short_description' => $this->short_description,
             'category' => $this->whenLoaded('category', fn () => $this->category ? [
                 'id' => $this->category->id, 'name' => $this->category->name, 'slug' => $this->category->slug,
@@ -71,9 +74,16 @@ class ProductResource extends JsonResource
                     'id' => $img->id,
                     'url' => Media::url($img->path, $img->disk),
                     'alt_text' => $img->alt_text,
+                    // The colour this photo shows – the storefront switches to it when that colour is chosen.
+                    'colour' => $img->colour,
                     'is_primary' => $img->is_primary,
                     'sort_order' => $img->sort_order,
                 ])->values()),
+                // SKU of each colour × size choice when the product has no variant rows.
+                'option_skus' => $this->when(
+                    ! ($this->relationLoaded('activeVariants') && $this->activeVariants->isNotEmpty()),
+                    fn () => app(SkuGenerator::class)->optionSkus($this->resource)
+                ),
                 'variants' => $this->when(
                     $this->relationLoaded('activeVariants') || $this->relationLoaded('variants'),
                     fn () => ($admin && $this->relationLoaded('variants') ? $this->variants : $this->activeVariants)->map(function ($v) use ($admin) {

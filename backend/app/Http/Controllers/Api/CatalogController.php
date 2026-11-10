@@ -169,9 +169,10 @@ class CatalogController extends Controller
             $items = $this->baseQuery()->whereIn('products.id', $v['ids'])->get()
                 ->sortBy(fn ($p) => $order[$p->id] ?? 0)->values();
         } else {
+            // A code is a SKU or a photo-catalogue code ("product-062", used by catalogue cards and wishlists).
             $order = array_flip(array_map('strtolower', $v['skus']));
-            $items = $this->baseQuery()->whereIn('products.sku', $v['skus'])->get()
-                ->sortBy(fn ($p) => $order[strtolower($p->sku)] ?? 0)->values();
+            $items = $this->baseQuery()->where(fn ($q) => $q->whereIn('products.sku', $v['skus'])->orWhereIn('products.catalog_code', $v['skus']))->get()
+                ->sortBy(fn ($p) => $order[strtolower($p->catalog_code ?? '')] ?? $order[strtolower($p->sku)] ?? 0)->values();
         }
 
         return ProductResource::collection($items);

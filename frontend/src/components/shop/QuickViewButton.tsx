@@ -54,7 +54,7 @@ function QuickViewModal({ slug, onClose }: { slug: string; onClose: () => void }
             <div>
               {product.category && <p className="eyebrow">{product.category.name}</p>}
               <h2 className="heading-display mt-1 text-3xl">{product.name}</h2>
-              <p className="mt-1 text-xs text-muted">Code: {product.sku}</p>
+              <p className="mt-1 text-xs text-muted">SKU: {product.sku}</p>
               {product.short_description && <p className="mt-3 text-sm text-ink/80">{product.short_description}</p>}
               <div className="mt-5"><PurchasePanel product={product} /></div>
               <Link href={`/products/${product.slug}`} className="mt-4 inline-block text-sm text-gold-dark underline" onClick={onClose}>View full details</Link>

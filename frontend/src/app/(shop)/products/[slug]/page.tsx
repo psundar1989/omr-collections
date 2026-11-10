@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { BadgeCheck, CircleCheck, Gem, Hash, Layers, MessageCircle, Tag, Truck } from "lucide-react";
+import { BadgeCheck, CircleCheck, Gem, Hash, Layers, MessageCircle, Palette, Ruler, Tag, Truck } from "lucide-react";
 import { getProduct, getSettings } from "@/lib/api";
 import { getCatalogProduct, imageAlt, type CatalogItem } from "@/lib/catalog";
 import { collectionBySlug } from "@/lib/collections";
@@ -16,6 +16,7 @@ import Gallery from "@/components/shop/Gallery";
 import ProductGrid from "@/components/shop/ProductGrid";
 import ProductReviews from "@/components/shop/ProductReviews";
 import PurchasePanel from "@/components/shop/PurchasePanel";
+import { ProductSelectionProvider } from "@/components/shop/ProductSelection";
 import RecentlyViewed from "@/components/shop/RecentlyViewed";
 import ViewTracker from "@/components/shop/ViewTracker";
 import WishlistButton from "@/components/shop/WishlistButton";
@@ -91,7 +92,7 @@ async function ProductContent({ params }: Props) {
   const url = `${SITE_URL}/products/${p.slug}`;
   const priceText = p.price != null ? formatPrice(p.price) : "Price on request";
   const shareText = `Look at this handmade piece from ${s.business_name}: ${p.name} – ${priceText}\n${url}`;
-  const askText = `Hello! I have a question about ${p.name} (Code: ${p.sku}).\n${url}`;
+  const askText = `Hello! I have a question about ${p.name} (SKU: ${p.sku}).\n${url}`;
   const collection = collectionLink(p, catalog);
   const absolute = (u: string) => (u.startsWith("/") ? `${SITE_URL}${u}` : u);
 
@@ -131,6 +132,7 @@ async function ProductContent({ params }: Props) {
           {" "}/ <span className="text-ink">{p.name}</span>
         </nav>
 
+        <ProductSelectionProvider initialColour={p.colours.length === 1 ? p.colours[0] : null}>
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
           <Gallery images={images} name={p.name} />
 
@@ -162,12 +164,14 @@ async function ProductContent({ params }: Props) {
             <section className="mt-6" aria-labelledby="product-info">
               <h2 id="product-info" className="label">Product Information</h2>
               <dl className="grid grid-cols-2 gap-3 text-sm">
-                <Detail icon={Hash} label="Product code" value={p.sku} />
+                <Detail icon={Hash} label="SKU" value={p.sku} />
                 <Detail icon={Layers} label="Collection" value={collection?.name ?? "Handmade"} />
                 <Detail icon={Tag} label="Price" value={p.price != null ? formatPrice(p.price, p.currency) : "On request"} />
                 <Detail icon={CircleCheck} label="Availability" value={p.availability_status !== "available" ? AVAILABILITY_LABELS[p.availability_status] : p.in_stock ? (p.stock_quantity == null ? "Made to order" : "In stock") : "Out of stock"} />
                 <Detail icon={Truck} label="Delivery" value="Across India" />
                 {p.material && <Detail icon={Gem} label="Material" value={p.material} />}
+                {p.colours.length > 0 && <Detail icon={Palette} label={p.colours.length === 1 ? "Colour" : "Colours"} value={p.colours.length > 3 ? `${p.colours.length} colours` : p.colours.join(", ")} />}
+                {p.sizes.length > 0 && <Detail icon={Ruler} label={p.sizes.length === 1 ? "Size" : "Sizes"} value={p.sizes.join(", ")} />}
               </dl>
             </section>
 
@@ -189,6 +193,7 @@ async function ProductContent({ params }: Props) {
             <p className="mt-6 flex items-center gap-2 text-xs text-muted"><BadgeCheck className="h-4 w-4 text-gold" /> Handmade – slight variations make each piece unique.</p>
           </div>
         </div>
+        </ProductSelectionProvider>
       </div>
 
       <ProductReviews reviewKey={catalog ? catalogReviewKey(catalog.id) : apiReviewKey(p.id)} productName={p.name} whatsappNumber={s.whatsapp_number} />

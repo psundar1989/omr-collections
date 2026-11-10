@@ -174,7 +174,7 @@ function CartRow({ item, line }: { item: CartItem; line?: QuoteLine }) {
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <Link href={`/products/${item.slug}`} className="line-clamp-2 font-medium hover:text-gold-dark">{line?.name ?? item.name}</Link>
-            <p className="text-xs text-muted">Code: {line?.sku ?? item.sku}</p>
+            <p className="text-xs text-muted">SKU: {line?.sku ?? item.sku}</p>
           </div>
           <button onClick={() => cart.remove(item.key)} className="rounded-full p-1.5 text-muted hover:bg-rose/10 hover:text-rose" aria-label={`Remove ${item.name}`}><Trash2 className="h-4 w-4" /></button>
         </div>

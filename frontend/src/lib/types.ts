@@ -5,6 +5,8 @@ export type Category = {
   id: number;
   name: string;
   slug: string;
+  /** Category part of product SKUs (OMR-<code>-001), e.g. "BG"; null until the first SKU is generated. */
+  sku_code: string | null;
   description: string | null;
   /** Homepage collection: "beads" (Trendset Beads), "charms" (Signature Charms) or null (Shop by Category). */
   section: CategorySection | null;
@@ -14,7 +16,18 @@ export type Category = {
   products_count?: number;
 };
 
-export type ProductImage = { id: number; url: string; alt_text: string | null; is_primary: boolean; sort_order: number };
+export type ProductImage = {
+  id: number;
+  url: string;
+  alt_text: string | null;
+  /** The colour this photo shows (one of the product's colours) – shown when that colour is chosen. */
+  colour?: string | null;
+  is_primary: boolean;
+  sort_order: number;
+};
+
+/** SKU of one colour × size choice of a product without variants. */
+export type OptionSku = { colour: string | null; size: string | null; sku: string };
 
 export type Variant = {
   id: number;
@@ -34,7 +47,10 @@ export type Product = {
   id: number;
   name: string;
   slug: string;
+  /** OMR-<CATEGORY>-<NUMBER>, e.g. OMR-BG-001. */
   sku: string;
+  /** Photo-catalogue code ("product-062") – stable key of products.json entries; null for admin-created products. */
+  catalog_code?: string | null;
   short_description: string | null;
   category: { id: number; name: string; slug: string } | null;
   image_url: string | null;
@@ -68,6 +84,8 @@ export type Product = {
   meta_description?: string | null;
   images?: ProductImage[];
   variants?: Variant[];
+  /** Products without variants: the SKU of each colour × size choice. */
+  option_skus?: OptionSku[];
 };
 
 export type ColourOption = { name: string; hex: string | null };

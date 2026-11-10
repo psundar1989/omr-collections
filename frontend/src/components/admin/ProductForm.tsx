@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ExternalLink, ImageOff, ImagePlus, Loader2, Plus, Shuffle, Star, Trash2, X } from "lucide-react";
+import { ArrowLeft, ExternalLink, ImageOff, ImagePlus, Loader2, Plus, RefreshCw, Shuffle, Star, Trash2, Upload, Wand2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAdminApi, errorMessage, fieldErrors } from "@/lib/admin-api";
 import { AVAILABILITY_LABELS, type AdminProduct, type AvailabilityStatus, type Category, type PricingMode, type Settings, type SizePreset, type Variant } from "@/lib/types";
@@ -11,6 +11,13 @@ import { formatDate, formatPrice } from "@/lib/format";
 import { ConfirmDialog, Field, PageHeader, Panel, Spinner, Toggle, useToast } from "./ui";
 
 type VariantRow = Partial<Variant> & { _key: string };
+/** An image chosen in the browser, previewed before it is uploaded. */
+type PendingImage = { file: File; url: string; colour: string };
+
+/** Same limits as the API (config/shop.php): JPG/PNG/WEBP, ≤ 8 MB, ≥ 300 × 300 px. */
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const IMAGE_MAX_MB = 8;
+const IMAGE_MIN_PX = 300;
 type FormState = {
   name: string; slug: string; sku: string; category_id: string; short_description: string; description: string;
   pricing_mode: PricingMode; regular_price: string; sale_price: string; currency: string; track_stock: boolean; stock_quantity: string; low_stock_threshold: string;
@@ -66,7 +73,8 @@ export default function ProductForm({ productId }: { productId?: number }) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [palette, setPalette] = useState<Settings["colour_swatches"]>([]);
   const [sizePresets, setSizePresets] = useState<SizePreset[]>(DEFAULT_SIZE_PRESETS);
-  const [pendingImages, setPendingImages] = useState<File[]>([]);
+  const [pendingImages, setPendingImages] = useState<PendingImage[]>([]);
+  const [suggestedSku, setSuggestedSku] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(!!productId);
   const [saving, setSaving] = useState(false);
@@ -92,6 +100,16 @@ export default function ProductForm({ productId }: { productId?: number }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api, productId]);
 
+  // New products: show the SKU that will be generated for the chosen category.
+  useEffect(() => {
+    if (productId) return;
+    let cancelled = false;
+    api<{ data: { sku: string } }>(`/products/next-sku${form.category_id ? `?category_id=${form.category_id}` : ""}`)
+      .then((r) => { if (!cancelled) setSuggestedSku(r.data.sku); })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, [api, productId, form.category_id]);
+
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => setForm((f) => ({ ...f, [k]: v }));
   const text = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => set(k, e.target.value as never);
 
@@ -107,6 +125,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
     }
     const payload = {
       ...fields,
+      sku: form.sku.trim() || null, // empty = generated (OMR-<CATEGORY>-<NUMBER>)
       slug: form.slug || null,
       category_id: form.category_id ? Number(form.category_id) : null,
       price_on_request: mode === "on_request",
@@ -124,9 +143,8 @@ export default function ProductForm({ productId }: { productId?: number }) {
       const r = await api<{ data: AdminProduct }>(productId ? `/products/${productId}` : "/products", { method: productId ? "PUT" : "POST", body: JSON.stringify(payload) });
       let saved = r.data;
       if (pendingImages.length) {
-        const fd = new FormData();
-        pendingImages.forEach((f) => fd.append("images[]", f));
-        saved = (await api<{ data: AdminProduct }>(`/products/${saved.id}/images`, { method: "POST", body: fd })).data;
+        saved = await uploadPending(api, saved.id, pendingImages);
+        pendingImages.forEach((p) => URL.revokeObjectURL(p.url));
         setPendingImages([]);
       }
       toast("success", productId ? "Product saved." : "Product created.");
@@ -165,7 +183,15 @@ export default function ProductForm({ productId }: { productId?: number }) {
           <Panel title="Basic details">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Product name *" error={errors.name} className="sm:col-span-2"><input className="input" value={form.name} onChange={text("name")} required /></Field>
-              <Field label="Product code (SKU) *" error={errors.sku} hint="Letters, numbers, - and _ (e.g. product-062)"><input className="input" value={form.sku} onChange={(e) => set("sku", e.target.value.replace(/\s+/g, ""))} required /></Field>
+              <Field label={productId ? "SKU *" : "SKU"} error={errors.sku}
+                hint={productId ? "Letters, numbers, - and _. Variant SKUs are not changed when you edit this." : `Leave empty to generate it automatically${suggestedSku ? ` (${suggestedSku})` : ""}.`}>
+                <div className="flex gap-2">
+                  <input className="input font-mono" value={form.sku} onChange={(e) => set("sku", e.target.value.replace(/\s+/g, ""))} required={!!productId} placeholder={suggestedSku || "OMR-BG-001"} />
+                  {!productId && suggestedSku && (
+                    <button type="button" className="btn-outline shrink-0 px-3" title="Use the generated SKU" onClick={() => set("sku", suggestedSku)}><Wand2 className="h-4 w-4" /></button>
+                  )}
+                </div>
+              </Field>
               <Field label="URL slug" error={errors.slug} hint="Auto-generated from the name if empty"><input className="input" value={form.slug} onChange={text("slug")} placeholder="pearl-handmade-bracelet" /></Field>
               <Field label="Category / collection" error={errors.category_id}>
                 <select className="input" value={form.category_id} onChange={text("category_id")}>
@@ -180,7 +206,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
           </Panel>
 
           <Panel title="Images">
-            <ImageManager product={product} pending={pendingImages} setPending={setPendingImages} onChange={load} />
+            <ImageManager product={product} colours={form.colours} pending={pendingImages} setPending={setPendingImages} onChange={load} />
           </Panel>
 
           <Panel title="Options & variations">
@@ -213,7 +239,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
               <div className="mb-2 flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium">Variants (optional)</p>
-                  <p className="text-xs text-muted">Use variants when each colour/size combination has its own stock or price. Colours and sizes above are then taken from the variants.</p>
+                  <p className="text-xs text-muted">Use variants when each colour/size combination has its own stock or price. Colours and sizes above are then taken from the variants. Leave a variant SKU empty to generate it (e.g. {product?.sku ?? suggestedSku ?? "OMR-BG-001"}-24-RED).</p>
                 </div>
                 <div className="flex shrink-0 gap-2">
                   {variants.length === 0 && (form.colours.length > 0 || form.sizes.length > 0) && (
@@ -236,7 +262,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
                           <tr key={v._key}>
                             <td className="py-1 pr-2"><input className="input py-1.5" value={v.colour ?? ""} onChange={(e) => upd({ colour: e.target.value })} aria-label="Variant colour" /></td>
                             <td className="pr-2"><input className="input py-1.5" value={v.size ?? ""} onChange={(e) => upd({ size: e.target.value })} aria-label="Variant size" /></td>
-                            <td className="pr-2"><input className="input py-1.5" value={v.sku ?? ""} onChange={(e) => upd({ sku: e.target.value })} aria-label="Variant SKU" /></td>
+                            <td className="pr-2"><input className="input py-1.5 font-mono text-xs" value={v.sku ?? ""} placeholder="Auto" onChange={(e) => upd({ sku: e.target.value.replace(/\s+/g, "") })} aria-label="Variant SKU" />{errors[`variants.${i}.sku`] && <p className="mt-0.5 text-[11px] text-rose">{errors[`variants.${i}.sku`]}</p>}</td>
                             <td className="pr-2"><input className="input w-24 py-1.5" type="number" step="0.01" value={v.additional_price ?? 0} onChange={(e) => upd({ additional_price: e.target.value as unknown as number })} aria-label="Extra price" /></td>
                             <td className="pr-2"><input className="input w-20 py-1.5" type="number" min={0} value={v.stock_quantity ?? 0} onChange={(e) => upd({ stock_quantity: e.target.value as unknown as number })} aria-label="Variant stock" /></td>
                             <td className="pr-2"><Toggle checked={v.is_active ?? true} onChange={(x) => upd({ is_active: x })} label={`Variant ${i + 1} active`} /></td>
@@ -380,31 +406,110 @@ function TagInput({ label, values, onChange, placeholder, disabled, suggestions,
   );
 }
 
-function ImageManager({ product, pending, setPending, onChange }: { product: AdminProduct | null; pending: File[]; setPending: (f: File[]) => void; onChange: (p: AdminProduct) => void }) {
+type AdminApi = ReturnType<typeof useAdminApi>;
+
+/** Upload previewed images – one request per colour (≤ 10 files each), so each image is tagged with its colour. */
+async function uploadPending(api: AdminApi, productId: number, pending: PendingImage[]): Promise<AdminProduct> {
+  const groups = new Map<string, File[]>();
+  pending.forEach((p) => groups.set(p.colour, [...(groups.get(p.colour) ?? []), p.file]));
+  let saved: AdminProduct | null = null;
+  for (const [colour, files] of groups) {
+    for (let i = 0; i < files.length; i += 10) {
+      const fd = new FormData();
+      files.slice(i, i + 10).forEach((f) => fd.append("images[]", f));
+      if (colour) fd.append("colour", colour);
+      saved = (await api<{ data: AdminProduct }>(`/products/${productId}/images`, { method: "POST", body: fd })).data;
+    }
+  }
+  return saved!;
+}
+
+/** Checked in the browser before previewing (the API checks again): type, file size and dimensions. */
+async function checkImage(file: File): Promise<string | null> {
+  if (!IMAGE_TYPES.includes(file.type)) return `${file.name}: only JPG, PNG or WEBP images can be uploaded.`;
+  if (file.size > IMAGE_MAX_MB * 1024 * 1024) return `${file.name}: ${(file.size / 1024 / 1024).toFixed(1)} MB – the limit is ${IMAGE_MAX_MB} MB.`;
+  const size = await new Promise<{ w: number; h: number } | null>((resolve) => {
+    const url = URL.createObjectURL(file);
+    const img = new window.Image();
+    img.onload = () => { resolve({ w: img.naturalWidth, h: img.naturalHeight }); URL.revokeObjectURL(url); };
+    img.onerror = () => { resolve(null); URL.revokeObjectURL(url); };
+    img.src = url;
+  });
+  if (!size) return `${file.name}: this file could not be opened as an image.`;
+  if (size.w < IMAGE_MIN_PX || size.h < IMAGE_MIN_PX) return `${file.name}: ${size.w} × ${size.h} px – images must be at least ${IMAGE_MIN_PX} × ${IMAGE_MIN_PX} px.`;
+  return null;
+}
+
+const MAX_PENDING = 20;
+
+function ImageManager({ product, colours, pending, setPending, onChange }: { product: AdminProduct | null; colours: string[]; pending: PendingImage[]; setPending: (p: PendingImage[]) => void; onChange: (p: AdminProduct) => void }) {
   const api = useAdminApi();
   const toast = useToast();
   const [busy, setBusy] = useState(false);
+  const [rejected, setRejected] = useState<string[]>([]);
+  const [newColour, setNewColour] = useState("");
+  const savedColours = product?.colours ?? [];
 
   const run = async (fn: () => Promise<{ data: AdminProduct }>, msg: string) => {
     setBusy(true);
     try {
       onChange((await fn()).data);
       toast("success", msg);
+      return true;
     } catch (e) {
       toast("error", errorMessage(e));
+      return false;
     } finally {
       setBusy(false);
     }
   };
 
-  const upload = (files: FileList | null) => {
+  /** Validate and preview; nothing is uploaded until "Upload" (or Save for a new product). */
+  const pick = async (files: FileList | null) => {
     if (!files?.length) return;
-    const list = Array.from(files);
-    if (!product) return setPending([...pending, ...list].slice(0, 10));
-    const fd = new FormData();
-    list.forEach((f) => fd.append("images[]", f));
-    run(() => api(`/products/${product.id}/images`, { method: "POST", body: fd }), `${list.length} image(s) uploaded.`);
+    const problems: string[] = [];
+    const ok: PendingImage[] = [];
+    for (const file of Array.from(files)) {
+      const err = await checkImage(file);
+      if (err) problems.push(err);
+      else ok.push({ file, url: URL.createObjectURL(file), colour: colours.includes(newColour) ? newColour : "" });
+    }
+    const room = Math.max(0, MAX_PENDING - pending.length);
+    if (ok.length > room) {
+      ok.slice(room).forEach((p) => URL.revokeObjectURL(p.url));
+      problems.push(`Only ${MAX_PENDING} images can wait for upload at once – upload these first.`);
+    }
+    setRejected(problems);
+    setPending([...pending, ...ok.slice(0, room)]);
   };
+
+  const discard = (i: number) => {
+    URL.revokeObjectURL(pending[i].url);
+    setPending(pending.filter((_, j) => j !== i));
+  };
+
+  const uploadNow = async () => {
+    if (!product || !pending.length) return;
+    const count = pending.length;
+    const done = await run(async () => ({ data: await uploadPending(api, product.id, pending) }), `${count} image(s) uploaded.`);
+    if (done) {
+      pending.forEach((p) => URL.revokeObjectURL(p.url));
+      setPending([]);
+    }
+  };
+
+  const replace = async (id: number, files: FileList | null) => {
+    const file = files?.[0];
+    if (!file) return;
+    const err = await checkImage(file);
+    if (err) return toast("error", err);
+    const fd = new FormData();
+    fd.append("image", file);
+    run(() => api(`/product-images/${id}/replace`, { method: "POST", body: fd }), "Image replaced.");
+  };
+
+  const tag = (id: number, colour: string) =>
+    run(() => api(`/product-images/${id}`, { method: "PATCH", body: JSON.stringify({ colour: colour || null }) }), colour ? `Image shows ${colour}.` : "Colour removed from image.");
 
   const move = (id: number, dir: -1 | 1) => {
     if (!product?.images) return;
@@ -416,38 +521,91 @@ function ImageManager({ product, pending, setPending, onChange }: { product: Adm
     run(() => api(`/products/${product.id}/images/reorder`, { method: "POST", body: JSON.stringify({ ids }) }), "Order updated.");
   };
 
+  const unsavedColours = product ? pending.some((p) => p.colour && !savedColours.includes(p.colour)) : false;
+
   return (
     <div>
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
         {product?.images?.map((img, i) => (
-          <div key={img.id} className={`group relative aspect-square overflow-hidden rounded-xl border-2 ${img.is_primary ? "border-gold" : "border-line"}`}>
-            <StoredImage key={img.url} src={img.url} alt={img.alt_text ?? ""} />
-            {img.is_primary && <span className="absolute left-1.5 top-1.5 rounded-full bg-gold px-2 py-0.5 text-[10px] font-medium text-white">Primary</span>}
-            <div className="absolute inset-x-0 bottom-0 flex justify-between gap-1 bg-ink/60 p-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
-              <div className="flex">
-                <button type="button" disabled={busy || i === 0} onClick={() => move(img.id, -1)} className="rounded px-1.5 text-xs text-white disabled:opacity-30" aria-label="Move left">‹</button>
-                <button type="button" disabled={busy || i === product.images!.length - 1} onClick={() => move(img.id, 1)} className="rounded px-1.5 text-xs text-white disabled:opacity-30" aria-label="Move right">›</button>
-              </div>
-              <div className="flex">
-                {!img.is_primary && <button type="button" disabled={busy} title="Set as primary" onClick={() => run(() => api(`/product-images/${img.id}/primary`, { method: "POST" }), "Primary image set.")} className="rounded p-1 text-white"><Star className="h-3.5 w-3.5" /></button>}
-                <button type="button" disabled={busy} title="Delete" onClick={() => run(() => api(`/product-images/${img.id}`, { method: "DELETE" }), "Image deleted.")} className="rounded p-1 text-white"><Trash2 className="h-3.5 w-3.5" /></button>
+          <div key={img.id} className="space-y-1">
+            <div className={`group relative aspect-square overflow-hidden rounded-xl border-2 ${img.is_primary ? "border-gold" : "border-line"}`}>
+              <StoredImage key={img.url} src={img.url} alt={img.alt_text ?? ""} />
+              {img.is_primary && <span className="absolute left-1.5 top-1.5 rounded-full bg-gold px-2 py-0.5 text-[10px] font-medium text-white">Primary</span>}
+              <div className="absolute inset-x-0 bottom-0 flex justify-between gap-1 bg-ink/60 p-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
+                <div className="flex">
+                  <button type="button" disabled={busy || i === 0} onClick={() => move(img.id, -1)} className="rounded px-1.5 text-xs text-white disabled:opacity-30" aria-label="Move left">‹</button>
+                  <button type="button" disabled={busy || i === product.images!.length - 1} onClick={() => move(img.id, 1)} className="rounded px-1.5 text-xs text-white disabled:opacity-30" aria-label="Move right">›</button>
+                </div>
+                <div className="flex">
+                  {!img.is_primary && <button type="button" disabled={busy} title="Set as primary" aria-label="Set as primary" onClick={() => run(() => api(`/product-images/${img.id}/primary`, { method: "POST" }), "Primary image set.")} className="rounded p-1 text-white"><Star className="h-3.5 w-3.5" /></button>}
+                  <label title="Replace this image" className={`cursor-pointer rounded p-1 text-white ${busy ? "pointer-events-none opacity-40" : ""}`}>
+                    <RefreshCw className="h-3.5 w-3.5" /><span className="sr-only">Replace image</span>
+                    <input type="file" accept={IMAGE_TYPES.join(",")} className="sr-only" onChange={(e) => { replace(img.id, e.target.files); e.target.value = ""; }} />
+                  </label>
+                  <button type="button" disabled={busy} title="Delete" aria-label="Delete image" onClick={() => run(() => api(`/product-images/${img.id}`, { method: "DELETE" }), "Image deleted.")} className="rounded p-1 text-white"><Trash2 className="h-3.5 w-3.5" /></button>
+                </div>
               </div>
             </div>
+            {savedColours.length > 0 && (
+              <select className="input py-1 text-xs" value={img.colour ?? ""} disabled={busy} onChange={(e) => tag(img.id, e.target.value)} aria-label="Colour shown in this image">
+                <option value="">Any colour</option>
+                {savedColours.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            )}
           </div>
         ))}
-        {pending.map((f, i) => (
-          <div key={i} className="relative aspect-square overflow-hidden rounded-xl border-2 border-dashed border-gold">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={URL.createObjectURL(f)} alt="" className="h-full w-full object-cover opacity-80" />
-            <button type="button" onClick={() => setPending(pending.filter((_, j) => j !== i))} className="absolute right-1 top-1 rounded-full bg-ink p-1 text-white" aria-label="Remove"><X className="h-3 w-3" /></button>
+        {pending.map((p, i) => (
+          <div key={p.url} className="space-y-1">
+            <div className="relative aspect-square overflow-hidden rounded-xl border-2 border-dashed border-gold">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.url} alt={`Preview of ${p.file.name}`} className="h-full w-full object-cover opacity-90" />
+              <span className="absolute left-1.5 top-1.5 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] text-white">Not uploaded</span>
+              <button type="button" onClick={() => discard(i)} className="absolute right-1 top-1 rounded-full bg-ink p-1 text-white" aria-label={`Remove ${p.file.name}`}><X className="h-3 w-3" /></button>
+            </div>
+            {colours.length > 0 && (
+              <select className="input py-1 text-xs" value={p.colour} onChange={(e) => setPending(pending.map((x, j) => (j === i ? { ...x, colour: e.target.value } : x)))} aria-label={`Colour shown in ${p.file.name}`}>
+                <option value="">Any colour</option>
+                {colours.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            )}
           </div>
         ))}
-        <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-sand bg-ivory text-xs text-muted hover:border-gold">
+        <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-sand bg-ivory p-2 text-center text-xs text-muted hover:border-gold">
           {busy ? <Loader2 className="h-5 w-5 animate-spin" /> : <ImagePlus className="h-5 w-5 text-gold" />} Add images
-          <input type="file" multiple accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={(e) => { upload(e.target.files); e.target.value = ""; }} />
+          <input type="file" multiple accept={IMAGE_TYPES.join(",")} className="sr-only" onChange={(e) => { pick(e.target.files); e.target.value = ""; }} />
         </label>
       </div>
-      <p className="mt-2 text-xs text-muted">{product ? "JPG, PNG or WEBP up to 5 MB each. Hover an image to set it as primary, reorder or delete." : "Images will upload when you save the product. The first image becomes the primary image."}</p>
+
+      {colours.length > 0 && (
+        <label className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
+          New images show colour
+          <select className="input w-auto py-1 text-xs" value={newColour} onChange={(e) => setNewColour(e.target.value)}>
+            <option value="">Any colour</option>
+            {colours.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+        </label>
+      )}
+
+      {rejected.length > 0 && (
+        <ul className="mt-3 space-y-1 rounded-lg bg-rose/10 px-3 py-2 text-xs text-rose" role="alert">
+          {rejected.map((r) => <li key={r}>{r}</li>)}
+        </ul>
+      )}
+
+      {product && pending.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-xl bg-cream/70 p-3">
+          <button type="button" className="btn-primary px-4 py-2 text-sm" disabled={busy} onClick={uploadNow}>
+            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />} Upload {pending.length} image{pending.length === 1 ? "" : "s"}
+          </button>
+          <button type="button" className="btn-outline px-4 py-2 text-sm" disabled={busy} onClick={() => { pending.forEach((p) => URL.revokeObjectURL(p.url)); setPending([]); }}>Discard</button>
+          {unsavedColours && <span className="text-xs text-gold-dark">Save the product first – some chosen colours are not saved yet.</span>}
+        </div>
+      )}
+
+      <p className="mt-2 text-xs text-muted">
+        JPG, PNG or WEBP, up to {IMAGE_MAX_MB} MB and at least {IMAGE_MIN_PX} × {IMAGE_MIN_PX} px. {product ? "Check the preview, then upload. " : "Images upload when you save the product; the first becomes the primary image. "}
+        {colours.length > 0 ? "Tag a photo with a colour and customers see it when they choose that colour." : "Add colours under Options to link photos to colours."}
+      </p>
     </div>
   );
 }

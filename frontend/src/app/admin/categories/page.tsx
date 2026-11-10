@@ -79,7 +79,7 @@ export default function CategoriesPage() {
                 {c.image_url ? <img src={c.image_url} alt="" className="h-11 w-11 rounded-full object-cover" /> : <span className="h-11 w-11 rounded-full bg-cream" />}
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{c.name} {c.section && <Badge>{c.section === "beads" ? "Beads" : c.section === "charms" ? "Charms" : "Photo collection"}</Badge>} {!c.is_active && <Badge tone="red">Hidden</Badge>}</p>
-                  <p className="truncate text-xs text-muted">/{c.slug} · {c.products_count ?? 0} products</p>
+                  <p className="truncate text-xs text-muted">/{c.slug}{c.sku_code ? ` · SKU OMR-${c.sku_code}` : ""} · {c.products_count ?? 0} products</p>
                 </div>
                 <Toggle checked={c.is_active} onChange={(v) => toggle(c, v)} label={`Active: ${c.name}`} />
                 <button className="rounded-lg p-2 hover:bg-cream" onClick={() => setEditing(c)} aria-label={`Edit ${c.name}`}><Pencil className="h-4 w-4" /></button>
@@ -100,7 +100,7 @@ export default function CategoriesPage() {
 function CategoryModal({ category, onClose, onSaved }: { category: Category | null; onClose: () => void; onSaved: () => void }) {
   const api = useAdminApi();
   const toast = useToast();
-  const [form, setForm] = useState({ name: category?.name ?? "", slug: category?.slug ?? "", description: category?.description ?? "", section: (category?.section ?? "") as CategorySection | "", is_active: category?.is_active ?? true });
+  const [form, setForm] = useState({ name: category?.name ?? "", slug: category?.slug ?? "", sku_code: category?.sku_code ?? "", description: category?.description ?? "", section: (category?.section ?? "") as CategorySection | "", is_active: category?.is_active ?? true });
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
@@ -126,6 +126,9 @@ function CategoryModal({ category, onClose, onSaved }: { category: Category | nu
       <form onSubmit={save} className="space-y-4">
         <Field label="Name *" error={errors.name}><input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></Field>
         <Field label="URL slug" error={errors.slug} hint="Leave empty to generate from the name"><input className="input" value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} /></Field>
+        <Field label="SKU code" error={errors.sku_code} hint={`2–6 capital letters or digits – new products get SKUs like OMR-${form.sku_code || "BG"}-001. Leave empty to create one automatically. Changing it does not change existing SKUs.`}>
+          <input className="input w-32 uppercase" maxLength={6} value={form.sku_code} placeholder="BG" onChange={(e) => setForm({ ...form, sku_code: e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "") })} />
+        </Field>
         <Field label="Description" error={errors.description}><textarea className="input min-h-20" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></Field>
         <Field label="Homepage section" error={errors.section} hint="Which homepage collection this category appears in">
           <select className="input" value={form.section} onChange={(e) => setForm({ ...form, section: e.target.value as CategorySection | "" })}>

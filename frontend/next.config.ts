@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+// Product photos renamed on 2026-11-10 (old path → new path, see docs/image-rename-manifest-2026-11-10.csv).
+import renamedImages from "./src/data/image-redirects.json";
 
 const apiUrl = new URL(process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api");
 const extraImageHosts = (process.env.NEXT_PUBLIC_IMAGE_HOSTS || "")
@@ -18,6 +20,10 @@ const nextConfig: NextConfig = {
     // Only when the API itself runs on this machine (local dev / local prod test).
     // A public API hostname keeps the default SSRF protection.
     dangerouslyAllowLocalIP: ["localhost", "127.0.0.1", "[::1]"].includes(apiUrl.hostname),
+  },
+  // Old photo links (already sent in WhatsApp orders, shared or indexed) keep working.
+  async redirects() {
+    return Object.entries(renamedImages as Record<string, string>).map(([source, destination]) => ({ source, destination, permanent: true }));
   },
   turbopack: {
     rules: {

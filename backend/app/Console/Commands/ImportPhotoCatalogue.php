@@ -10,7 +10,7 @@ class ImportPhotoCatalogue extends Command
     protected $signature = 'catalog:import-photos
         {--file= : Path to products.json (default: ../frontend/src/data/products.json)}
         {--dry-run : Show what would change without saving anything}
-        {--sync : Also refresh name, collection, new-arrival flag, slug and missing photos of already imported products}
+        {--sync : Also refresh name, collection, new-arrival flag, slug, missing photos and colours of already imported products}
         {--sizes=* : Sizes for newly imported products of a collection, e.g. --sizes="bangles=2.2,2.4,2.6,2.8"}
         {--rollback : Delete everything this command imported}
         {--force : Do not ask for confirmation}';
@@ -54,7 +54,7 @@ class ImportPhotoCatalogue extends Command
         foreach ($result['messages'] as $m) {
             $this->warn('  '.$m);
         }
-        $this->table(['Created', 'Updated', 'Unchanged', 'Skipped', 'Categories created', 'Images added'], [array_values($result['stats'])]);
+        $this->table(['Created', 'Updated', 'Unchanged', 'Skipped', 'Categories created', 'Images added', 'SKUs assigned'], [array_values($result['stats'])]);
         $this->info($dry ? 'Dry run – nothing was saved.' : 'Done. Imported products are "price on request" until you set prices in Admin → Products or Admin → Prices.');
 
         return self::SUCCESS;

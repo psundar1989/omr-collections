@@ -79,7 +79,8 @@ function flushSkuQueue() {
     const qs = chunk.map((c) => `skus[]=${encodeURIComponent(c.sku)}`).join("&");
     apiRequest<{ data: Product[] }>(`/products/by-ids?${qs}`)
       .then((r) => {
-        const found = new Map(r.data.map((p) => [p.sku.toLowerCase(), p]));
+        // A code is a catalogue code ("product-062") or a SKU – index the product under both.
+        const found = new Map(r.data.flatMap((p) => [[p.sku.toLowerCase(), p] as const, ...(p.catalog_code ? [[p.catalog_code.toLowerCase(), p] as const] : [])]));
         chunk.forEach((c) => c.resolve(found.get(c.sku.toLowerCase()) ?? null));
       })
       .catch(() => chunk.forEach((c) => {

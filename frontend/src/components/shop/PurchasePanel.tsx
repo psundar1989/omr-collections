@@ -13,6 +13,7 @@ import { WhatsAppIcon } from "@/components/ui/Icons";
 import Price from "./Price";
 import CustomerDetailsForm, { useCustomerDetails, validateCustomer } from "./CustomerDetailsForm";
 import OrderPlaced from "./OrderPlaced";
+import { colourImageUrl, useProductSelection } from "./ProductSelection";
 
 /**
  * Colour / size / quantity selection with Add to Cart, Order via WhatsApp and Request a
@@ -26,7 +27,11 @@ export default function PurchasePanel({ product, onAdded, customPieceHref }: { p
   const variants = useMemo(() => product.variants ?? [], [product.variants]);
   const hasVariants = variants.length > 0;
   const colourOptions: ColourOption[] = product.colour_options?.length ? product.colour_options : product.colours.map((name) => ({ name, hex: null }));
-  const [colour, setColour] = useState<string | null>(product.colours.length === 1 ? product.colours[0] : null);
+  // On the product page the colour is shared with the gallery (choosing a colour shows its photo).
+  const selection = useProductSelection();
+  const [ownColour, setOwnColour] = useState<string | null>(product.colours.length === 1 ? product.colours[0] : null);
+  const colour = selection ? selection.colour : ownColour;
+  const setColour = selection ? selection.setColour : setOwnColour;
   const [size, setSize] = useState<string | null>(product.sizes.length === 1 ? product.sizes[0] : null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -60,6 +65,11 @@ export default function PurchasePanel({ product, onAdded, customPieceHref }: { p
   const maxQty = Math.max(1, Math.min(MAX_QTY, stock ?? MAX_QTY));
   const selectedColour = product.colours.length ? colour : null;
   const selectedSize = product.sizes.length ? size : null;
+  // SKU of exactly what is chosen: the variant's, else the colour × size SKU, else the product SKU.
+  const selectedSku = variant?.sku
+    || product.option_skus?.find((o) => (o.colour ?? null) === selectedColour && (o.size ?? null) === selectedSize)?.sku
+    || product.sku;
+  const colourPhoto = (name: string) => colourImageUrl(product.images, name);
 
   const fail = (m: string) => (setError(m), false);
   const validate = (): boolean => {
@@ -76,8 +86,8 @@ export default function PurchasePanel({ product, onAdded, customPieceHref }: { p
   const add = () => {
     if (!validate()) return;
     cart.add({
-      productId: product.id, slug: product.slug, name: product.name, sku: variant?.sku || product.sku,
-      imageUrl: product.image_url, price, priceOnRequest: onRequest, colour: selectedColour, size: selectedSize,
+      productId: product.id, slug: product.slug, name: product.name, sku: selectedSku,
+      imageUrl: colourPhoto(selectedColour ?? "") ?? product.image_url, price, priceOnRequest: onRequest, colour: selectedColour, size: selectedSize,
       variantId: variant?.id ?? null, quantity: qty, colours: product.colours, sizes: product.sizes, hasVariants,
     });
     setAdded(true);
@@ -132,10 +142,11 @@ export default function PurchasePanel({ product, onAdded, customPieceHref }: { p
           </p>
         )}
         {product.offer && <p className="mt-1 text-xs font-medium text-rose">{product.offer.name}</p>}
+        <p className="mt-2 text-xs text-muted">SKU: <span className="font-medium text-ink" aria-live="polite">{selectedSku}</span></p>
       </div>
 
       {colourOptions.length > 0 && (
-        <ColourGroup value={colour} options={colourOptions} onChange={(v) => { setColour(v); setError(null); }} isAvailable={(v) => optionAvailable("colour", v)} />
+        <ColourGroup value={colour} options={colourOptions} onChange={(v) => { setColour(v); setError(null); }} isAvailable={(v) => optionAvailable("colour", v)} photo={colourPhoto} />
       )}
       {product.sizes.length > 0 && (
         <OptionGroup label="Available Sizes" value={size} options={product.sizes} onChange={(v) => { setSize(v); setError(null); }} isAvailable={(v) => optionAvailable("size", v)} />
@@ -188,7 +199,7 @@ export default function PurchasePanel({ product, onAdded, customPieceHref }: { p
   );
 }
 
-function ColourGroup({ value, options, onChange, isAvailable }: { value: string | null; options: ColourOption[]; onChange: (v: string) => void; isAvailable: (v: string) => boolean }) {
+function ColourGroup({ value, options, onChange, isAvailable, photo }: { value: string | null; options: ColourOption[]; onChange: (v: string) => void; isAvailable: (v: string) => boolean; photo?: (name: string) => string | null }) {
   return (
     <div>
       <p className="label">Available Colours{value && <span className="ml-1 normal-case tracking-normal text-ink">: {value}</span>}</p>
@@ -199,7 +210,7 @@ function ColourGroup({ value, options, onChange, isAvailable }: { value: string 
           return (
             <button key={o.name} type="button" role="radio" aria-checked={selected} onClick={() => onChange(o.name)}
               className={cn("chip gap-2 pl-1.5", selected ? "border-ink bg-ink text-ivory ring-2 ring-gold/40" : "border-line bg-white hover:border-gold", !available && "text-muted line-through opacity-60")}>
-              <Swatch hex={o.hex} />
+              <Swatch hex={o.hex} image={o.hex ? null : photo?.(o.name)} />
               {o.name}
             </button>
           );
@@ -209,12 +220,15 @@ function ColourGroup({ value, options, onChange, isAvailable }: { value: string 
   );
 }
 
-/** Round colour dot; colours without a palette entry get a neutral striped dot. */
-export function Swatch({ hex, className }: { hex: string | null; className?: string }) {
-  return (
-    <span aria-hidden className={cn("inline-block h-5 w-5 shrink-0 rounded-full border border-black/10 shadow-inner", className)}
-      style={hex ? { backgroundColor: hex } : { backgroundImage: "repeating-linear-gradient(45deg,#efe6d8 0 3px,#fff 3px 6px)" }} />
-  );
+/**
+ * Round colour dot. Colours without a palette entry show their photo when there is one
+ * (e.g. "Purple & White"), else a neutral striped dot.
+ */
+export function Swatch({ hex, image, className }: { hex: string | null; image?: string | null; className?: string }) {
+  const style = hex ? { backgroundColor: hex }
+    : image ? { backgroundImage: `url("${image.replace(/"/g, "%22")}")`, backgroundSize: "cover", backgroundPosition: "center" }
+    : { backgroundImage: "repeating-linear-gradient(45deg,#efe6d8 0 3px,#fff 3px 6px)" };
+  return <span aria-hidden className={cn("inline-block h-5 w-5 shrink-0 rounded-full border border-black/10 shadow-inner", className)} style={style} />;
 }
 
 function OptionGroup({ label, value, options, onChange, isAvailable }: { label: string; value: string | null; options: string[]; onChange: (v: string) => void; isAvailable: (v: string) => boolean }) {

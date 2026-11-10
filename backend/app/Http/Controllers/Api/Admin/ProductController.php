@@ -7,7 +7,9 @@ use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductVariant;
 use App\Services\PriceManagementService;
+use App\Services\SkuGenerator;
 use App\Support\Media;
 use App\Support\Slug;
 use Illuminate\Http\Request;
@@ -16,7 +18,7 @@ use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
-    public function __construct(private PriceManagementService $prices) {}
+    public function __construct(private PriceManagementService $prices, private SkuGenerator $skus) {}
 
     public function index(Request $request)
     {
@@ -40,7 +42,8 @@ class ProductController extends Controller
         $q = Product::with(['category', 'primaryImage']);
         if (! empty($v['search'])) {
             $term = '%'.str_replace(['%', '_'], ['\%', '\_'], $v['search']).'%';
-            $q->where(fn ($w) => $w->where('name', 'like', $term)->orWhere('sku', 'like', $term));
+            $q->where(fn ($w) => $w->where('name', 'like', $term)->orWhere('sku', 'like', $term)->orWhere('catalog_code', 'like', $term)
+                ->orWhereHas('variants', fn ($v) => $v->where('sku', 'like', $term)));
         }
         if (! empty($v['category_id'])) {
             $q->where('category_id', $v['category_id']);
@@ -97,6 +100,14 @@ class ProductController extends Controller
         };
 
         return ProductResource::collection($q->paginate($v['per_page'] ?? 20)->withQueryString());
+    }
+
+    /** The SKU a new product in this category would get (shown in the admin form before saving). */
+    public function nextSku(Request $request)
+    {
+        $v = $request->validate(['category_id' => 'nullable|integer|exists:categories,id']);
+
+        return ['data' => ['sku' => $this->skus->nextProductSku(! empty($v['category_id']) ? Category::find($v['category_id']) : null)]];
     }
 
     public function show(Product $product)
@@ -284,8 +295,10 @@ class ProductController extends Controller
     {
         $request->validate([
             'images' => 'required|array|min:1|max:10',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
-        ]);
+            'images.*' => $this->imageRules(),
+            'colour' => 'nullable|string|max:60',
+        ], $this->imageMessages());
+        $colour = $this->productColour($product, $request->input('colour'));
 
         $hasPrimary = $product->images()->where('is_primary', true)->exists();
         $order = (int) $product->images()->max('sort_order');
@@ -293,7 +306,7 @@ class ProductController extends Controller
         foreach ($request->file('images') as $i => $file) {
             [$path, $disk] = Media::store($file, "products/{$product->id}");
             $product->images()->create([
-                'path' => $path, 'disk' => $disk, 'alt_text' => $product->name,
+                'path' => $path, 'disk' => $disk, 'alt_text' => $colour ? "{$product->name} – {$colour}" : $product->name, 'colour' => $colour,
                 'is_primary' => ! $hasPrimary && $i === 0, 'sort_order' => ++$order,
             ]);
         }
@@ -312,9 +325,28 @@ class ProductController extends Controller
         return $this->show($image->product);
     }
 
+    /** Alt text and the colour this image shows (one of the product's colours, or none). */
     public function updateImage(Request $request, ProductImage $image)
     {
-        $image->update($request->validate(['alt_text' => 'nullable|string|max:255']));
+        $data = $request->validate(['alt_text' => 'sometimes|nullable|string|max:255', 'colour' => 'sometimes|nullable|string|max:60']);
+        if (array_key_exists('colour', $data)) {
+            $data['colour'] = $this->productColour($image->product, $data['colour']);
+        }
+        $image->update($data);
+
+        return $this->show($image->product);
+    }
+
+    /** Swap the file of an image, keeping its position, primary flag, colour and alt text. */
+    public function replaceImage(Request $request, ProductImage $image)
+    {
+        $request->validate(['image' => ['required', ...$this->imageRules()]], $this->imageMessages('image'));
+
+        [$path, $disk] = Media::store($request->file('image'), "products/{$image->product_id}");
+        [$oldPath, $oldDisk] = [$image->path, $image->disk];
+        $image->update(['path' => $path, 'disk' => $disk]);
+        Media::delete($oldPath, $oldDisk); // uploaded files only; storefront photos are never deleted from here
+        $image->product->touch();
 
         return $this->show($image->product);
     }
@@ -344,6 +376,45 @@ class ProductController extends Controller
 
     /* --------------------------------------------------------------- helpers */
 
+    /** JPG / PNG / WEBP, up to shop.image_max_kb, at least shop.image_min_px on each side. */
+    private function imageRules(): array
+    {
+        $min = (int) config('shop.image_min_px', 300);
+
+        return ['file', 'image', 'mimes:jpg,jpeg,png,webp', 'mimetypes:image/jpeg,image/png,image/webp',
+            'max:'.(int) config('shop.image_max_kb', 8192), "dimensions:min_width={$min},min_height={$min}"];
+    }
+
+    private function imageMessages(string $field = 'images.*'): array
+    {
+        $mb = round(config('shop.image_max_kb', 8192) / 1024, 1);
+        $min = (int) config('shop.image_min_px', 300);
+
+        return [
+            "{$field}.mimes" => 'Only JPG, PNG or WEBP images can be uploaded.',
+            "{$field}.mimetypes" => 'Only JPG, PNG or WEBP images can be uploaded.',
+            "{$field}.image" => 'This file is not an image.',
+            "{$field}.max" => "Each image must be {$mb} MB or smaller.",
+            "{$field}.dimensions" => "Images must be at least {$min} × {$min} pixels.",
+            "{$field}.uploaded" => "The image could not be uploaded – it may be larger than the server allows ({$mb} MB).",
+        ];
+    }
+
+    /** The product's own spelling of a colour, or 422 when the product does not have it. */
+    private function productColour(Product $product, ?string $colour): ?string
+    {
+        $colour = trim((string) $colour);
+        if ($colour === '') {
+            return null;
+        }
+        $match = collect($product->colours ?? [])->first(fn ($c) => strcasecmp($c, $colour) === 0);
+        if (! $match) {
+            abort(response()->json(['message' => "Add \"{$colour}\" to the product's colours first.", 'errors' => ['colour' => ["Add \"{$colour}\" to the product's colours first."]]], 422));
+        }
+
+        return $match;
+    }
+
     private function validated(Request $request, ?Product $product = null): array
     {
         $req = $product ? 'sometimes|required' : 'required';
@@ -351,7 +422,8 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => "{$req}|string|max:200",
             'slug' => ['nullable', 'string', 'max:220', 'alpha_dash', Rule::unique('products', 'slug')->ignore($product?->id)],
-            'sku' => [...explode('|', $req), 'string', 'max:64', 'regex:/^[A-Za-z0-9\-_]+$/', Rule::unique('products', 'sku')->ignore($product?->id)],
+            // Optional when creating: an empty SKU is generated as OMR-<CATEGORY>-<NUMBER>.
+            'sku' => [$product ? 'sometimes' : 'nullable', ...($product ? ['required'] : []), 'string', 'max:64', 'regex:/^[A-Za-z0-9\-_]+$/', Rule::unique('products', 'sku')->ignore($product?->id)],
             'category_id' => 'nullable|integer|exists:categories,id',
             'short_description' => 'nullable|string|max:500',
             'description' => 'nullable|string|max:20000',
@@ -380,11 +452,16 @@ class ProductController extends Controller
             'variants.*.id' => 'nullable|integer',
             'variants.*.colour' => 'nullable|string|max:60',
             'variants.*.size' => 'nullable|string|max:60',
-            'variants.*.sku' => 'nullable|string|max:64',
+            'variants.*.sku' => ['nullable', 'string', 'max:64', 'regex:/^[A-Za-z0-9\-_]+$/'],
             'variants.*.additional_price' => 'nullable|numeric|min:-1000000|max:1000000',
             'variants.*.stock_quantity' => 'nullable|integer|min:0|max:1000000',
             'variants.*.is_active' => 'nullable|boolean',
-        ], ['sku.regex' => 'SKU may only contain letters, numbers, dashes and underscores.']);
+        ], ['sku.regex' => 'SKU may only contain letters, numbers, dashes and underscores.', 'variants.*.sku.regex' => 'Variant SKU may only contain letters, numbers, dashes and underscores.']);
+
+        if (! empty($data['sku']) && ProductVariant::where('sku', $data['sku'])->when($product, fn ($q) => $q->where('product_id', '!=', $product->id))->exists()) {
+            abort(response()->json(['message' => 'This SKU is already used by a product variant.', 'errors' => ['sku' => ['This SKU is already used by a product variant.']]], 422));
+        }
+        $this->checkVariantSkus($data['variants'] ?? [], $product, $data['sku'] ?? null);
 
         $onRequest = (bool) ($data['price_on_request'] ?? $product?->price_on_request ?? false);
         $regular = $data['regular_price'] ?? $product?->regular_price;
@@ -403,6 +480,27 @@ class ProductController extends Controller
         }
 
         return $data;
+    }
+
+    /** Entered variant SKUs must be unique: within the form, and against every other product and variant. */
+    private function checkVariantSkus(array $variants, ?Product $product, ?string $productSku): void
+    {
+        $seen = [];
+        foreach ($variants as $i => $row) {
+            $sku = trim((string) ($row['sku'] ?? ''));
+            if ($sku === '') {
+                continue;
+            }
+            $key = strtolower($sku);
+            $ownVariant = ! empty($row['id']) && $product ? $product->variants()->whereKey($row['id'])->value('id') : null;
+            $clash = isset($seen[$key]) || ($productSku !== null && strcasecmp($sku, $productSku) === 0)
+                || $this->skus->isTaken($sku, ignoreProductId: null, ignoreVariantId: $ownVariant);
+            if ($clash) {
+                $msg = "SKU {$sku} is already in use. Leave it empty to generate one.";
+                abort(response()->json(['message' => $msg, 'errors' => ["variants.{$i}.sku" => [$msg]]], 422));
+            }
+            $seen[$key] = true;
+        }
     }
 
     private function syncVariants(Product $product, ?array $variants): void

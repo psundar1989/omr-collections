@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\PricingService;
+use App\Services\SkuGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,7 +27,7 @@ class Product extends Model
     protected $attributes = ['currency' => 'INR', 'track_stock' => true, 'stock_quantity' => 0, 'low_stock_threshold' => 5, 'is_featured' => false, 'is_best_seller' => false, 'is_new_arrival' => false, 'is_active' => true, 'views_count' => 0, 'price_on_request' => false, 'availability_status' => self::STATUS_AVAILABLE, 'sizes_enabled' => true];
 
     protected $fillable = [
-        'category_id', 'name', 'slug', 'sku', 'short_description', 'description',
+        'category_id', 'name', 'slug', 'sku', 'catalog_code', 'short_description', 'description',
         'regular_price', 'sale_price', 'price_on_request', 'currency', 'track_stock', 'stock_quantity', 'low_stock_threshold',
         'material', 'colours', 'sizes', 'sizes_enabled', 'is_featured', 'is_best_seller', 'is_new_arrival', 'is_active', 'availability_status',
         'meta_title', 'meta_description', 'source',
@@ -48,6 +49,16 @@ class Product extends Model
         'is_active' => 'boolean',
         'views_count' => 'integer',
     ];
+
+    protected static function booted(): void
+    {
+        // Every product gets a SKU: an empty one is generated as OMR-<CATEGORY>-<NUMBER>.
+        static::creating(function (Product $product) {
+            if (trim((string) $product->sku) === '') {
+                $product->sku = app(SkuGenerator::class)->nextProductSku($product->category_id ? Category::find($product->category_id) : null);
+            }
+        });
+    }
 
     public function category()
     {

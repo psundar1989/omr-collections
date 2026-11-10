@@ -6,9 +6,11 @@
  * (homepage, collections, New Arrivals, product pages, related products) reads from
  * here, so a product always has the same name, collection, category and photos.
  *
- * Adding a product: drop the photo into its collection folder using the
- * `<colour>_<design>_<type>_NN.ext` naming pattern, then add an entry to products.json
- * (new id, unique slug). Run `npm run catalog:check` to find photos without an entry.
+ * Adding a product: drop the photo into its collection folder named after the product slug
+ * (`<product-slug>.jpg`, `<product-slug>-2.jpg`, colour photos `<product-slug>-<colour>.jpg`),
+ * then add an entry to products.json (new id, unique slug; optional `colours` list). Run
+ * `npm run catalog:check` to find photos without an entry. Products can also be added and
+ * edited entirely in the admin (Admin → Products), which is the usual way now.
  *
  * Since the import (`php artisan catalog:import-photos`) the Laravel database is the source
  * of truth: every listing is built from the live API list (`live-catalog.ts` → GET /catalog),
@@ -35,6 +37,8 @@ export type CatalogProduct = {
   photographedAt: string | null;
   isNewArrival: boolean;
   homepageBanner: boolean;
+  /** Colour options and the photos showing each colour (become colour variants on import). */
+  colours?: { colour: string; images: string[] }[];
 };
 
 export type CatalogItem = CatalogProduct & {
@@ -48,6 +52,7 @@ export type CatalogItem = CatalogProduct & {
 
 export type LiveInfo = {
   productId: number;
+  sku: string;
   price: number | null;
   originalPrice: number | null;
   discount: number | null;
@@ -89,16 +94,18 @@ export function getStaticByCode(code: string): CatalogItem | null {
 }
 
 /**
- * Map a live API product to a catalogue card. The product code doubles as the catalogue id,
- * so wishlists saved before the import keep working; the category slug is the collection.
+ * Map a live API product to a catalogue card. The catalogue code ("product-062") stays the card
+ * id, so wishlists saved before SKUs existed keep working; admin-created products use their SKU.
+ * The category slug is the collection.
  */
 export function fromApiProduct(p: Product): CatalogItem {
-  const fallback = getStaticByCode(p.sku);
+  const code = p.catalog_code ?? p.sku;
+  const fallback = getStaticByCode(code);
   const slug = p.category?.slug ?? "uncategorised";
   const meta = META_BY_SLUG.get(slug);
   const image = p.image_url ?? fallback?.image ?? "";
   return {
-    id: p.sku,
+    id: code,
     slug: p.slug,
     name: p.name,
     collection: slug,
@@ -115,6 +122,7 @@ export function fromApiProduct(p: Product): CatalogItem {
     image,
     live: {
       productId: p.id,
+      sku: p.sku,
       price: p.price,
       originalPrice: p.original_price,
       discount: p.discount_percentage,
@@ -208,7 +216,7 @@ export function queryCatalog(q: CatalogQuery, perPage = 24, source: CatalogItem[
   let list = source.filter((p) =>
     (!q.category || p.collection === q.category) &&
     (!q.new || p.isNewArrival) &&
-    (!term || [p.name, p.collectionName, p.id, p.id.replace(/^product-0*/, "")].some((v) => v.toLowerCase().includes(term))),
+    (!term || [p.name, p.collectionName, p.id, p.id.replace(/^product-0*/, ""), p.live?.sku ?? ""].some((v) => v.toLowerCase().includes(term))),
   );
   if (q.sort === "name_asc" || q.sort === "name_desc") {
     const dir = q.sort === "name_asc" ? 1 : -1;

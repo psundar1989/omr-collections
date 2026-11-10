@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { countDesigns, getHandmadeCategories } from "@/lib/collections.server";
 
-/** Arch-framed cards, one per folder in public/images/handmade_jewellerycollections. */
+/** Arch-framed cards, one per folder in public/images/handmade. */
 export default function HandmadeCategoryGrid() {
   const categories = getHandmadeCategories();
 
