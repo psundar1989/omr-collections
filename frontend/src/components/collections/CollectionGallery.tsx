@@ -2,20 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { LiveInfo } from "@/lib/catalog";
 import type { CollectionImage } from "@/lib/collections";
 
-/** A gallery tile: a catalogue product (name + product page) or an uncatalogued photo. */
-export type GalleryTile = CollectionImage & { name?: string | null; href?: string | null };
-import { whatsappLink } from "@/lib/format";
+/** A gallery tile: a catalogue product (name, product page, live price) or an uncatalogued photo. */
+export type GalleryTile = CollectionImage & { name?: string | null; href?: string | null; live?: LiveInfo };
+import { formatPrice, whatsappLink } from "@/lib/format";
+import { AVAILABILITY_LABELS } from "@/lib/types";
+import Price from "@/components/shop/Price";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 
 type Props = {
   images: GalleryTile[];
   collectionName: string;
   itemLabel: string;
-  /** Optional – when present each design gets an "Enquire on WhatsApp" button. */
+  /** Optional – when present, designs without a price get an "Enquire on WhatsApp" button. */
   whatsappNumber?: string | null;
   siteUrl?: string;
 };
@@ -43,8 +46,15 @@ export default function CollectionGallery({ images, collectionName, itemLabel, w
   }, [open, close, step]);
 
   const label = (i: number) => images[i].name ?? `Design #${i + 1}`;
+  const availability = (i: number) => images[i].live?.availability;
+  const unavailable = (i: number) => !!availability(i) && availability(i) !== "available";
+  const priceOf = (i: number) => {
+    const live = images[i].live;
+    return live && !live.priceOnRequest ? live.price : null;
+  };
+  // Priced designs are bought from their product page; only unpriced, available designs need a WhatsApp enquiry.
   const enquire = (i: number) =>
-    whatsappNumber
+    whatsappNumber && !unavailable(i) && priceOf(i) == null
       ? whatsappLink(
           whatsappNumber,
           images[i].name
@@ -55,6 +65,7 @@ export default function CollectionGallery({ images, collectionName, itemLabel, w
 
   const current = open != null ? images[open] : null;
   const currentLink = open != null ? enquire(open) : null;
+  const currentPrice = open != null ? priceOf(open) : null;
 
   return (
     <>
@@ -65,17 +76,28 @@ export default function CollectionGallery({ images, collectionName, itemLabel, w
               <Image src={im.src} alt={im.alt} fill sizes="(min-width:1024px) 300px, (min-width:640px) 32vw, 48vw" className="object-cover transition duration-700 group-hover:scale-105" />
               <span className="absolute right-2.5 top-2.5 rounded-full bg-white/85 p-1.5 text-brown opacity-0 shadow-sm transition group-hover:opacity-100"><Expand className="h-3.5 w-3.5" /></span>
             </button>
-            <figcaption className="flex items-start justify-between gap-2 px-3 py-2.5 text-xs text-muted">
+            <figcaption className="flex flex-col gap-1.5 px-3 py-2.5 text-xs text-muted">
               {im.href ? (
                 <Link href={im.href} className="line-clamp-2 text-[13px] leading-snug text-ink hover:text-gold-dark">{label(i)}</Link>
               ) : (
                 <span>{label(i)}</span>
               )}
-              {whatsappNumber && (
-                <a href={enquire(i)!} target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-1 font-medium text-whatsapp hover:underline" aria-label={`Enquire about ${label(i)} on WhatsApp`}>
-                  <WhatsAppIcon className="h-3.5 w-3.5" /> Enquire
-                </a>
-              )}
+              <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                {(priceOf(i) != null || !unavailable(i)) && (
+                  <Price price={priceOf(i)} original={im.live?.originalPrice} discount={im.live?.discount} currency={im.live?.currency} size="sm" />
+                )}
+                {unavailable(i) ? (
+                  <span className="shrink-0 rounded-full bg-ink/85 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">{AVAILABILITY_LABELS[availability(i)!]}</span>
+                ) : enquire(i) ? (
+                  <a href={enquire(i)!} target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-1 font-medium text-whatsapp hover:underline" aria-label={`Enquire about ${label(i)} on WhatsApp`}>
+                    <WhatsAppIcon className="h-3.5 w-3.5" /> Enquire
+                  </a>
+                ) : im.href ? (
+                  <Link href={im.href} className="flex shrink-0 items-center gap-0.5 font-medium text-gold-dark hover:underline" aria-label={`View ${label(i)}`}>
+                    View <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ) : null}
+              </div>
             </figcaption>
           </figure>
         ))}
@@ -103,6 +125,15 @@ export default function CollectionGallery({ images, collectionName, itemLabel, w
             <div className="mt-4 flex w-full items-center justify-between gap-3 text-sm text-ivory/85">
               <span className="min-w-0">
                 <span className="block truncate text-ivory">{label(open!)}</span>
+                {currentPrice != null && (
+                  <span className="block font-semibold text-ivory">
+                    {formatPrice(currentPrice, current.live?.currency)}
+                    {current.live?.originalPrice != null && current.live.originalPrice > currentPrice && (
+                      <span className="ml-2 text-xs font-normal text-ivory/60 line-through">{formatPrice(current.live.originalPrice, current.live.currency)}</span>
+                    )}
+                  </span>
+                )}
+                {unavailable(open!) && <span className="block text-xs font-medium text-ivory">{AVAILABILITY_LABELS[availability(open!)!]}</span>}
                 <span className="text-xs text-ivory/60">{collectionName} · {open! + 1} / {images.length}</span>
               </span>
               {current.href && (

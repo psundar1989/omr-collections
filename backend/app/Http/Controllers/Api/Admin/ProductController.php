@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Services\PriceManagementService;
@@ -22,23 +23,47 @@ class ProductController extends Controller
         $v = $request->validate([
             'search' => 'nullable|string|max:120',
             'category_id' => 'nullable|integer',
-            'status' => 'nullable|in:active,inactive',
+            // Visibility (enabled / disabled). "active/inactive" kept for existing links.
+            'status' => 'nullable|in:active,inactive,enabled,disabled',
+            'availability' => ['nullable', Rule::in(Product::STATUSES)],
+            'section' => ['nullable', Rule::in([...Category::SECTIONS, 'general'])],
+            'min_price' => 'nullable|numeric|min:0',
+            'max_price' => 'nullable|numeric|min:0',
             'stock' => 'nullable|in:in_stock,out_of_stock,low_stock',
             'flag' => 'nullable|in:featured,best_seller,new_arrival',
-            'sort' => 'nullable|in:latest,name,price_asc,price_desc,stock_asc,updated',
+            'pricing' => 'nullable|in:fixed,sale,on_request',
+            'source' => 'nullable|in:'.Product::SOURCE_PHOTO_CATALOGUE.',manual',
+            'sort' => 'nullable|in:latest,oldest,name,name_desc,sku,price_asc,price_desc,stock_asc,updated,status',
             'per_page' => 'nullable|integer|min:1|max:200',
         ]);
 
         $q = Product::with(['category', 'primaryImage']);
         if (! empty($v['search'])) {
-            $term = '%'.$v['search'].'%';
+            $term = '%'.str_replace(['%', '_'], ['\%', '\_'], $v['search']).'%';
             $q->where(fn ($w) => $w->where('name', 'like', $term)->orWhere('sku', 'like', $term));
         }
         if (! empty($v['category_id'])) {
             $q->where('category_id', $v['category_id']);
         }
         if (! empty($v['status'])) {
-            $q->where('is_active', $v['status'] === 'active');
+            $q->where('is_active', in_array($v['status'], ['active', 'enabled'], true));
+        }
+        if (! empty($v['availability'])) {
+            $q->availability($v['availability']);
+        }
+        // Collection group of the category (beads / charms / photo collections / general categories).
+        if (! empty($v['section'])) {
+            $v['section'] === 'general'
+                ? $q->whereHas('category', fn ($c) => $c->whereNull('section'))
+                : $q->whereHas('category', fn ($c) => $c->where('section', $v['section']));
+        }
+        // Price filters use the stored selling price (sale price when lower); "on request" products have none.
+        $selling = '(CASE WHEN sale_price IS NOT NULL AND sale_price < regular_price THEN sale_price ELSE regular_price END)';
+        if (isset($v['min_price'])) {
+            $q->where('price_on_request', false)->whereRaw("{$selling} >= ".sprintf('%.2F', (float) $v['min_price'])); // numeric literal: PDO binds floats as text
+        }
+        if (isset($v['max_price'])) {
+            $q->where('price_on_request', false)->whereRaw("{$selling} <= ".sprintf('%.2F', (float) $v['max_price']));
         }
         match ($v['stock'] ?? null) {
             'in_stock' => $q->inStock(),
@@ -49,10 +74,23 @@ class ProductController extends Controller
         if (! empty($v['flag'])) {
             $q->where('is_'.$v['flag'], true);
         }
+        match ($v['pricing'] ?? null) {
+            'on_request' => $q->where('price_on_request', true),
+            'sale' => $q->where('price_on_request', false)->whereNotNull('sale_price')->whereColumn('sale_price', '<', 'regular_price'),
+            'fixed' => $q->where('price_on_request', false)->where(fn ($w) => $w->whereNull('sale_price')->orWhereColumn('sale_price', '>=', 'regular_price')),
+            default => null,
+        };
+        if (! empty($v['source'])) {
+            $v['source'] === 'manual' ? $q->whereNull('source') : $q->where('source', $v['source']);
+        }
         match ($v['sort'] ?? 'latest') {
+            'oldest' => $q->oldest('id'),
             'name' => $q->orderBy('name'),
-            'price_asc' => $q->orderBy('regular_price'),
-            'price_desc' => $q->orderByDesc('regular_price'),
+            'name_desc' => $q->orderByDesc('name'),
+            'sku' => $q->orderBy('sku'),
+            'price_asc' => $q->orderBy('price_on_request')->orderByRaw("{$selling} asc"),
+            'price_desc' => $q->orderBy('price_on_request')->orderByRaw("{$selling} desc"),
+            'status' => $q->orderByRaw("CASE availability_status WHEN 'sold_out' THEN 0 WHEN 'discontinued' THEN 1 ELSE 2 END")->orderBy('name'),
             'stock_asc' => $q->orderBy('track_stock', 'desc')->orderBy('stock_quantity'),
             'updated' => $q->latest('updated_at'),
             default => $q->latest('id'),
@@ -73,13 +111,15 @@ class ProductController extends Controller
         unset($data['variants']);
         $data['slug'] = Slug::unique(Product::class, $data['slug'] ?? $data['name']);
         $data['currency'] ??= config('shop.default_currency');
+        $data['regular_price'] ??= 0; // price on request without a stored price
 
         $product = DB::transaction(function () use ($data, $variants, $request) {
             $product = Product::create($data);
             $this->syncVariants($product, $variants);
             $product->priceHistories()->create([
-                'user_id' => $request->user()->id, 'price_type' => 'regular', 'old_price' => null,
-                'new_price' => $product->regular_price, 'change_source' => 'product_form', 'note' => 'Product created',
+                'user_id' => $request->user()->id, 'price_type' => $product->price_on_request ? 'on_request' : 'regular', 'old_price' => null,
+                'new_price' => $product->price_on_request ? null : $product->regular_price, 'change_source' => 'product_form',
+                'note' => $product->price_on_request ? 'Product created (price on request)' : 'Product created',
             ]);
 
             return $product;
@@ -99,18 +139,21 @@ class ProductController extends Controller
         }
 
         DB::transaction(function () use ($product, $data, $variants, $request) {
-            $hasRegular = array_key_exists('regular_price', $data);
+            $hasRegular = array_key_exists('regular_price', $data) && $data['regular_price'] !== null;
             $hasSale = array_key_exists('sale_price', $data);
-            if ($hasRegular || $hasSale) {
+            $hasOnRequest = array_key_exists('price_on_request', $data);
+            if ($hasRegular || $hasSale || $hasOnRequest) {
                 $this->prices->updatePrices(
                     $product,
                     (float) ($hasRegular ? $data['regular_price'] : $product->regular_price),
                     $hasSale ? ($data['sale_price'] !== null ? (float) $data['sale_price'] : null) : ($product->sale_price !== null ? (float) $product->sale_price : null),
                     $request->user(),
-                    'product_form'
+                    'product_form',
+                    null,
+                    $hasOnRequest ? (bool) $data['price_on_request'] : null,
                 );
             }
-            unset($data['regular_price'], $data['sale_price']);
+            unset($data['regular_price'], $data['sale_price'], $data['price_on_request']);
             $product->update($data);
             if ($variants !== null) {
                 $this->syncVariants($product, $variants);
@@ -127,11 +170,12 @@ class ProductController extends Controller
         return response()->noContent();
     }
 
-    /** Quick toggles: active / featured / best seller / new arrival. */
+    /** Quick toggles: enabled / availability / featured / best seller / new arrival. */
     public function flags(Request $request, Product $product)
     {
         $data = $request->validate([
             'is_active' => 'sometimes|boolean',
+            'availability_status' => ['sometimes', Rule::in(Product::STATUSES)],
             'is_featured' => 'sometimes|boolean',
             'is_best_seller' => 'sometimes|boolean',
             'is_new_arrival' => 'sometimes|boolean',
@@ -140,6 +184,59 @@ class ProductController extends Controller
 
         return $this->show($product);
     }
+
+    /**
+     * Bulk actions on selected products. Prices are bulk-updated through
+     * PriceManagementService (POST /admin/prices/bulk/apply with scope=products) so every
+     * change is validated and logged in the price history.
+     */
+    public function bulk(Request $request)
+    {
+        $v = $request->validate([
+            'ids' => 'required|array|min:1|max:1000',
+            'ids.*' => 'integer',
+            'action' => ['required', Rule::in(array_keys(self::BULK_ACTIONS))],
+            'category_id' => 'required_if:action,assign_category|nullable|integer|exists:categories,id',
+            'confirm' => 'accepted',
+        ], ['confirm.accepted' => 'Please confirm the bulk action.']);
+
+        $q = Product::whereIn('id', array_unique($v['ids']));
+        $count = DB::transaction(function () use ($q, $v) {
+            if ($v['action'] === 'delete') {
+                $n = 0;
+                $q->get()->each(function (Product $p) use (&$n) {
+                    $p->delete();
+                    $n++;
+                });
+
+                return $n;
+            }
+            $changes = $v['action'] === 'assign_category'
+                ? ['category_id' => $v['category_id']]
+                : self::BULK_ACTIONS[$v['action']];
+
+            return $q->update($changes + ['updated_at' => now()]);
+        });
+
+        return ['data' => ['updated' => $count], 'message' => "{$count} product(s) updated."];
+    }
+
+    /** Bulk action => column changes. */
+    private const BULK_ACTIONS = [
+        'enable' => ['is_active' => true],
+        'disable' => ['is_active' => false],
+        'mark_available' => ['availability_status' => Product::STATUS_AVAILABLE],
+        'mark_sold_out' => ['availability_status' => Product::STATUS_SOLD_OUT],
+        'mark_discontinued' => ['availability_status' => Product::STATUS_DISCONTINUED],
+        'feature' => ['is_featured' => true],
+        'unfeature' => ['is_featured' => false],
+        'best_seller' => ['is_best_seller' => true],
+        'unbest_seller' => ['is_best_seller' => false],
+        'new_arrival' => ['is_new_arrival' => true],
+        'unnew_arrival' => ['is_new_arrival' => false],
+        'assign_category' => [],
+        'delete' => [],
+    ];
 
     public function stock(Request $request, Product $product)
     {
@@ -162,13 +259,16 @@ class ProductController extends Controller
 
     public function price(Request $request, Product $product)
     {
+        $onRequest = $request->boolean('price_on_request');
         $data = $request->validate([
-            'regular_price' => 'required|numeric|min:0.01|max:10000000',
+            'price_on_request' => 'sometimes|boolean',
+            'regular_price' => [$onRequest ? 'nullable' : 'required', 'numeric', 'min:0.01', 'max:10000000'],
             'sale_price' => 'nullable|numeric|min:0.01|lt:regular_price',
             'note' => 'nullable|string|max:255',
         ]);
-        $this->prices->updatePrices($product, (float) $data['regular_price'],
-            isset($data['sale_price']) ? (float) $data['sale_price'] : null, $request->user(), 'manual', $data['note'] ?? null);
+        $this->prices->updatePrices($product, (float) ($data['regular_price'] ?? $product->regular_price),
+            isset($data['sale_price']) ? (float) $data['sale_price'] : null, $request->user(), 'manual', $data['note'] ?? null,
+            $request->has('price_on_request') ? $onRequest : null);
 
         return $this->show($product);
     }
@@ -251,11 +351,13 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => "{$req}|string|max:200",
             'slug' => ['nullable', 'string', 'max:220', 'alpha_dash', Rule::unique('products', 'slug')->ignore($product?->id)],
-            'sku' => [$req, 'string', 'max:64', 'regex:/^[A-Za-z0-9\-_]+$/', Rule::unique('products', 'sku')->ignore($product?->id)],
+            'sku' => [...explode('|', $req), 'string', 'max:64', 'regex:/^[A-Za-z0-9\-_]+$/', Rule::unique('products', 'sku')->ignore($product?->id)],
             'category_id' => 'nullable|integer|exists:categories,id',
             'short_description' => 'nullable|string|max:500',
             'description' => 'nullable|string|max:20000',
-            'regular_price' => "{$req}|numeric|min:0.01|max:10000000",
+            'price_on_request' => 'sometimes|boolean',
+            // Not required for "price on request" products (checked below).
+            'regular_price' => 'sometimes|nullable|numeric|min:0|max:10000000',
             'sale_price' => 'nullable|numeric|min:0.01|max:10000000',
             'currency' => 'nullable|string|size:3',
             'track_stock' => 'sometimes|boolean',
@@ -266,6 +368,8 @@ class ProductController extends Controller
             'colours.*' => 'nullable|string|max:60',
             'sizes' => 'nullable|array|max:30',
             'sizes.*' => 'nullable|string|max:60',
+            'sizes_enabled' => 'sometimes|boolean',
+            'availability_status' => ['sometimes', Rule::in(Product::STATUSES)],
             'is_featured' => 'sometimes|boolean',
             'is_best_seller' => 'sometimes|boolean',
             'is_new_arrival' => 'sometimes|boolean',
@@ -282,7 +386,12 @@ class ProductController extends Controller
             'variants.*.is_active' => 'nullable|boolean',
         ], ['sku.regex' => 'SKU may only contain letters, numbers, dashes and underscores.']);
 
+        $onRequest = (bool) ($data['price_on_request'] ?? $product?->price_on_request ?? false);
         $regular = $data['regular_price'] ?? $product?->regular_price;
+        if (! $onRequest && (float) $regular < 0.01) {
+            $msg = 'Enter the regular price, or choose "Price on request".';
+            abort(response()->json(['message' => $msg, 'errors' => ['regular_price' => [$msg]]], 422));
+        }
         if (isset($data['sale_price']) && $data['sale_price'] !== null && (float) $data['sale_price'] >= (float) $regular) {
             abort(response()->json(['message' => 'Sale price must be lower than the regular price.',
                 'errors' => ['sale_price' => ['Sale price must be lower than the regular price.']]], 422));
@@ -323,9 +432,12 @@ class ProductController extends Controller
         // Variant colours/sizes become the product option lists.
         $active = $product->variants()->where('is_active', true)->get();
         if ($active->isNotEmpty()) {
+            $sizes = $active->pluck('size')->filter()->unique()->values()->all();
             $product->forceFill([
                 'colours' => $active->pluck('colour')->filter()->unique()->values()->all(),
-                'sizes' => $active->pluck('size')->filter()->unique()->values()->all(),
+                'sizes' => $sizes,
+                // Variant sizes are part of the variant, so size selection must stay on.
+                'sizes_enabled' => $sizes ? true : $product->sizes_enabled,
             ])->saveQuietly();
             $product->syncStockFromVariants();
         }

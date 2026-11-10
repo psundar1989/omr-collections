@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Services\SettingsService;
 use App\Support\Media;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,7 +36,9 @@ class ProductResource extends JsonResource
                 'id' => $this->category->id, 'name' => $this->category->name, 'slug' => $this->category->slug,
             ] : null),
             'image_url' => $primary ? Media::url($primary->path, $primary->disk) : null,
+            // price is null when price_on_request is true.
             'price' => $pricing['price'],
+            'price_on_request' => $pricing['price_on_request'],
             'original_price' => $pricing['original_price'],
             'discount_percentage' => $pricing['discount_percentage'],
             'currency' => $pricing['currency'],
@@ -44,10 +47,18 @@ class ProductResource extends JsonResource
             'is_best_seller' => $this->is_best_seller,
             'is_new_arrival' => $this->is_new_arrival,
             'in_stock' => $inStock,
+            // available | sold_out | discontinued – set by the admin, independent of stock tracking.
+            'availability_status' => $this->availability_status ?? 'available',
+            // Whether customers may add it to the cart / order on WhatsApp right now.
+            'is_orderable' => $this->isOrderable(),
             'stock_quantity' => $this->track_stock ? max(0, $this->stock_quantity) : null,
             'colours' => $this->colours ?? [],
-            'sizes' => $this->sizes ?? [],
+            // Same colours with their swatch colour from the admin palette ({name, hex|null}).
+            'colour_options' => app(SettingsService::class)->colourOptions($this->colours ?? []),
+            // Admin edits the stored list; customers only see sizes when size selection is on.
+            'sizes' => $admin ? ($this->sizes ?? []) : $this->selectableSizes(),
             'has_variants' => $this->relationLoaded('activeVariants') ? $this->activeVariants->isNotEmpty() : null,
+            'listed_at' => $this->created_at?->toIso8601String(),
         ];
 
         if ($this->detailed || $admin) {
@@ -90,6 +101,9 @@ class ProductResource extends JsonResource
                 'category_id' => $this->category_id,
                 'regular_price' => (float) $this->regular_price,
                 'sale_price' => $this->sale_price !== null ? (float) $this->sale_price : null,
+                'pricing_mode' => $this->pricingMode(),
+                'sizes_enabled' => (bool) $this->sizes_enabled,
+                'source' => $this->source,
                 'track_stock' => $this->track_stock,
                 'raw_stock_quantity' => $this->stock_quantity,
                 'low_stock_threshold' => $this->low_stock_threshold,

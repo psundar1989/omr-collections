@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BadgeIndianRupee, Boxes, ExternalLink, FolderTree, History, Image as ImageIcon, LayoutDashboard, Loader2, LogOut, Menu, Package, Percent, Settings, Sparkles, X } from "lucide-react";
+import { BadgeIndianRupee, Bike, Boxes, ClipboardList, ExternalLink, FolderTree, History, Image as ImageIcon, LayoutDashboard, Loader2, LogOut, Menu, Package, Percent, Settings, Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { adminTokenStore, useAdminToken } from "@/lib/store";
 import { apiRequest } from "@/lib/client-api";
@@ -11,6 +11,8 @@ import { ToastProvider } from "./ui";
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/orders", label: "Orders", icon: ClipboardList },
+  { href: "/admin/delivery-persons", label: "Delivery Persons", icon: Bike },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/stock", label: "Stock", icon: Boxes },
   { href: "/admin/prices", label: "Bulk Prices", icon: BadgeIndianRupee },

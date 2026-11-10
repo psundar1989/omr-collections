@@ -1,4 +1,5 @@
-export type CategorySection = "beads" | "charms";
+/** "collections" = a photographed collection (silk thread jhumka, bangles…), not shown in "Shop by Category". */
+export type CategorySection = "beads" | "charms" | "collections";
 
 export type Category = {
   id: number;
@@ -21,7 +22,8 @@ export type Variant = {
   size: string | null;
   sku: string | null;
   additional_price: number;
-  price: number;
+  /** null when the product is "price on request". */
+  price: number | null;
   original_price: number | null;
   in_stock: boolean;
   stock_quantity: number | null;
@@ -36,7 +38,9 @@ export type Product = {
   short_description: string | null;
   category: { id: number; name: string; slug: string } | null;
   image_url: string | null;
-  price: number;
+  /** null when price_on_request is true – never show a made-up price. */
+  price: number | null;
+  price_on_request: boolean;
   original_price: number | null;
   discount_percentage: number | null;
   currency: string;
@@ -46,9 +50,17 @@ export type Product = {
   is_new_arrival: boolean;
   in_stock: boolean;
   stock_quantity: number | null;
+  /** Set by the admin; independent of stock tracking and of the enabled/disabled switch. */
+  availability_status: AvailabilityStatus;
+  /** Enabled, available and in stock – Add to Cart / WhatsApp ordering allowed. */
+  is_orderable: boolean;
   colours: string[];
+  /** The same colours with their swatch colour from the admin palette (hex null when unknown). */
+  colour_options: ColourOption[];
   sizes: string[];
   has_variants: boolean | null;
+  /** When the product was listed (photo date for imported products) – "Latest" sorting. */
+  listed_at: string | null;
   // detail
   description?: string | null;
   material?: string | null;
@@ -58,10 +70,27 @@ export type Product = {
   variants?: Variant[];
 };
 
+export type ColourOption = { name: string; hex: string | null };
+
+export type AvailabilityStatus = "available" | "sold_out" | "discontinued";
+
+export const AVAILABILITY_LABELS: Record<AvailabilityStatus, string> = {
+  available: "Available",
+  sold_out: "Sold Out",
+  discontinued: "Discontinued",
+};
+
+export type PricingMode = "fixed" | "sale" | "on_request";
+
 export type AdminProduct = Product & {
   category_id: number | null;
   regular_price: number;
   sale_price: number | null;
+  pricing_mode: PricingMode;
+  /** Size selection on/off for customers; `sizes` always holds the stored list in the admin. */
+  sizes_enabled: boolean;
+  /** "photo_catalogue" for products imported from src/data/products.json, null when created in the admin. */
+  source: string | null;
   track_stock: boolean;
   raw_stock_quantity: number;
   low_stock_threshold: number;
@@ -109,7 +138,11 @@ export type Settings = {
   testimonials: Testimonial[];
   instagram_images: { image_url: string; link?: string }[];
   meta_description: string | null;
+  colour_swatches: { name: string; hex: string }[];
+  size_presets: SizePreset[];
 };
+
+export type SizePreset = { name: string; sizes: string[] };
 
 export type Paginated<T> = {
   data: T[];
@@ -139,6 +172,7 @@ export type QuoteLine = {
   quantity: number;
   unit_price: number | null;
   original_price: number | null;
+  price_on_request: boolean;
   line_total: number;
   available_quantity: number | null;
   error: string | null;
@@ -149,8 +183,72 @@ export type Quote = {
   items: QuoteLine[];
   total: number;
   total_formatted: string;
+  /** Some lines are "price on request": `total` only sums the priced lines. */
+  has_price_on_request: boolean;
   currency: string;
   disclaimer: string;
   message: string | null;
   whatsapp_url: string | null;
+};
+
+/* ------------------------------------------------------------------ orders */
+
+export type OrderStatus = "pending" | "confirmed" | "packed" | "out_for_delivery" | "delivered" | "cancelled" | "returned";
+
+export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
+  pending: "Pending",
+  confirmed: "Confirmed",
+  packed: "Packed",
+  out_for_delivery: "Out for Delivery",
+  delivered: "Delivered",
+  cancelled: "Cancelled",
+  returned: "Returned",
+};
+
+/** The happy path, used to draw progress steps. */
+export const ORDER_FLOW: OrderStatus[] = ["pending", "confirmed", "packed", "out_for_delivery", "delivered"];
+
+export type CheckoutCustomer = {
+  customer_name: string;
+  phone: string;
+  whatsapp_number: string;
+  email: string;
+  address: string;
+  landmark: string;
+  city: string;
+  state: string;
+  pincode: string;
+  notes: string;
+};
+
+export type PlacedOrder = {
+  order_number: string;
+  status: OrderStatus;
+  total: number;
+  has_price_on_request: boolean;
+  message: string;
+  whatsapp_url: string;
+  quote: Quote;
+};
+
+export type TrackedOrder = {
+  order_number: string;
+  status: OrderStatus;
+  status_label: string;
+  placed_at: string;
+  expected_delivery_date: string | null;
+  delivered_at: string | null;
+  cancellation_reason: string | null;
+  customer_name: string;
+  city: string;
+  pincode: string;
+  items: { product_name: string; sku: string | null; image_url: string | null; colour: string | null; size: string | null; quantity: number; unit_price: string | null; line_total: string }[];
+  subtotal: number;
+  delivery_charge: number;
+  discount: number;
+  total: number;
+  has_price_on_request: boolean;
+  payment_status: string;
+  delivery: { person_name: string | null; person_phone: string | null; courier_name: string | null; tracking_number: string | null } | null;
+  timeline: { status: OrderStatus; label: string; at: string }[];
 };

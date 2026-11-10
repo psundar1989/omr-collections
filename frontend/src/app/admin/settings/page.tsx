@@ -127,6 +127,46 @@ export default function SettingsPage() {
               {Object.keys(errors).some((k) => k.startsWith("testimonials")) && <p className="text-xs text-rose">Each testimonial needs a name and text.</p>}
             </div>
           </Panel>
+
+          <div id="colours" className="scroll-mt-24">
+            <Panel title="Colour swatches" actions={<button type="button" className="btn-outline px-3 py-1.5 text-xs" onClick={() => set("colour_swatches", [...(s.colour_swatches ?? []), { name: "", hex: "#C9A227" }])}><Plus className="h-3.5 w-3.5" /> Add colour</button>}>
+              <p className="mb-3 text-xs text-muted">The dot shown next to each colour name on product pages. Product colours are matched by name (e.g. a product colour “Ruby Red &amp; Gold” uses the “Ruby Red” swatch). Colours without a swatch show a neutral dot.</p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {(s.colour_swatches ?? []).map((c, i) => {
+                  const upd = (patch: Partial<{ name: string; hex: string }>) => set("colour_swatches", s.colour_swatches.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+                  return (
+                    <div key={i} className="flex items-center gap-2 rounded-xl border border-line p-2">
+                      <input type="color" className="h-9 w-10 shrink-0 cursor-pointer rounded-lg border border-line bg-white p-0.5" value={/^#[0-9a-f]{6}$/i.test(c.hex) ? c.hex : "#000000"} onChange={(e) => upd({ hex: e.target.value.toUpperCase() })} aria-label={`Swatch colour for ${c.name || "new colour"}`} />
+                      <input className="input min-w-0 flex-1 py-2" placeholder="Colour name, e.g. Olive Green" value={c.name} onChange={(e) => upd({ name: e.target.value })} />
+                      <button type="button" className="rounded-lg p-2 text-rose hover:bg-rose/10" onClick={() => set("colour_swatches", s.colour_swatches.filter((_, j) => j !== i))} aria-label={`Remove ${c.name}`}><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                  );
+                })}
+              </div>
+              {Object.entries(errors).filter(([k]) => k.startsWith("colour_swatches")).slice(0, 1).map(([k, m]) => <p key={k} className="mt-2 text-xs text-rose">{m}</p>)}
+            </Panel>
+          </div>
+
+          <div id="sizes" className="scroll-mt-24">
+            <Panel title="Size presets" actions={<button type="button" className="btn-outline px-3 py-1.5 text-xs" onClick={() => set("size_presets", [...(s.size_presets ?? []), { name: "", sizes: [] }])}><Plus className="h-3.5 w-3.5" /> Add preset</button>}>
+              <p className="mb-3 text-xs text-muted">Reusable size sets offered as one-click buttons in the product form (e.g. bangles 2.2, 2.4, 2.6, 2.8). Each product keeps its own size list, so editing a preset does not change existing products.</p>
+              <div className="space-y-2">
+                {(s.size_presets ?? []).map((p, i) => {
+                  const upd = (patch: Partial<{ name: string; sizes: string[] }>) => set("size_presets", s.size_presets.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+                  return (
+                    <div key={`${i}-${p.sizes.join(",")}`} className="grid gap-2 rounded-xl border border-line p-2 sm:grid-cols-[180px_1fr_auto]">
+                      <input className="input py-2" placeholder="Preset name, e.g. Bangle sizes" value={p.name} onChange={(e) => upd({ name: e.target.value })} aria-label="Preset name" />
+                      <input className="input py-2" placeholder="Sizes separated by commas, e.g. 2.2, 2.4, 2.6" defaultValue={p.sizes.join(", ")} aria-label={`Sizes for ${p.name || "preset"}`}
+                        onBlur={(e) => upd({ sizes: e.target.value.split(",").map((x) => x.trim()).filter(Boolean) })} />
+                      <button type="button" className="rounded-lg p-2 text-rose hover:bg-rose/10" onClick={() => set("size_presets", s.size_presets.filter((_, j) => j !== i))} aria-label={`Remove ${p.name}`}><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                  );
+                })}
+                {(s.size_presets ?? []).length === 0 && <p className="text-sm text-muted">No presets – sizes can still be typed per product.</p>}
+              </div>
+              {Object.entries(errors).filter(([k]) => k.startsWith("size_presets")).slice(0, 1).map(([k, m]) => <p key={k} className="mt-2 text-xs text-rose">{m}</p>)}
+            </Panel>
+          </div>
         </div>
 
         <div className="space-y-6">

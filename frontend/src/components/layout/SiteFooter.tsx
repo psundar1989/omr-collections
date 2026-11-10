@@ -38,6 +38,7 @@ export default async function SiteFooter() {
             <p className="eyebrow">Help</p>
             <ul className="mt-4 space-y-2 text-sm">
               <li><Link className="text-ink/80 hover:text-gold-dark" href="/cart">Your Cart</Link></li>
+              <li><Link className="text-ink/80 hover:text-gold-dark" href="/track-order">Track Your Order</Link></li>
               <li><Link className="text-ink/80 hover:text-gold-dark" href="/wishlist">Wishlist</Link></li>
               <li><Link className="text-ink/80 hover:text-gold-dark" href="/custom-order">Custom Handmade Orders</Link></li>
               <li><Link className="text-ink/80 hover:text-gold-dark" href="/shop?on_sale=1">Offers</Link></li>

@@ -1,19 +1,22 @@
 import Link from "next/link";
 import { CATALOG_SORTS, getCatalogCategories, queryCatalog } from "@/lib/catalog";
+import { getLiveCatalog } from "@/lib/live-catalog";
 import { CatalogProductGrid } from "./CatalogProductCard";
 import ShopFilters from "./ShopFilters";
 import { NoResults, Pagination } from "./ShopListing";
 
 /**
- * Shop listing for the photographed catalogue (src/data/products.json). The sidebar
- * categories are the image collections that actually have products.
+ * Shop listing built from the live product list (enabled products only, with live prices and
+ * availability; static products.json only if the API is down). The sidebar categories are
+ * the collections that actually have visible products. Search covers name and product code.
  */
-export default function CatalogListing({ query, basePath }: { query: Record<string, string | undefined>; basePath: string }) {
-  const categories = getCatalogCategories();
+export default async function CatalogListing({ query, basePath }: { query: Record<string, string | undefined>; basePath: string }) {
+  const { items } = await getLiveCatalog();
+  const categories = getCatalogCategories(items);
   // An unknown/old category slug (e.g. a retired API category) falls back to all products.
   const category = categories.some((c) => c.slug === query.category) ? query.category : undefined;
   const q = { category, search: query.search, new: query.new, sort: query.sort, page: query.page };
-  const { products, total, page, lastPage } = queryCatalog(q);
+  const { products, total, page, lastPage } = queryCatalog(q, 24, items);
 
   const pageHref = (n: number) => {
     const params = new URLSearchParams();

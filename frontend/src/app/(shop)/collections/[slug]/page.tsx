@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import { getSettings } from "@/lib/api";
+import { getLiveCatalog } from "@/lib/live-catalog";
 import { SITE_URL } from "@/lib/config";
 import { HANDMADE_SLUG, type Collection, type CollectionImage } from "@/lib/collections";
 import { countDesigns, getAllCollections, getCollection, getCollectionGallery, getHandmadeCategories, getSignatureCollections, type GalleryItem } from "@/lib/collections.server";
@@ -58,7 +59,6 @@ export default async function CollectionPage({ params }: Props) {
 
   const c = getCollection(slug);
   if (!c) notFound();
-  const images = getCollectionGallery(c);
   const siblings = c.group === "handmade" ? getHandmadeCategories() : getSignatureCollections();
 
   return (
@@ -67,13 +67,13 @@ export default async function CollectionPage({ params }: Props) {
         name={c.name}
         description={c.description}
         cover={c.cover}
-        meta={`${images.length} handmade designs`}
+        meta="Handmade designs"
         parent={c.group === "handmade" ? { name: "Handmade Accessories", href: `/collections/${HANDMADE_SLUG}` } : undefined}
       />
       <section className="container-x mt-12" aria-label={`${c.name} designs`}>
-        {/* The static grid ships in the prerendered shell; the WhatsApp enquiry buttons stream in once settings load. */}
-        <Suspense fallback={<CollectionGallery images={images} collectionName={c.name} itemLabel={c.itemLabel} />}>
-          <GalleryWithEnquiry collection={c} images={images} />
+        {/* Products stream in from the live catalogue, so products disabled in the admin never show. */}
+        <Suspense fallback={<GallerySkeleton />}>
+          <LiveGallery collection={c} />
         </Suspense>
       </section>
       <Related items={siblings.filter((s) => s.slug !== c.slug)} />
@@ -81,9 +81,23 @@ export default async function CollectionPage({ params }: Props) {
   );
 }
 
-async function GalleryWithEnquiry({ collection, images }: { collection: Collection; images: GalleryItem[] }) {
-  const s = await getSettings().catch(() => null);
-  return <CollectionGallery images={images} collectionName={collection.name} itemLabel={collection.itemLabel} whatsappNumber={s?.whatsapp_number} siteUrl={SITE_URL} />;
+async function LiveGallery({ collection }: { collection: Collection }) {
+  const [s, catalog] = await Promise.all([getSettings().catch(() => null), getLiveCatalog()]);
+  const images: GalleryItem[] = getCollectionGallery(collection, catalog.items);
+  return (
+    <>
+      <p className="mb-6 text-sm text-muted">{images.length} handmade designs</p>
+      <CollectionGallery images={images} collectionName={collection.name} itemLabel={collection.itemLabel} whatsappNumber={s?.whatsapp_number} siteUrl={SITE_URL} />
+    </>
+  );
+}
+
+function GallerySkeleton() {
+  return (
+    <div className="grid animate-pulse grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      {Array.from({ length: 8 }, (_, i) => <div key={i} className="aspect-square rounded-2xl bg-cream" />)}
+    </div>
+  );
 }
 
 function CollectionHeader({ name, description, cover, meta, parent }: { name: string; description: string; cover: CollectionImage; meta: string; parent?: { name: string; href: string } }) {

@@ -41,7 +41,9 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            // Public URL of storage/app/public. Set PUBLIC_STORAGE_URL in production so uploaded
+            // images (products, custom-order references) never point at localhost.
+            'url' => rtrim(env('PUBLIC_STORAGE_URL') ?: rtrim(env('APP_URL', 'http://localhost'), '/').'/storage', '/'),
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

@@ -39,8 +39,23 @@ class PricingService
         });
     }
 
+    /**
+     * Selling price for a product (and optional variant). For "price on request" products
+     * `price` is null and `price_on_request` is true – callers must not invent a price.
+     */
     public function priceFor(Product $product, ?ProductVariant $variant = null): array
     {
+        if ($product->price_on_request) {
+            return [
+                'price' => null,
+                'original_price' => null,
+                'discount_percentage' => null,
+                'currency' => $product->currency ?: config('shop.default_currency'),
+                'offer' => null,
+                'price_on_request' => true,
+            ];
+        }
+
         $regular = (float) $product->regular_price;
         $sale = $product->sale_price !== null ? (float) $product->sale_price : null;
         $base = ($sale !== null && $sale < $regular) ? $sale : $regular;
@@ -67,6 +82,7 @@ class PricingService
             'discount_percentage' => $hasDiscount && $original > 0 ? (int) round(($original - $price) / $original * 100) : null,
             'currency' => $product->currency ?: config('shop.default_currency'),
             'offer' => $offer ? ['id' => $offer->id, 'name' => $offer->name, 'ends_at' => $offer->ends_at?->toIso8601String()] : null,
+            'price_on_request' => false,
         ];
     }
 
@@ -74,8 +90,16 @@ class PricingService
      * SQL expression for the effective (pre-variant) selling price, used for
      * price filters and sorting. Offer percentages and ids are cast to numbers
      * before being inlined, so the expression is injection-safe.
+     *
+     * "Price on request" products have no selling price: the expression is NULL for them,
+     * so price filters, MIN/MAX bounds and "on sale" checks skip them.
      */
     public function effectivePriceSql(string $table = 'products'): string
+    {
+        return "(CASE WHEN {$table}.price_on_request = 1 THEN NULL ELSE {$this->pricedSql($table)} END)";
+    }
+
+    private function pricedSql(string $table): string
     {
         $base = "(CASE WHEN {$table}.sale_price IS NOT NULL AND {$table}.sale_price < {$table}.regular_price THEN {$table}.sale_price ELSE {$table}.regular_price END)";
 

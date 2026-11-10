@@ -16,7 +16,8 @@ import RecentlyViewed from "@/components/shop/RecentlyViewed";
 import { CatalogProductGrid } from "@/components/shop/CatalogProductCard";
 import { HANDMADE_SLUG, collectionHref } from "@/lib/collections";
 import { countDesigns, getCollection } from "@/lib/collections.server";
-import { getCatalog, getNewArrivalHighlights, imageAlt } from "@/lib/catalog";
+import { getNewArrivalHighlights, imageAlt, type CatalogItem } from "@/lib/catalog";
+import { getLiveCatalog } from "@/lib/live-catalog";
 import { HOME_IMAGES } from "@/lib/home-content";
 
 /**
@@ -71,7 +72,9 @@ export default function HomePage() {
         />
       )}
 
-      <NewArrivals />
+      <Suspense fallback={null}>
+        <NewArrivals />
+      </Suspense>
 
       <Suspense fallback={null}>
         <CatalogBottom />
@@ -142,9 +145,9 @@ async function CatalogTop() {
   );
 }
 
-/** Latest photographed products (src/data/products.json) – one per collection in turn. */
-function NewArrivals() {
-  const items = getNewArrivalHighlights(8);
+/** Latest enabled new arrivals from the admin – one per collection in turn. */
+async function NewArrivals() {
+  const items = getNewArrivalHighlights(8, (await getLiveCatalog()).items);
   if (items.length === 0) return null;
   return (
     <Section eyebrow="Just in" title="New Arrivals" href="/new-arrivals" linkLabel="View all new arrivals">
@@ -179,9 +182,9 @@ async function CatalogBottom() {
 }
 
 /** Real product photos for the gallery when no Instagram images are set: the newest product of each collection. */
-function galleryFallback() {
+function galleryFallback(list: CatalogItem[]) {
   const seen = new Set<string>();
-  return [...getCatalog()]
+  return [...list]
     .filter((p) => p.photographedAt && !p.homepageBanner)
     .sort((a, b) => b.photographedAt!.localeCompare(a.photographedAt!))
     .filter((p) => !seen.has(p.collection) && seen.add(p.collection))
@@ -191,10 +194,10 @@ function galleryFallback() {
 
 /** Settings-driven sections: promise, testimonials and the Instagram gallery. */
 async function TrustAndGallery() {
-  const s = await getSettings();
+  const [s, catalog] = await Promise.all([getSettings(), getLiveCatalog()]);
   const gallery = s.instagram_images.length > 0
     ? s.instagram_images.slice(0, 12).map((img, i) => ({ src: img.image_url, alt: `Acrylic beads jewellery ${i + 1}`, link: img.link }))
-    : galleryFallback();
+    : galleryFallback(catalog.items);
 
   return (
     <>

@@ -6,5 +6,7 @@ return [
     'media_disk' => env('MEDIA_DISK', 'public'),
     'frontend_url' => env('FRONTEND_URL', 'http://localhost:3000'),
     'default_currency' => env('SHOP_CURRENCY', 'INR'),
+    // Prefix of website order numbers, e.g. ORD-000042.
+    'order_prefix' => env('SHOP_ORDER_PREFIX', 'ORD'),
     'max_order_quantity' => (int) env('SHOP_MAX_ORDER_QTY', 50),
 ];

@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { AlertTriangle, Boxes, CheckCircle2, FolderTree, Package, PackageX, Percent, Sparkles, Star, TrendingUp } from "lucide-react";
+import { AlertTriangle, Boxes, CheckCircle2, ClipboardList, Clock, IndianRupee, Truck, UserX, EyeOff, FolderTree, Package, PackageX, Percent, Sparkles, Star, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAdminApi, errorMessage } from "@/lib/admin-api";
 import type { AdminProduct } from "@/lib/types";
+import { STATUS_TONE, type AdminOrder } from "@/lib/admin-orders";
 import { formatDate, formatPrice } from "@/lib/format";
 import { Badge, PageHeader, Panel, Spinner } from "@/components/admin/ui";
 
@@ -15,6 +16,7 @@ type Dash = {
   best_sellers: AdminProduct[];
   most_viewed: AdminProduct[];
   recent_updates: AdminProduct[];
+  recent_orders: AdminOrder[];
   recent_price_changes: { id: number; price_type: string; old_price: string | null; new_price: string | null; change_source: string; created_at: string; product: { id: number; name: string; sku: string } | null; user: { name: string } | null }[];
 };
 
@@ -31,9 +33,19 @@ export default function Dashboard() {
   if (!d) return <Spinner />;
   const s = d.stats;
 
+  const orderCards = [
+    { label: "Pending orders", value: s.pending_orders, icon: Clock, href: "/admin/orders?status=pending", tone: s.pending_orders ? "text-gold-dark" : "" },
+    { label: "Open orders", value: s.open_orders, icon: ClipboardList, href: "/admin/orders" },
+    { label: "Need delivery person", value: s.unassigned_orders, icon: UserX, href: "/admin/orders?delivery_person_id=none", tone: s.unassigned_orders ? "text-rose" : "" },
+    { label: "Out for delivery", value: s.out_for_delivery_orders, icon: Truck, href: "/admin/orders?status=out_for_delivery" },
+    { label: `Delivered this month · ${formatPrice(s.revenue_this_month || 0)}`, value: s.delivered_this_month, icon: IndianRupee, href: "/admin/orders?status=delivered" },
+  ];
+
   const cards = [
     { label: "Total products", value: s.total_products, icon: Package, href: "/admin/products" },
-    { label: "Active products", value: s.active_products, icon: CheckCircle2, href: "/admin/products?status=active" },
+    { label: "Enabled products", value: s.active_products, icon: CheckCircle2, href: "/admin/products?status=enabled" },
+    { label: "Disabled products", value: s.inactive_products, icon: EyeOff, href: "/admin/products?status=disabled" },
+    { label: "Sold out", value: s.sold_out_products, icon: PackageX, href: "/admin/products?availability=sold_out", tone: s.sold_out_products ? "text-ink" : "" },
     { label: "Out of stock", value: s.out_of_stock_products, icon: PackageX, href: "/admin/stock?stock=out_of_stock", tone: s.out_of_stock_products ? "text-rose" : "" },
     { label: "Low stock", value: s.low_stock_products, icon: AlertTriangle, href: "/admin/stock?stock=low_stock", tone: s.low_stock_products ? "text-gold-dark" : "" },
     { label: "Categories", value: s.total_categories, icon: FolderTree, href: "/admin/categories" },
@@ -47,6 +59,18 @@ export default function Dashboard() {
     <>
       <PageHeader title="Dashboard" description="Overview of your store" actions={<Link href="/admin/products/new" className="btn-primary">Add product</Link>} />
 
+      <h2 className="mb-2 text-sm font-medium text-muted">Orders · {s.orders_today} today</h2>
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
+        {orderCards.map(({ label, value, icon: Icon, href, tone }) => (
+          <Link key={label} href={href} className="rounded-2xl border border-line bg-white p-4 transition hover:border-gold">
+            <Icon className={`h-5 w-5 text-muted ${tone ?? ""}`} />
+            <p className={`mt-3 text-2xl font-semibold ${tone ?? ""}`}>{value}</p>
+            <p className="text-xs text-muted">{label}</p>
+          </Link>
+        ))}
+      </div>
+
+      <h2 className="mb-2 text-sm font-medium text-muted">Catalogue</h2>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
         {cards.map(({ label, value, icon: Icon, href, tone }) => (
           <Link key={label} href={href} className="rounded-2xl border border-line bg-white p-4 transition hover:border-gold">
@@ -58,6 +82,23 @@ export default function Dashboard() {
       </div>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <Panel title="Recent orders" className="xl:col-span-2" actions={<Link href="/admin/orders?status=all" className="text-xs text-gold-dark underline">All orders</Link>}>
+          {d.recent_orders.length === 0 ? <p className="text-sm text-muted">No orders yet. Orders placed via WhatsApp on the website appear here.</p> : (
+            <ul className="divide-y divide-line text-sm">
+              {d.recent_orders.map((o) => (
+                <li key={o.id}>
+                  <Link href={`/admin/orders/${o.id}`} className="flex items-center justify-between gap-3 py-2 hover:text-gold-dark">
+                    <div className="min-w-0">
+                      <p className="truncate font-medium">{o.order_number} · {o.customer_name}</p>
+                      <p className="text-xs text-muted">{formatDate(o.created_at)} · {o.phone} · {o.city} · {o.items_count} item{o.items_count === 1 ? "" : "s"}{o.delivery_person ? ` · ${o.delivery_person.name}` : ""}</p>
+                    </div>
+                    <div className="shrink-0 text-right"><Badge tone={STATUS_TONE[o.status]}>{o.status_label}</Badge><p className="text-xs">{formatPrice(+o.total)}{o.has_price_on_request ? " +" : ""}</p></div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Panel>
         <Panel title="Low stock warnings" actions={<Link href="/admin/stock?stock=low_stock" className="text-xs text-gold-dark underline">Manage stock</Link>}>
           <ProductList items={[...d.out_of_stock, ...d.low_stock]} empty="All products are well stocked." right={(p) => p.raw_stock_quantity <= 0 ? <Badge tone="red">Out of stock</Badge> : <Badge tone="gold">{p.raw_stock_quantity} left</Badge>} />
         </Panel>

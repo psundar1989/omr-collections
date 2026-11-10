@@ -2,13 +2,27 @@
 
 import { CheckCircle2, ImagePlus, Loader2, X } from "lucide-react";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { apiRequest, ApiError } from "@/lib/client-api";
+import { readPrefill, type CustomOrderPrefill } from "@/lib/custom-order";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 
 const TYPES = ["Bracelet", "Beaded Bracelet", "Necklace", "Earrings", "Anklet", "Gift Hamper", "Rakhi", "Other accessory"];
 
-export default function CustomOrderForm() {
-  const [form, setForm] = useState({ customer_name: "", whatsapp_number: "", product_type: "", preferred_colour: "", size: "", description: "" });
+/** The form pre-filled from ?product=&code=&type=&colour=&size= ("Request a Custom Piece" on a product page). */
+export function CustomOrderFormFromQuery() {
+  const params = useSearchParams();
+  const prefill = readPrefill(new URLSearchParams(params.toString()));
+  // Remount when the query changes so the initial state follows it.
+  return <CustomOrderForm key={params.toString()} prefill={prefill} />;
+}
+
+export default function CustomOrderForm({ prefill }: { prefill?: CustomOrderPrefill }) {
+  const types = prefill?.type && !TYPES.includes(prefill.type) ? [prefill.type, ...TYPES] : TYPES;
+  const [form, setForm] = useState({
+    customer_name: "", whatsapp_number: "", product_type: prefill?.type ?? "", preferred_colour: prefill?.colour ?? "", size: prefill?.size ?? "",
+    description: prefill?.product ? `Inspired by ${prefill.product}${prefill.code ? ` (code ${prefill.code})` : ""}.\n` : "",
+  });
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -74,7 +88,7 @@ export default function CustomOrderForm() {
       <F label="Product type *" error={errors.product_type}>
         <select className="input" value={form.product_type} onChange={set("product_type")}>
           <option value="">Choose…</option>
-          {TYPES.map((t) => <option key={t}>{t}</option>)}
+          {types.map((t) => <option key={t}>{t}</option>)}
         </select>
       </F>
       <div className="grid gap-4 sm:grid-cols-2">

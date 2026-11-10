@@ -7,7 +7,7 @@ import type { AdminProduct, Category } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { Field, Modal, PageHeader, Panel, Toggle, useToast } from "@/components/admin/ui";
 
-type Row = { product_id: number; name: string; sku: string; category: string | null; old_regular_price: number; new_regular_price: number; old_sale_price: number | null; new_sale_price: number | null; changed: boolean; warnings: string[] };
+type Row = { product_id: number; name: string; sku: string; category: string | null; old_regular_price: number; new_regular_price: number; old_sale_price: number | null; new_sale_price: number | null; price_on_request: boolean; new_price_on_request: boolean; changed: boolean; warnings: string[] };
 type Preview = { summary: string; matched: number; will_change: number; rows: Row[] };
 
 const OPS = [
@@ -105,7 +105,7 @@ export default function BulkPricesPage() {
                     <label key={p.id} className="flex cursor-pointer items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-cream">
                       <input type="checkbox" className="accent-[var(--color-gold)]" checked={rule.product_ids.includes(p.id)}
                         onChange={(e) => set({ product_ids: e.target.checked ? [...rule.product_ids, p.id] : rule.product_ids.filter((x) => x !== p.id) })} />
-                      <span className="flex-1 truncate">{p.name}</span><span className="text-xs text-muted">{formatPrice(p.regular_price)}</span>
+                      <span className="flex-1 truncate">{p.name}</span><span className="text-xs text-muted">{p.price_on_request ? "On request" : formatPrice(p.regular_price)}</span>
                     </label>
                   ))}
                 </div>
@@ -119,7 +119,7 @@ export default function BulkPricesPage() {
               </select>
             </Field>
             <div className="grid grid-cols-[1fr_120px] gap-3">
-              <Field label="Change">
+              <Field label="Change" hint={rule.operation === "set_fixed" ? "Also gives “Price on request” products (e.g. the imported photo catalogue) this price." : "“Price on request” products are skipped."}>
                 <select className="input" value={rule.operation} onChange={(e) => set({ operation: e.target.value })}>
                   {OPS.map((o) => <option key={o.v} value={o.v}>{o.l}</option>)}
                 </select>
@@ -160,7 +160,7 @@ export default function BulkPricesPage() {
                     {preview.rows.map((r) => (
                       <tr key={r.product_id} className={r.changed ? "" : "text-muted"}>
                         <td className="py-2"><p className="font-medium">{r.name}</p><p className="text-xs text-muted">{r.sku}{r.category ? ` · ${r.category}` : ""}</p></td>
-                        <td><Change from={r.old_regular_price} to={r.new_regular_price} /></td>
+                        <td>{r.price_on_request && r.new_price_on_request ? <span className="text-muted">On request</span> : <Change from={r.price_on_request ? null : r.old_regular_price} to={r.new_regular_price} />}</td>
                         <td><Change from={r.old_sale_price} to={r.new_sale_price} /></td>
                         <td className="max-w-56">{r.warnings.map((w) => <p key={w} className="flex gap-1 text-xs text-gold-dark"><AlertTriangle className="mt-0.5 h-3 w-3 shrink-0" /> {w}</p>)}</td>
                       </tr>

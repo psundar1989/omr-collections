@@ -4,6 +4,7 @@ import { SITE_URL } from "@/lib/config";
 import { whatsappLink } from "@/lib/format";
 import { getRelatedProducts, imageAlt, type CatalogItem } from "@/lib/catalog";
 import { catalogReviewKey } from "@/lib/reviews";
+import { customPieceLink } from "@/lib/custom-order";
 import type { Settings } from "@/lib/types";
 import Gallery from "./Gallery";
 import WishlistButton from "./WishlistButton";
@@ -11,7 +12,11 @@ import { CatalogProductGrid } from "./CatalogProductCard";
 import ProductReviews from "./ProductReviews";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 
-/** Detail page for a photographed catalogue product. No price is stored – enquire on WhatsApp. */
+/**
+ * Fallback detail page for a photographed catalogue product that is not (yet) in the
+ * Laravel API – e.g. before `php artisan catalog:import-photos` or while the API is down.
+ * No price is known here – enquire on WhatsApp.
+ */
 export default function CatalogProductView({ product: p, settings: s }: { product: CatalogItem; settings: Settings | null }) {
   const url = `${SITE_URL}${p.href}`;
   const images = p.images.map((src, i) => ({ id: i, url: src, alt_text: imageAlt(p, i), is_primary: i === 0, sort_order: i }));
@@ -67,7 +72,7 @@ export default function CatalogProductView({ product: p, settings: s }: { produc
                     <WhatsAppIcon className="h-4 w-4" /> Enquire on WhatsApp
                   </a>
                 )}
-                <Link href="/custom-order" className="btn-outline px-6 py-3"><Sparkles className="h-4 w-4 text-gold" /> Request a custom piece</Link>
+                <Link href={customPieceLink({ name: p.name, code: p.id, type: p.collectionName })} className="btn-outline px-6 py-3"><Sparkles className="h-4 w-4 text-gold" /> Request a custom piece</Link>
               </div>
             </div>
 

@@ -36,6 +36,10 @@ php artisan storage:link      # serves uploaded images from /storage
 php artisan serve             # http://localhost:8000
 ```
 
+> **Uploaded images broken (403/404 on `/storage/...`) after moving or renaming the project folder?**
+> `storage:link` creates an *absolute* symlink, which dangles once the folder moves. Recreate it as a
+> relative link: `rm public/storage && ln -s ../storage/app/public public/storage`.
+
 > Quick try without MySQL: set `DB_CONNECTION=sqlite`, `touch database/database.sqlite`, then migrate.
 
 ### 3. Frontend (http://localhost:3000)
@@ -104,6 +108,8 @@ optional reference image is uploaded, and its URL is included in the WhatsApp me
 ## Production notes
 
 * `APP_ENV=production`, `APP_DEBUG=false`, real `APP_URL`, `FRONTEND_URL`, `CORS_ALLOWED_ORIGINS`.
+* Set `FRONTEND_URL` and `PUBLIC_STORAGE_URL` (or `AWS_URL`) to public `https://` URLs. WhatsApp
+  order messages leave out any image link that is `http://`, localhost or a private address.
 * `NEXT_PUBLIC_SITE_URL` must be the public storefront URL (sitemap, canonical, Open Graph).
 * **S3/Cloudinary later:** uploads go through `App\Support\Media` and each record stores its
   disk. Set `MEDIA_DISK=s3` + `AWS_*` (or add a Cloudinary flysystem disk) and add the image

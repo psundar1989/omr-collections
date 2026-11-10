@@ -6,9 +6,13 @@ use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Product;
 use App\Models\User;
+use App\Support\Media;
 use App\Support\Money;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ShopApiTest extends TestCase
@@ -75,6 +79,158 @@ class ShopApiTest extends TestCase
         $this->assertStringContainsString('Total Amount: ₹49', $res['message']);
         $this->assertStringStartsWith('https://wa.me/', $res['whatsapp_url']);
         $this->assertStringContainsString(rawurlencode('Customer Name: Ravi'), $res['whatsapp_url']);
+    }
+
+    public function test_whatsapp_message_carries_an_absolute_link_to_each_product_image(): void
+    {
+        config(['shop.frontend_url' => 'https://shop.example/']);
+        $static = $this->product(['name' => 'Kundan Bangle']);
+        $static->images()->create(['path' => '/images/bangles/kundan set.jpg', 'disk' => Media::STATIC_DISK, 'is_primary' => true]);
+        $external = $this->product(['name' => 'Pearl Bracelet']);
+        $external->images()->create(['path' => 'https://cdn.example/pearl.jpg', 'disk' => 'public', 'is_primary' => true]);
+        $noPhoto = $this->product(['name' => 'Plain Bracelet']);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [
+                ['product_id' => $static->id, 'quantity' => 1],
+                ['product_id' => $external->id, 'quantity' => 1],
+                ['product_id' => $noPhoto->id, 'quantity' => 1],
+            ],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringContainsString("1. Product Name: Kundan Bangle\n\n   Product Image:\n   https://shop.example/images/bangles/kundan%20set.jpg\n\n", $message);
+        $this->assertStringContainsString("2. Product Name: Pearl Bracelet\n\n   Product Image:\n   https://cdn.example/pearl.jpg\n\n", $message);
+        $this->assertStringContainsString("3. Product Name: Plain Bracelet\n   Product Link: https://shop.example/products/{$noPhoto->slug}\n   Product Code:", $message);
+    }
+
+    public function test_whatsapp_message_links_to_the_product_page_after_the_image(): void
+    {
+        config(['shop.frontend_url' => 'https://shop.example/']);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => 'https://cdn.example/kundan.jpg', 'disk' => 'public', 'is_primary' => true]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringContainsString(
+            "Product Image:\nhttps://cdn.example/kundan.jpg\n\nProduct Link: https://shop.example/products/{$product->slug}\nProduct Code:",
+            $message,
+        );
+    }
+
+    #[DataProvider('unreachableFrontendUrls')]
+    public function test_whatsapp_message_omits_a_storefront_image_link_the_recipient_could_not_open(string $frontendUrl): void
+    {
+        config(['shop.frontend_url' => $frontendUrl]);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => '/images/bangles/kundan.jpg', 'disk' => Media::STATIC_DISK, 'is_primary' => true]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringNotContainsString('Product Image:', $message);
+        $this->assertStringNotContainsString('Product Link:', $message);
+        $this->assertStringContainsString("Product Name: Kundan Bangle\nProduct Code:", $message);
+    }
+
+    /** @return array<string, array{string}> */
+    public static function unreachableFrontendUrls(): array
+    {
+        return [
+            'localhost' => ['http://localhost:3000'],
+            'localhost over https' => ['https://localhost:3000'],
+            'private address' => ['https://192.168.1.20'],
+            'local dev domain' => ['https://omr.test'],
+            'plain http on a public domain' => ['http://shop.example'],
+        ];
+    }
+
+    public function test_whatsapp_message_keeps_a_localhost_image_link_on_a_local_environment(): void
+    {
+        $this->app->detectEnvironment(fn () => 'local');
+        config(['shop.frontend_url' => 'http://localhost:3000']);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => '/images/bangles/kundan set.jpg', 'disk' => Media::STATIC_DISK, 'is_primary' => true]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringContainsString("Product Image:\nhttp://localhost:3000/images/bangles/kundan%20set.jpg\n", $message);
+    }
+
+    public function test_whatsapp_message_omits_an_uploaded_image_link_on_the_local_storage_url(): void
+    {
+        config(['shop.frontend_url' => 'https://shop.example']);
+        Storage::fake('public', ['url' => 'http://localhost:8000/storage']);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => 'products/1/kundan.jpg', 'disk' => 'public', 'is_primary' => true]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringNotContainsString('Product Image:', $message);
+    }
+
+    public function test_whatsapp_message_links_an_uploaded_image_on_the_production_storage_url(): void
+    {
+        Storage::fake('public', ['url' => 'https://media.shop.example/storage']);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => 'products/1/kundan.jpg', 'disk' => 'public', 'is_primary' => true]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringContainsString("Product Image:\nhttps://media.shop.example/storage/products/1/kundan.jpg\n", $message);
+    }
+
+    public function test_whatsapp_message_links_an_image_on_the_s3_cloudfront_url(): void
+    {
+        Storage::fake('s3', ['url' => 'https://d111111abcdef8.cloudfront.net']);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => 'products/1/kundan.jpg', 'disk' => 's3', 'is_primary' => true]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringContainsString("Product Image:\nhttps://d111111abcdef8.cloudfront.net/products/1/kundan.jpg\n", $message);
+    }
+
+    public function test_whatsapp_message_uses_the_primary_image_of_the_ordered_product(): void
+    {
+        $other = $this->product(['name' => 'Pearl Bracelet']);
+        $other->images()->create(['path' => 'https://cdn.example/other-product.jpg', 'disk' => 'public', 'is_primary' => true]);
+        $product = $this->product(['name' => 'Kundan Bangle']);
+        $product->images()->create(['path' => 'https://cdn.example/gallery.jpg', 'disk' => 'public', 'is_primary' => false, 'sort_order' => 0]);
+        $product->images()->create(['path' => 'https://cdn.example/primary.jpg', 'disk' => 'public', 'is_primary' => true, 'sort_order' => 1]);
+
+        $message = $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk()->json('data.message');
+
+        $this->assertStringContainsString("Product Image:\nhttps://cdn.example/primary.jpg\n", $message);
+        $this->assertStringNotContainsString('gallery.jpg', $message);
+        $this->assertStringNotContainsString('other-product.jpg', $message);
+    }
+
+    public function test_leaving_out_an_unreachable_image_logs_a_warning(): void
+    {
+        config(['shop.frontend_url' => 'http://localhost:3000']);
+        Log::spy();
+        $product = $this->product(['name' => 'Kundan Bangle', 'sku' => 'KB-1']);
+        $product->images()->create(['path' => '/images/bangles/kundan.jpg', 'disk' => Media::STATIC_DISK, 'is_primary' => true]);
+
+        $this->postJson('/api/cart/quote', [
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])->assertOk();
+
+        Log::shouldHaveReceived('warning')->once()->withArgs(fn (string $message, array $context): bool => str_contains($message, 'FRONTEND_URL')
+            && $context === ['sku' => 'KB-1', 'image_url' => '/images/bangles/kundan.jpg']);
     }
 
     public function test_quote_rejects_out_of_stock_missing_options_and_excess_quantity(): void
@@ -160,7 +316,7 @@ class ShopApiTest extends TestCase
     public function test_whatsapp_number_setting_is_normalised_and_used(): void
     {
         $this->admin();
-        $this->putJson('/api/admin/settings', ['whatsapp_number' => '98404 65980'])->assertOk()->assertJsonPath('data.whatsapp_number', '98404 65980');
+        $this->putJson('/api/admin/settings', ['whatsapp_number' => '98404 65980'])->assertOk()->assertJsonPath('data.whatsapp_number', '919840465980'); // stored normalised for wa.me
         $p = $this->product();
         $url = $this->postJson('/api/cart/quote', ['items' => [['product_id' => $p->id, 'quantity' => 1]]])->json('data.whatsapp_url');
         $this->assertStringStartsWith('https://wa.me/919840465980?text=', $url);

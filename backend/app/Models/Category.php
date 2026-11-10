@@ -11,12 +11,15 @@ class Category extends Model
 {
     use SoftDeletes;
 
-    /** Homepage collections a category can be grouped into. */
-    public const SECTIONS = ['beads', 'charms'];
+    /**
+     * Homepage collections a category can be grouped into. "collections" = a photographed
+     * collection (silk thread jhumka, bangles…) – shown on /collections, not in "Shop by Category".
+     */
+    public const SECTIONS = ['beads', 'charms', 'collections'];
 
     protected $attributes = ['is_active' => true, 'sort_order' => 0, 'image_disk' => 'public'];
 
-    protected $fillable = ['name', 'slug', 'description', 'section', 'image_path', 'image_disk', 'sort_order', 'is_active'];
+    protected $fillable = ['name', 'slug', 'description', 'section', 'image_path', 'image_disk', 'sort_order', 'is_active', 'source'];
 
     protected $casts = ['is_active' => 'boolean', 'sort_order' => 'integer'];
 

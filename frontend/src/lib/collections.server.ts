@@ -5,7 +5,7 @@ import {
   COLLECTION_META, HANDMADE_FOLDER, collectionHref, img, imageSrc, slugFromFolder, titleFromFolder,
   type Collection, type CollectionImage,
 } from "./collections";
-import { getCollectionProducts, getProductByImage, imageAlt } from "./catalog";
+import { getCollectionProducts, getProductByImage, imageAlt, type CatalogItem, type LiveInfo } from "./catalog";
 import unlisted from "@/data/unlisted-images.json";
 
 /**
@@ -98,11 +98,17 @@ export type GalleryItem = CollectionImage & {
   /** Catalogue product shown by this photo (null for a photo not yet catalogued). */
   name: string | null;
   href: string | null;
+  /** Live price and availability. Absent for uncatalogued photos and on the static fallback. */
+  live?: LiveInfo;
 };
 
-/** One tile per catalogue product (primary photo), then any uncatalogued photos. */
-export function getCollectionGallery(c: Collection): GalleryItem[] {
-  const products: GalleryItem[] = getCollectionProducts(c.slug).map((p) => ({ src: p.image, alt: imageAlt(p), file: p.image.split("/").pop()!, name: p.name, href: p.href }));
+/**
+ * One tile per product (primary photo), then any uncatalogued photos. Pass the live product
+ * list so disabled products are left out; photos of catalogued products are never shown as
+ * loose "uncatalogued" photos, even while their product is disabled.
+ */
+export function getCollectionGallery(c: Collection, list?: CatalogItem[]): GalleryItem[] {
+  const products: GalleryItem[] = getCollectionProducts(c.slug, list).map((p) => ({ src: p.image, alt: imageAlt(p), file: p.image.split("/").pop()!, name: p.name, href: p.href, live: p.live }));
   const extra: GalleryItem[] = uncatalogued(c.folder).map((f, i) => ({ ...img(c.folder, f, `${c.name} – handmade ${c.itemLabel} design ${products.length + i + 1}`), name: null, href: null }));
   return [...products, ...extra];
 }

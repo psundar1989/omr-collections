@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HandHeart, MessageCircle, PenLine } from "lucide-react";
-import CustomOrderForm from "@/components/shop/CustomOrderForm";
+import { Suspense } from "react";
+import CustomOrderForm, { CustomOrderFormFromQuery } from "@/components/shop/CustomOrderForm";
 
 export const metadata: Metadata = {
   title: "Custom Handmade Orders",
@@ -29,7 +30,9 @@ export default function CustomOrderPage() {
             ))}
           </ol>
         </div>
-        <CustomOrderForm />
+        <Suspense fallback={<CustomOrderForm />}>
+          <CustomOrderFormFromQuery />
+        </Suspense>
       </div>
     </div>
   );

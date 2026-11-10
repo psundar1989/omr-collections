@@ -9,6 +9,7 @@ const SECTIONS: { value: CategorySection | ""; label: string }[] = [
   { value: "", label: "Shop by Category (general)" },
   { value: "beads", label: "Trendset Beads Collection" },
   { value: "charms", label: "Signature Charms Hub" },
+  { value: "collections", label: "Photo collection (not in Shop by Category)" },
 ];
 import { Badge, ConfirmDialog, Field, ImagePicker, Modal, PageHeader, Spinner, Toggle, useToast } from "@/components/admin/ui";
 
@@ -77,7 +78,7 @@ export default function CategoriesPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {c.image_url ? <img src={c.image_url} alt="" className="h-11 w-11 rounded-full object-cover" /> : <span className="h-11 w-11 rounded-full bg-cream" />}
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium">{c.name} {c.section && <Badge>{c.section === "beads" ? "Beads" : "Charms"}</Badge>} {!c.is_active && <Badge tone="red">Hidden</Badge>}</p>
+                  <p className="font-medium">{c.name} {c.section && <Badge>{c.section === "beads" ? "Beads" : c.section === "charms" ? "Charms" : "Photo collection"}</Badge>} {!c.is_active && <Badge tone="red">Hidden</Badge>}</p>
                   <p className="truncate text-xs text-muted">/{c.slug} · {c.products_count ?? 0} products</p>
                 </div>
                 <Toggle checked={c.is_active} onChange={(v) => toggle(c, v)} label={`Active: ${c.name}`} />

@@ -46,12 +46,33 @@ class SettingController extends Controller
             'instagram_images' => 'nullable|array|max:12',
             'instagram_images.*.image_url' => 'required|url|max:500',
             'instagram_images.*.link' => 'nullable|url|max:500',
-        ], ['whatsapp_number.regex' => 'Enter the WhatsApp number with country code, e.g. 919876543210.']);
+            'colour_swatches' => 'nullable|array|max:200',
+            'colour_swatches.*.name' => 'required|string|max:60|distinct:ignore_case',
+            'colour_swatches.*.hex' => ['required', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'size_presets' => 'nullable|array|max:50',
+            'size_presets.*.name' => 'required|string|max:60|distinct:ignore_case',
+            'size_presets.*.sizes' => 'required|array|min:1|max:30',
+            'size_presets.*.sizes.*' => 'required|string|max:60',
+        ], [
+            'size_presets.*.name.distinct' => 'Each size preset name can only be used once.',
+            'colour_swatches.*.hex.regex' => 'Swatch colours must be hex codes like #708238.',
+            'colour_swatches.*.name.distinct' => 'Each colour name can only be listed once.', 'whatsapp_number.regex' => 'Enter the WhatsApp number with country code, e.g. 919876543210.']);
 
         if (isset($data['whatsapp_number'])) {
             $digits = preg_replace('/\D+/', '', $data['whatsapp_number']);
             // A bare 10-digit Indian mobile gets the 91 country code.
             $data['whatsapp_number'] = strlen($digits) === 10 ? '91'.$digits : $digits;
+        }
+
+        if (isset($data['colour_swatches'])) {
+            $data['colour_swatches'] = array_values(array_map(fn ($c) => ['name' => trim($c['name']), 'hex' => strtoupper($c['hex'])], $data['colour_swatches']));
+        }
+
+        if (isset($data['size_presets'])) {
+            $data['size_presets'] = array_values(array_map(fn ($p) => [
+                'name' => trim($p['name']),
+                'sizes' => array_values(array_unique(array_filter(array_map(fn ($x) => trim((string) $x), $p['sizes']), 'strlen'))),
+            ], $data['size_presets']));
         }
 
         $this->settings->set($data);

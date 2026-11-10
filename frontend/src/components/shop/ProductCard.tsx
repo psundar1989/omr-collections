@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
+import AvailabilityBadge from "./AvailabilityBadge";
 import Price from "./Price";
 import ProductImage from "./ProductImage";
 import WishlistButton from "./WishlistButton";
@@ -17,8 +18,9 @@ export default function ProductCard({ product, priority = false }: { product: Pr
         </Link>
 
         <div className="pointer-events-none absolute left-2.5 top-2.5 flex flex-col items-start gap-1.5">
-          {!product.in_stock && <Tag className="bg-ink/80 text-white">Sold out</Tag>}
-          {product.in_stock && product.discount_percentage ? <Tag className="bg-rose text-white">-{product.discount_percentage}%</Tag> : null}
+          <AvailabilityBadge status={product.availability_status} />
+          {product.availability_status === "available" && !product.in_stock && <Tag className="bg-ink/80 text-white">Out of stock</Tag>}
+          {product.is_orderable && product.discount_percentage ? <Tag className="bg-rose text-white">-{product.discount_percentage}%</Tag> : null}
           {product.is_new_arrival && <Tag className="bg-white text-ink">New</Tag>}
           {product.is_best_seller && <Tag className="bg-gold text-white">Best Seller</Tag>}
         </div>

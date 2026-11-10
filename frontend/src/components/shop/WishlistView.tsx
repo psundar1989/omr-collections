@@ -5,12 +5,16 @@ import { Heart, Loader2, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchProductsByIds } from "@/lib/client-api";
 import { useCatalogWishlist, useWishlist } from "@/lib/store";
-import type { Product } from "@/lib/types";
+import type { AvailabilityStatus, Product } from "@/lib/types";
+import AvailabilityBadge from "./AvailabilityBadge";
 import Price from "./Price";
 import ProductImage from "./ProductImage";
 
-/** Slim catalogue entry for saved photographed products. */
-export type WishlistCatalogItem = { id: string; name: string; href: string; image: string; collectionName: string };
+/** Slim catalogue entry for saved catalogue products (live price/availability when the API is up). */
+export type WishlistCatalogItem = {
+  id: string; name: string; href: string; image: string; collectionName: string;
+  price?: number | null; originalPrice?: number | null; availability?: AvailabilityStatus;
+};
 
 export default function WishlistView({ catalog }: { catalog: WishlistCatalogItem[] }) {
   const { ids, remove } = useWishlist();
@@ -53,10 +57,11 @@ export default function WishlistView({ catalog }: { catalog: WishlistCatalogItem
             <div key={p.id}>
               <Link href={p.href} className="relative block aspect-square overflow-hidden rounded-2xl bg-cream">
                 <ProductImage src={p.image} alt={`${p.name} – ${p.collectionName}`} sizes="(min-width:768px) 25vw, 50vw" />
+                <AvailabilityBadge status={p.availability} className="absolute left-2.5 top-2.5" />
               </Link>
               <p className="mt-3 text-[11px] uppercase tracking-wider text-muted">{p.collectionName}</p>
               <Link href={p.href} className="mt-0.5 line-clamp-2 block text-[15px] hover:text-gold-dark">{p.name}</Link>
-              <p className="mt-1 text-xs text-muted">Price on request</p>
+              <Price price={p.price ?? null} original={p.originalPrice} size="sm" />
               <div className="mt-3 flex gap-2">
                 <Link href={p.href} className="btn-primary flex-1 px-3 py-2 text-xs">View Details</Link>
                 <button onClick={() => catalogWishlist.remove(p.id)} className="btn-outline px-3 py-2" aria-label={`Remove ${p.name}`}><Trash2 className="h-4 w-4" /></button>
@@ -67,12 +72,13 @@ export default function WishlistView({ catalog }: { catalog: WishlistCatalogItem
             <div key={p.id}>
               <Link href={`/products/${p.slug}`} className="relative block aspect-square overflow-hidden rounded-2xl bg-cream">
                 <ProductImage src={p.image_url} alt={p.name} sizes="(min-width:768px) 25vw, 50vw" />
-                {!p.in_stock && <span className="absolute left-2.5 top-2.5 rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-semibold uppercase text-white">Sold out</span>}
+                {p.availability_status !== "available" ? <AvailabilityBadge status={p.availability_status} className="absolute left-2.5 top-2.5" />
+                  : !p.in_stock && <span className="absolute left-2.5 top-2.5 rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-semibold uppercase text-white">Out of stock</span>}
               </Link>
               <Link href={`/products/${p.slug}`} className="mt-3 line-clamp-2 block text-[15px] hover:text-gold-dark">{p.name}</Link>
               <Price price={p.price} original={p.original_price} discount={p.discount_percentage} size="sm" />
               <div className="mt-3 flex gap-2">
-                <Link href={`/products/${p.slug}`} className="btn-primary flex-1 px-3 py-2 text-xs">{p.in_stock ? "Select options" : "View"}</Link>
+                <Link href={`/products/${p.slug}`} className="btn-primary flex-1 px-3 py-2 text-xs">{p.is_orderable ? "Select options" : "View"}</Link>
                 <button onClick={() => remove(p.id)} className="btn-outline px-3 py-2" aria-label={`Remove ${p.name}`}><Trash2 className="h-4 w-4" /></button>
               </div>
             </div>

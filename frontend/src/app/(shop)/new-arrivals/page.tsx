@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { getNewArrivals } from "@/lib/catalog";
+import { getLiveCatalog } from "@/lib/live-catalog";
 import { CatalogProductGrid } from "@/components/shop/CatalogProductCard";
 
 export const metadata: Metadata = {
@@ -10,11 +12,35 @@ export const metadata: Metadata = {
 };
 
 /**
- * Products flagged `isNewArrival` in src/data/products.json (the most recent photo shoot),
- * newest photo first. Static – rebuilt with the catalogue.
+ * Enabled products flagged "New arrival" in the admin, newest first. Streams in from the API
+ * so the admin's New Arrivals toggle (and enable/disable) applies on the next view.
  */
 export default function NewArrivalsPage() {
-  const products = getNewArrivals();
+  return (
+    <div className="container-x py-8 sm:py-12">
+      <nav className="mb-5 text-xs text-muted" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-gold-dark">Home</Link> / <span className="text-ink">New Arrivals</span>
+      </nav>
+      <Suspense fallback={<NewArrivalsSkeleton />}>
+        <NewArrivalsContent />
+      </Suspense>
+    </div>
+  );
+}
+
+function NewArrivalsSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="h-12 w-64 rounded bg-cream" />
+      <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 md:grid-cols-3 xl:grid-cols-4">
+        {Array.from({ length: 8 }, (_, i) => <div key={i} className="aspect-square rounded-2xl bg-cream" />)}
+      </div>
+    </div>
+  );
+}
+
+async function NewArrivalsContent() {
+  const products = getNewArrivals((await getLiveCatalog()).items);
   const byCollection = new Map<string, { name: string; href: string; count: number }>();
   for (const p of products) {
     const c = byCollection.get(p.collection) ?? { name: p.collectionName, href: p.collectionHref, count: 0 };
@@ -23,10 +49,7 @@ export default function NewArrivalsPage() {
   }
 
   return (
-    <div className="container-x py-8 sm:py-12">
-      <nav className="mb-5 text-xs text-muted" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-gold-dark">Home</Link> / <span className="text-ink">New Arrivals</span>
-      </nav>
+    <>
       <header className="mb-8">
         <p className="eyebrow">Just in</p>
         <h1 className="heading-display mt-1 text-4xl text-brown sm:text-5xl">New Arrivals</h1>
@@ -48,6 +71,6 @@ export default function NewArrivalsPage() {
       ) : (
         <p className="card px-6 py-16 text-center text-muted">New designs are on their way – check back soon.</p>
       )}
-    </div>
+    </>
   );
 }

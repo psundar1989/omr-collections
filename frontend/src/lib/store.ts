@@ -62,7 +62,10 @@ export type CartItem = {
   name: string;
   sku: string;
   imageUrl: string | null;
-  price: number; // last known price – display only, the server re-prices
+  /** Last known price – display only, the server re-prices. null = price on request. */
+  price: number | null;
+  /** Optional so carts saved before this field existed keep working. */
+  priceOnRequest?: boolean;
   colour: string | null;
   size: string | null;
   variantId: number | null;
@@ -104,7 +107,7 @@ export function useCart() {
     cartStore.set((prev) => prev.map((i) => (i.key === key ? { ...i, quantity: Math.max(1, Math.min(50, quantity)) } : i)));
 
   /** Change colour/size; merges with an identical line if one exists. */
-  const updateOptions = (key: string, changes: { colour?: string | null; size?: string | null; variantId?: number | null; price?: number }) =>
+  const updateOptions = (key: string, changes: { colour?: string | null; size?: string | null; variantId?: number | null; price?: number | null }) =>
     cartStore.set((prev) => {
       const item = prev.find((i) => i.key === key);
       if (!item) return prev;
@@ -119,9 +122,11 @@ export function useCart() {
   const remove = (key: string) => cartStore.set((prev) => prev.filter((i) => i.key !== key));
   const clear = () => cartStore.set([]);
   const count = items.reduce((n, i) => n + i.quantity, 0);
-  const subtotal = items.reduce((n, i) => n + i.price * i.quantity, 0);
+  /** Priced items only; "price on request" items are quoted on WhatsApp. */
+  const subtotal = items.reduce((n, i) => n + (i.price ?? 0) * i.quantity, 0);
+  const hasPriceOnRequest = items.some((i) => i.priceOnRequest || i.price == null);
 
-  return { items, add, updateQuantity, updateOptions, remove, clear, count, subtotal };
+  return { items, add, updateQuantity, updateOptions, remove, clear, count, subtotal, hasPriceOnRequest };
 }
 
 export function useWishlist() {

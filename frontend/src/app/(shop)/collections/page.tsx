@@ -20,7 +20,7 @@ export default function CollectionsPage() {
         <p className="eyebrow animate-fade-up">Handmade in small batches</p>
         <h1 className="heading-display animate-fade-up mt-3 text-5xl text-brown [animation-delay:100ms] sm:text-6xl">Our Collections</h1>
         <p className="animate-fade-up mx-auto mt-4 max-w-xl text-muted [animation-delay:200ms]">
-          Every design below is photographed from our studio. Tap any piece to see it closer and enquire on WhatsApp.
+          Every design below is photographed from our studio. Tap any piece to see it closer, check the price and order.
         </p>
       </header>
 

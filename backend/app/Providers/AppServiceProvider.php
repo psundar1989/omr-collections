@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\PricingService;
+use App\Services\SettingsService;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // One instance per request (also safe under Octane).
         $this->app->scoped(PricingService::class);
+        $this->app->scoped(SettingsService::class);
     }
 
     public function boot(): void

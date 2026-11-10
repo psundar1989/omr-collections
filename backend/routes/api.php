@@ -15,6 +15,7 @@ Route::middleware('throttle:api')->group(function () {
     Route::get('home', [CatalogController::class, 'home']);
     Route::get('categories', [CatalogController::class, 'categories']);
     Route::get('categories/{slug}', [CatalogController::class, 'category']);
+    Route::get('catalog', [CatalogController::class, 'catalog']);
     Route::get('products', [CatalogController::class, 'products']);
     Route::get('products/by-ids', [CatalogController::class, 'productsByIds']);
     Route::get('products/{slug}', [CatalogController::class, 'product']);
@@ -23,6 +24,8 @@ Route::middleware('throttle:api')->group(function () {
 
     Route::post('cart/quote', [OrderController::class, 'quote']);
 });
+Route::post('orders', [OrderController::class, 'store'])->middleware('throttle:public-forms');
+Route::post('orders/track', [OrderController::class, 'track'])->middleware('throttle:public-forms');
 Route::post('custom-orders', [OrderController::class, 'customOrder'])->middleware('throttle:public-forms');
 
 /*
@@ -43,6 +46,7 @@ Route::prefix('admin')->group(function () {
         Route::post('categories/reorder', [Admin\CategoryController::class, 'reorder']);
         Route::apiResource('categories', Admin\CategoryController::class);
 
+        Route::post('products/bulk', [Admin\ProductController::class, 'bulk']);
         Route::apiResource('products', Admin\ProductController::class);
         Route::patch('products/{product}/flags', [Admin\ProductController::class, 'flags']);
         Route::patch('products/{product}/stock', [Admin\ProductController::class, 'stock']);
@@ -66,6 +70,16 @@ Route::prefix('admin')->group(function () {
         Route::get('settings', [Admin\SettingController::class, 'show']);
         Route::put('settings', [Admin\SettingController::class, 'update']);
         Route::post('settings/upload', [Admin\SettingController::class, 'upload']);
+
+        Route::get('orders', [Admin\OrderController::class, 'index']);
+        Route::get('orders/export', [Admin\OrderController::class, 'export']);
+        Route::get('orders/{order}', [Admin\OrderController::class, 'show']);
+        Route::patch('orders/{order}', [Admin\OrderController::class, 'update']);
+        Route::post('orders/{order}/status', [Admin\OrderController::class, 'status']);
+        Route::post('orders/{order}/assign', [Admin\OrderController::class, 'assign']);
+        Route::post('orders/{order}/notes', [Admin\OrderController::class, 'note']);
+
+        Route::apiResource('delivery-persons', Admin\DeliveryPersonController::class)->parameters(['delivery-persons' => 'deliveryPerson']);
 
         Route::get('custom-orders', [Admin\CustomOrderController::class, 'index']);
         Route::patch('custom-orders/{customOrder}', [Admin\CustomOrderController::class, 'update']);

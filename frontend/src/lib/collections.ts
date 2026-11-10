@@ -135,3 +135,9 @@ export function slugFromFolder(folder: string): string {
 export function collectionHref(slug: string): string {
   return `/collections/${slug}`;
 }
+
+/** Name and page of a photographed collection by its slug (e.g. "bangles"), or null. */
+export function collectionBySlug(slug: string): { name: string; href: string } | null {
+  const meta = Object.values(COLLECTION_META).find((m) => m.slug === slug);
+  return meta ? { name: meta.name, href: collectionHref(meta.slug) } : null;
+}

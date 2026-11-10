@@ -3,7 +3,7 @@ import { getSitemapData } from "@/lib/api";
 import { SITE_URL } from "@/lib/config";
 import { HANDMADE_SLUG } from "@/lib/collections";
 import { getAllCollections } from "@/lib/collections.server";
-import { getCatalog } from "@/lib/catalog";
+import { getLiveCatalog } from "@/lib/live-catalog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const statics: MetadataRoute.Sitemap = ["", "/shop", "/custom-order", "/new-arrivals", "/shop?best_seller=1"].map((p) => ({
@@ -17,12 +17,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
-    ...getCatalog().map((p) => ({ url: `${SITE_URL}${p.href}`, changeFrequency: "monthly" as const, priority: 0.6 })),
   );
+  // Enabled products only (static catalogue only if the API is down).
+  const { items: products } = await getLiveCatalog();
+  statics.push(...products.map((p) => ({ url: `${SITE_URL}${p.href}`, changeFrequency: "monthly" as const, priority: 0.6 })));
   try {
     const data = await getSitemapData();
+    // Imported photo products exist in both sources: list each URL once (the API entry has lastModified).
+    const apiUrls = new Set(data.products.map((p) => `${SITE_URL}/products/${p.slug}`));
     return [
-      ...statics,
+      ...statics.filter((e) => !apiUrls.has(e.url)),
       ...data.categories.map((c) => ({ url: `${SITE_URL}/categories/${c.slug}`, lastModified: c.updated_at, changeFrequency: "weekly" as const, priority: 0.7 })),
       ...data.products.map((p) => ({ url: `${SITE_URL}/products/${p.slug}`, lastModified: p.updated_at, changeFrequency: "weekly" as const, priority: 0.6 })),
     ];

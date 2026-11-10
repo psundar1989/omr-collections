@@ -11,23 +11,37 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    protected $attributes = ['currency' => 'INR', 'track_stock' => true, 'stock_quantity' => 0, 'low_stock_threshold' => 5, 'is_featured' => false, 'is_best_seller' => false, 'is_new_arrival' => false, 'is_active' => true, 'views_count' => 0];
+    /*
+     * Availability is chosen by the admin and is independent of `is_active` (enabled = shown on
+     * the website) and of stock tracking. Only "available" products can be ordered.
+     */
+    public const STATUS_AVAILABLE = 'available';
+
+    public const STATUS_SOLD_OUT = 'sold_out';
+
+    public const STATUS_DISCONTINUED = 'discontinued';
+
+    public const STATUSES = [self::STATUS_AVAILABLE, self::STATUS_SOLD_OUT, self::STATUS_DISCONTINUED];
+
+    protected $attributes = ['currency' => 'INR', 'track_stock' => true, 'stock_quantity' => 0, 'low_stock_threshold' => 5, 'is_featured' => false, 'is_best_seller' => false, 'is_new_arrival' => false, 'is_active' => true, 'views_count' => 0, 'price_on_request' => false, 'availability_status' => self::STATUS_AVAILABLE, 'sizes_enabled' => true];
 
     protected $fillable = [
         'category_id', 'name', 'slug', 'sku', 'short_description', 'description',
-        'regular_price', 'sale_price', 'currency', 'track_stock', 'stock_quantity', 'low_stock_threshold',
-        'material', 'colours', 'sizes', 'is_featured', 'is_best_seller', 'is_new_arrival', 'is_active',
-        'meta_title', 'meta_description',
+        'regular_price', 'sale_price', 'price_on_request', 'currency', 'track_stock', 'stock_quantity', 'low_stock_threshold',
+        'material', 'colours', 'sizes', 'sizes_enabled', 'is_featured', 'is_best_seller', 'is_new_arrival', 'is_active', 'availability_status',
+        'meta_title', 'meta_description', 'source',
     ];
 
     protected $casts = [
         'regular_price' => 'decimal:2',
         'sale_price' => 'decimal:2',
+        'price_on_request' => 'boolean',
         'track_stock' => 'boolean',
         'stock_quantity' => 'integer',
         'low_stock_threshold' => 'integer',
         'colours' => 'array',
         'sizes' => 'array',
+        'sizes_enabled' => 'boolean',
         'is_featured' => 'boolean',
         'is_best_seller' => 'boolean',
         'is_new_arrival' => 'boolean',
@@ -80,6 +94,11 @@ class Product extends Model
                 ->orWhereHas('category', fn ($c) => $c->where('is_active', true)));
     }
 
+    public function scopeAvailability(Builder $q, string $status): Builder
+    {
+        return $q->where('products.availability_status', $status);
+    }
+
     public function scopeInStock(Builder $q): Builder
     {
         return $q->where(fn ($w) => $w->where('track_stock', false)->orWhere('stock_quantity', '>', 0));
@@ -98,14 +117,39 @@ class Product extends Model
 
     /* --------------------------------------------------------------- helpers */
 
+    /** Products imported from the photographed catalogue (frontend/src/data/products.json). */
+    public const SOURCE_PHOTO_CATALOGUE = 'photo_catalogue';
+
+    /** fixed | sale | on_request – how the admin chose to price this product. */
+    public function pricingMode(): string
+    {
+        if ($this->price_on_request) {
+            return 'on_request';
+        }
+
+        return $this->sale_price !== null && (float) $this->sale_price < (float) $this->regular_price ? 'sale' : 'fixed';
+    }
+
     public function isInStock(): bool
     {
         return ! $this->track_stock || $this->stock_quantity > 0;
     }
 
+    public function isAvailable(): bool
+    {
+        return ($this->availability_status ?? self::STATUS_AVAILABLE) === self::STATUS_AVAILABLE;
+    }
+
+    /** Enabled, in a visible category, marked available and (when stock is tracked) in stock. */
     public function isOrderable(): bool
     {
-        return $this->is_active && $this->isInStock() && (! $this->category || $this->category->is_active);
+        return $this->is_active && $this->isAvailable() && $this->isInStock() && (! $this->category || $this->category->is_active);
+    }
+
+    /** Sizes customers choose from: none when size selection is switched off for this product. */
+    public function selectableSizes(): array
+    {
+        return $this->sizes_enabled ? array_values($this->sizes ?? []) : [];
     }
 
     /** Keep product-level stock equal to the sum of variant stock when variants exist. */

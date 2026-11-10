@@ -37,7 +37,7 @@ class PriceController extends Controller
     {
         $v = $request->validate([
             'product_id' => 'nullable|integer',
-            'source' => 'nullable|in:manual,bulk,product_form',
+            'source' => 'nullable|in:manual,bulk,product_form,import',
             'per_page' => 'nullable|integer|min:1|max:100',
         ]);
 

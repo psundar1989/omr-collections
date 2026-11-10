@@ -41,7 +41,7 @@ class PriceManagementService
                 if (! $row['changed']) {
                     continue;
                 }
-                $this->updatePrices($p, $row['new_regular_price'], $row['new_sale_price'], $user, 'bulk', $rule['note'] ?? $this->describe($rule));
+                $this->updatePrices($p, $row['new_regular_price'], $row['new_sale_price'], $user, 'bulk', $rule['note'] ?? $this->describe($rule), $row['new_price_on_request']);
                 $changed++;
             }
 
@@ -49,15 +49,28 @@ class PriceManagementService
         });
     }
 
-    /** Update one product's prices and write history rows for anything that changed. */
-    public function updatePrices(Product $product, float $regular, ?float $sale, ?User $user, string $source = 'manual', ?string $note = null): Product
+    /**
+     * Update one product's prices and write history rows for anything that changed.
+     * $onRequest: true/false switches "price on request"; null leaves it unchanged.
+     */
+    public function updatePrices(Product $product, float $regular, ?float $sale, ?User $user, string $source = 'manual', ?string $note = null, ?bool $onRequest = null): Product
     {
         $oldRegular = (float) $product->regular_price;
         $oldSale = $product->sale_price !== null ? (float) $product->sale_price : null;
+        $oldOnRequest = (bool) $product->price_on_request;
 
         $product->regular_price = $regular;
         $product->sale_price = $sale;
+        if ($onRequest !== null) {
+            $product->price_on_request = $onRequest;
+        }
         $product->save();
+
+        if ($onRequest !== null && $onRequest !== $oldOnRequest) {
+            // old/new price hold the regular price so the history shows what was hidden/revealed.
+            $this->log($product, 'on_request', $oldOnRequest ? null : $oldRegular, $onRequest ? null : $regular, $user, $source,
+                $note ?? ($onRequest ? 'Price on request enabled' : 'Price on request disabled'));
+        }
 
         if (round($oldRegular, 2) !== round($regular, 2)) {
             $this->log($product, 'regular', $oldRegular, $regular, $user, $source, $note);
@@ -109,6 +122,19 @@ class PriceManagementService
         $newRegular = $oldRegular;
         $newSale = $oldSale;
         $warnings = [];
+        $onRequest = (bool) $p->price_on_request;
+        $newOnRequest = $onRequest;
+
+        if ($onRequest) {
+            // "Set fixed price" on the regular price gives price-on-request products (e.g. the
+            // imported photo catalogue) a real price; other rules can't apply to a hidden price.
+            if ($op !== 'set_fixed' || $target === 'sale') {
+                return $this->row($p, $oldRegular, $oldRegular, $oldSale, $oldSale, true, true,
+                    ['Price on request – skipped (use "Set to fixed price" on the regular price to price it).']);
+            }
+            $newOnRequest = false;
+            $warnings[] = 'Price on request → fixed price.';
+        }
 
         if ($op === 'clear_sale') {
             $newSale = null;
@@ -138,6 +164,13 @@ class PriceManagementService
             $newSale = null;
         }
 
+        return $this->row($p, $oldRegular, $newRegular, $oldSale, $newSale, $onRequest, $newOnRequest, $warnings);
+    }
+
+    private function row(Product $p, float $oldRegular, float $newRegular, ?float $oldSale, ?float $newSale, bool $onRequest, bool $newOnRequest, array $warnings): array
+    {
+        $newSale = $newSale !== null ? round($newSale, 2) : null;
+
         return [
             'product_id' => $p->id,
             'name' => $p->name,
@@ -146,8 +179,10 @@ class PriceManagementService
             'old_regular_price' => $oldRegular,
             'new_regular_price' => round($newRegular, 2),
             'old_sale_price' => $oldSale,
-            'new_sale_price' => $newSale !== null ? round($newSale, 2) : null,
-            'changed' => round($oldRegular, 2) !== round($newRegular, 2) || $oldSale !== ($newSale !== null ? round($newSale, 2) : null),
+            'new_sale_price' => $newSale,
+            'price_on_request' => $onRequest,
+            'new_price_on_request' => $newOnRequest,
+            'changed' => round($oldRegular, 2) !== round($newRegular, 2) || $oldSale !== $newSale || $onRequest !== $newOnRequest,
             'warnings' => $warnings,
         ];
     }

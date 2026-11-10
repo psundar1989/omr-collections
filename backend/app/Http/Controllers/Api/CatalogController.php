@@ -90,10 +90,12 @@ class CatalogController extends Controller
         if (isset($v['max_price'])) {
             $q->whereRaw("{$priceSql} <= ".sprintf('%.2F', (float) $v['max_price']));
         }
+        // "In stock" = orderable now; sold-out / discontinued products count as unavailable.
         if (($v['availability'] ?? null) === 'in_stock') {
-            $q->inStock();
+            $q->availability(Product::STATUS_AVAILABLE)->inStock();
         } elseif (($v['availability'] ?? null) === 'out_of_stock') {
-            $q->outOfStock();
+            $q->where(fn ($w) => $w->where('products.availability_status', '!=', Product::STATUS_AVAILABLE)
+                ->orWhere(fn ($o) => $o->outOfStock()));
         }
         if ($request->boolean('new')) {
             $q->where('is_new_arrival', true);
@@ -109,8 +111,9 @@ class CatalogController extends Controller
         }
 
         match ($v['sort'] ?? 'latest') {
-            'price_asc' => $q->orderByRaw("{$priceSql} asc"),
-            'price_desc' => $q->orderByRaw("{$priceSql} desc"),
+            // "Price on request" products have no price: list them after the priced ones.
+            'price_asc' => $q->orderBy('products.price_on_request')->orderByRaw("{$priceSql} asc"),
+            'price_desc' => $q->orderBy('products.price_on_request')->orderByRaw("{$priceSql} desc"),
             'popular' => $q->orderByDesc('is_best_seller')->orderByDesc('views_count'),
             'name' => $q->orderBy('products.name'),
             default => $q->latest('products.created_at'),
@@ -119,6 +122,21 @@ class CatalogController extends Controller
 
         return ProductResource::collection($q->paginate($v['per_page'] ?? 12)->withQueryString())
             ->additional(['meta_extra' => $this->priceBounds()]);
+    }
+
+    /**
+     * Every product customers may see (enabled, in a visible category), in one compact list.
+     * The storefront builds the shop, collection and new-arrival listings from it, so enabling,
+     * disabling, re-pricing or marking a product sold out in the admin shows up everywhere.
+     */
+    public function catalog()
+    {
+        $products = Product::query()->visible()->with(['category', 'primaryImage', 'activeVariants'])
+            ->latest('products.created_at')->orderByDesc('products.id')->get();
+
+        return ProductResource::collection($products)->additional([
+            'meta' => ['total' => $products->count(), 'generated_at' => now()->toIso8601String()],
+        ]);
     }
 
     public function product(string $slug)
@@ -135,14 +153,26 @@ class CatalogController extends Controller
         ]);
     }
 
-    /** Fetch specific products (wishlist, recently viewed). */
+    /**
+     * Fetch specific products (wishlist, recently viewed) by `ids[]`, or by product code
+     * with `skus[]` (photographed catalogue cards look up their live price this way).
+     */
     public function productsByIds(Request $request)
     {
-        $v = $request->validate(['ids' => 'required|array|max:50', 'ids.*' => 'integer']);
-        $order = array_flip($v['ids']);
+        $v = $request->validate([
+            'ids' => 'required_without:skus|array|max:50', 'ids.*' => 'integer',
+            'skus' => 'required_without:ids|array|max:50', 'skus.*' => 'string|max:64',
+        ]);
 
-        $items = $this->baseQuery()->whereIn('products.id', $v['ids'])->get()
-            ->sortBy(fn ($p) => $order[$p->id] ?? 0)->values();
+        if (! empty($v['ids'])) {
+            $order = array_flip($v['ids']);
+            $items = $this->baseQuery()->whereIn('products.id', $v['ids'])->get()
+                ->sortBy(fn ($p) => $order[$p->id] ?? 0)->values();
+        } else {
+            $order = array_flip(array_map('strtolower', $v['skus']));
+            $items = $this->baseQuery()->whereIn('products.sku', $v['skus'])->get()
+                ->sortBy(fn ($p) => $order[strtolower($p->sku)] ?? 0)->values();
+        }
 
         return ProductResource::collection($items);
     }
