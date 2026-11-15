@@ -6,11 +6,14 @@ use App\Models\Category;
 use App\Models\DeliveryPerson;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -265,6 +268,7 @@ class OrderManagementTest extends TestCase
 
     private function enableWhatsAppCloud(): void
     {
+        config(['shop.frontend_url' => 'https://shop.example']);
         config(['services.whatsapp_cloud' => [
             'token' => 'test-token', 'phone_number_id' => '12345', 'template' => 'order_photo',
             'template_language' => 'en', 'api_version' => 'v26.0',
@@ -288,7 +292,31 @@ class OrderManagementTest extends TestCase
             && $request['type'] === 'template'
             && $request['template']['name'] === 'order_photo'
             && $request['template']['components'][0]['parameters'][0]['image']['link'] === 'https://cdn.example/pearl.jpg'
-            && array_column($request['template']['components'][1]['parameters'], 'text') === ['ORD-000001', 'Pearl Bangle (Rose Gold)', '2', '₹1,000']);
+            && array_column($request['template']['components'][1]['parameters'], 'text') === [
+                'ORD-000001', 'Pearl Bangle (Rose Gold)', $product->sku.'-ROSGOL', '₹500', '2', 'https://shop.example/products/'.$product->slug,
+                'Priya Raman, +919876543210, +919123456789', '12, 3rd Cross Street, Velachery, Near Phoenix Mall, Chennai, Tamil Nadu, 600042', '₹1,000',
+            ]);
+    }
+
+    public function test_cloud_api_also_notifies_the_shop_numbers_with_a_single_line_address(): void
+    {
+        $this->enableWhatsAppCloud();
+        config(['services.whatsapp_cloud.notify_numbers' => '+91 90000 11111, 919123456789']);
+        Http::fake(['graph.facebook.com/*' => Http::response(['messages' => [['id' => 'wamid.1']]])]);
+        $first = $this->product();
+        $first->images()->create(['path' => 'https://cdn.example/one.jpg', 'disk' => 'public', 'is_primary' => true]);
+        $second = $this->product();
+        $second->images()->create(['path' => 'https://cdn.example/two.png', 'disk' => 'public', 'is_primary' => true]);
+
+        $this->place([['product_id' => $first->id, 'quantity' => 1], ['product_id' => $second->id, 'quantity' => 3]], ['address' => "12, 3rd Cross Street\n  Velachery"]);
+
+        // 2 items × (customer + shop number); the customer's number given twice is sent once.
+        Http::assertSentCount(4);
+        $sent = Http::recorded()->map(fn ($pair) => $pair[0]);
+        $this->assertEqualsCanonicalizing(['919123456789', '919123456789', '919000011111', '919000011111'], $sent->map(fn ($r) => $r['to'])->all());
+        $texts = array_column($sent->first()['template']['components'][1]['parameters'], 'text');
+        $this->assertSame('12, 3rd Cross Street, Velachery, Near Phoenix Mall, Chennai, Tamil Nadu, 600042', $texts[7]);
+        $this->assertSame('₹2,000', $texts[8]);
     }
 
     public function test_cloud_api_is_not_called_until_it_is_configured(): void
@@ -350,5 +378,65 @@ class OrderManagementTest extends TestCase
         $this->getJson("/api/admin/orders/{$order->id}")->assertOk()
             ->assertJsonPath('data.items.0.image_url', 'https://cdn.example/rose-gold.jpg')
             ->assertJsonPath('data.items.0.colour', 'Rose Gold');
+    }
+
+    public function test_order_item_keeps_the_stored_image_path_and_resolves_it_for_the_current_environment(): void
+    {
+        Storage::fake('public', ['url' => 'http://localhost:8000/storage']);
+        $product = $this->product();
+        $product->images()->create(['path' => 'products/1/pearl.jpg', 'disk' => 'public', 'is_primary' => true]);
+        $order = $this->place([['product_id' => $product->id, 'quantity' => 1]]);
+        $item = $order->items->first();
+
+        $this->assertSame(['products/1/pearl.jpg', 'public', $product->slug], [$item->image_path, $item->image_disk, $item->product_slug]);
+        $this->assertSame('http://localhost:8000/storage/products/1/pearl.jpg', $item->image_url);
+
+        // Same row, production storage URL: no localhost link baked into the order.
+        Storage::fake('public', ['url' => 'https://api.shop.example/storage']);
+        Sanctum::actingAs($this->admin);
+        $this->getJson("/api/admin/orders/{$order->id}")->assertOk()
+            ->assertJsonPath('data.items.0.image_url', 'https://api.shop.example/storage/products/1/pearl.jpg')
+            ->assertJsonMissingPath('data.items.0.image_path');
+    }
+
+    public function test_replacing_or_deleting_a_product_photo_keeps_the_file_an_order_shows(): void
+    {
+        Storage::fake('public');
+        Sanctum::actingAs($this->admin);
+        $product = $this->product();
+        $upload = fn () => $this->post("/api/admin/products/{$product->id}/images", ['images' => [UploadedFile::fake()->image('a.jpg', 800, 800)]], ['Accept' => 'application/json'])
+            ->assertOk()->json('data.images');
+        $ordered = ProductImage::find($upload()[0]['id']);
+        $order = $this->place([['product_id' => $product->id, 'quantity' => 1]]);
+        $orderedPath = $ordered->path;
+
+        $this->post("/api/admin/product-images/{$ordered->id}/replace", ['image' => UploadedFile::fake()->image('new.jpg', 800, 800)], ['Accept' => 'application/json'])->assertOk();
+        Storage::disk('public')->assertExists($orderedPath);
+        $this->assertSame(Storage::disk('public')->url($orderedPath), $order->items()->first()->image_url);
+        $this->assertNotSame($orderedPath, $ordered->fresh()->path);
+
+        // A photo no order uses is still removed from disk.
+        $unused = ProductImage::find($ordered->id);
+        $this->deleteJson("/api/admin/product-images/{$unused->id}")->assertOk();
+        Storage::disk('public')->assertMissing($unused->path);
+        Storage::disk('public')->assertExists($orderedPath);
+    }
+
+    public function test_admin_order_items_link_to_the_public_product_page(): void
+    {
+        config(['shop.frontend_url' => 'https://shop.example/']);
+        $first = $this->product(['slug' => 'pearl-bangle']);
+        $second = $this->product(['slug' => 'kundan-bangle']);
+        $order = $this->place([['product_id' => $first->id, 'quantity' => 1], ['product_id' => $second->id, 'quantity' => 2]]);
+        $first->update(['slug' => 'pearl-bangle-set']);
+        $second->delete();
+        Sanctum::actingAs($this->admin);
+
+        $this->getJson("/api/admin/orders/{$order->id}")->assertOk()
+            ->assertJsonCount(2, 'data.items')
+            ->assertJsonPath('data.items.0.product_url', 'https://shop.example/products/pearl-bangle-set')
+            ->assertJsonPath('data.items.1.product_url', null)
+            ->assertJsonPath('data.items.1.product_name', $second->name)
+            ->assertJsonPath('data.items.1.quantity', 2);
     }
 }

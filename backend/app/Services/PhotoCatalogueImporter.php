@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
@@ -92,7 +93,9 @@ class PhotoCatalogueImporter
             $products = Product::withTrashed()->where('source', self::SOURCE)->with('images')->get();
             foreach ($products as $p) {
                 foreach ($p->images as $img) {
-                    Media::delete($img->path, $img->disk); // admin uploads only; static files are skipped
+                    if (! OrderItem::usesImage($img->path, $img->disk)) {
+                        Media::delete($img->path, $img->disk); // admin uploads only; static files are skipped
+                    }
                 }
                 $p->forceDelete();
             }

@@ -20,6 +20,9 @@ export type AdminOrderItem = {
   id: number;
   product_id: number | null;
   product_name: string;
+  product_slug: string | null;
+  /** Public storefront page; null once the product has been deleted. */
+  product_url: string | null;
   sku: string | null;
   image_url: string | null;
   colour: string | null;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ArrowLeft, CheckCircle2, Copy, ImageOff, MapPin, MessageSquare, Pencil, Phone, Printer, Truck } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Copy, ExternalLink, ImageOff, MapPin, MessageSquare, Pencil, Phone, Printer, Truck } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useAdminApi, errorMessage, fieldErrors } from "@/lib/admin-api";
 import {
@@ -171,6 +171,13 @@ function ItemsPanel({ order, closed, send }: { order: AdminOrder; closed: boolea
                   <div className="min-w-0">
                     {i.product_id ? <Link href={`/admin/products/${i.product_id}`} className="font-medium hover:text-gold-dark">{i.product_name}</Link> : <p className="font-medium">{i.product_name}</p>}
                     <p className="text-xs text-muted">{[i.sku && `SKU ${i.sku}`, i.colour && `Colour: ${i.colour}`, i.size && `Size: ${i.size}`].filter(Boolean).join(" · ")}</p>
+                    {i.product_url ? (
+                      <a href={i.product_url} target="_blank" rel="noopener noreferrer" className="mt-0.5 inline-flex items-center gap-1 text-xs text-gold-dark underline-offset-2 hover:underline">
+                        <ExternalLink className="h-3 w-3" /> View product page<span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                    ) : (
+                      <p className="mt-0.5 text-xs text-muted">Product no longer on the store</p>
+                    )}
                   </div>
                 </div>
               </td>

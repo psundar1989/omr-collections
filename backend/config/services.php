@@ -36,6 +36,8 @@ return [
         'template' => env('WHATSAPP_CLOUD_TEMPLATE'),
         'template_language' => env('WHATSAPP_CLOUD_TEMPLATE_LANGUAGE', 'en'),
         'api_version' => env('WHATSAPP_CLOUD_API_VERSION', 'v26.0'),
+        // Shop / admin WhatsApp numbers that also get every order photo, comma separated.
+        'notify_numbers' => env('WHATSAPP_CLOUD_NOTIFY_NUMBERS'),
     ],
 
     'slack' => [

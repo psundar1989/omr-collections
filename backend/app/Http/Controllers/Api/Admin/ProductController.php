@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
@@ -345,7 +346,7 @@ class ProductController extends Controller
         [$path, $disk] = Media::store($request->file('image'), "products/{$image->product_id}");
         [$oldPath, $oldDisk] = [$image->path, $image->disk];
         $image->update(['path' => $path, 'disk' => $disk]);
-        Media::delete($oldPath, $oldDisk); // uploaded files only; storefront photos are never deleted from here
+        $this->deleteUnlessOrdered($oldPath, $oldDisk);
         $image->product->touch();
 
         return $this->show($image->product);
@@ -361,10 +362,22 @@ class ProductController extends Controller
         return $this->show($product);
     }
 
+    /**
+     * Remove a replaced / deleted photo from disk, unless an order still shows it: orders keep
+     * the photo that was ordered without a second copy of the file. Storefront photos (static
+     * disk) are never deleted from here.
+     */
+    private function deleteUnlessOrdered(?string $path, ?string $disk): void
+    {
+        if (! OrderItem::usesImage($path, $disk)) {
+            Media::delete($path, $disk);
+        }
+    }
+
     public function deleteImage(ProductImage $image)
     {
         $product = $image->product;
-        Media::delete($image->path, $image->disk);
+        $this->deleteUnlessOrdered($image->path, $image->disk);
         $wasPrimary = $image->is_primary;
         $image->delete();
         if ($wasPrimary && ($next = $product->images()->first())) {

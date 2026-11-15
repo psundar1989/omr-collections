@@ -59,8 +59,11 @@ class OrderService
                     'product_id' => $line['product_id'],
                     'product_variant_id' => $line['variant_id'],
                     'product_name' => $line['name'],
+                    'product_slug' => $line['slug'],
                     'sku' => $line['sku'],
                     'image_url' => $line['image_url'],
+                    'image_path' => $line['image_path'],
+                    'image_disk' => $line['image_disk'],
                     'colour' => $line['colour'],
                     'size' => $line['size'],
                     'quantity' => $line['quantity'],
@@ -101,9 +104,12 @@ class OrderService
         }
 
         rescue(function () use ($order) {
+            $recipients = $this->whatsAppCloud->recipients($order);
             foreach ($order->items as $item) {
                 if ($this->whatsAppCloud->attachableImageUrl($item)) {
-                    SendOrderItemImageOnWhatsApp::dispatch($item);
+                    foreach ($recipients as $to) {
+                        SendOrderItemImageOnWhatsApp::dispatch($item, $to);
+                    }
                 } else {
                     Log::warning('WhatsApp photo not sent: the image must be a public HTTPS JPEG or PNG.', ['order_item_id' => $item->id, 'image_url' => $item->image_url]);
                 }

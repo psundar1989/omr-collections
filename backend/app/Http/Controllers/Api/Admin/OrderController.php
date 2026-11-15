@@ -181,6 +181,7 @@ class OrderController extends Controller
 
     private function detail(Order $order): Order
     {
-        return $order->fresh()->load(['items', 'deliveryPerson', 'histories.user:id,name']);
+        // items.product: the product link follows the product's current slug.
+        return $order->fresh()->load(['items.product:id,slug,deleted_at', 'deliveryPerson', 'histories.user:id,name']);
     }
 }

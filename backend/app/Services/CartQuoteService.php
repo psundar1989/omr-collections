@@ -74,7 +74,7 @@ class CartQuoteService
             'name' => $product?->name,
             'slug' => $product?->slug,
             'sku' => $product?->sku,
-            'image_url' => $product ? $this->imageUrl($product, null) : null,
+            ...$this->imageFields($product, null),
             'colour' => $item['colour'] ?? null,
             'size' => $item['size'] ?? null,
             'quantity' => $qty,
@@ -139,7 +139,7 @@ class CartQuoteService
             'variant_id' => $variant?->id,
             // The SKU of exactly what was chosen: the variant's, or product SKU + size + colour.
             'sku' => $variant?->sku ?: $this->skus->selectionSku($product->sku, $colour, $size),
-            'image_url' => $this->imageUrl($product, $colour),
+            ...$this->imageFields($product, $colour),
             'colour' => $colour,
             'size' => $size,
             'unit_price' => $pricing['price'],
@@ -157,11 +157,23 @@ class CartQuoteService
         return [...$base, 'line_total' => $pricing['price_on_request'] ? 0 : round($pricing['price'] * $qty, 2)];
     }
 
+    private function imageFields(?Product $product, ?string $colour): array
+    {
+        $image = $product ? $this->imageFor($product, $colour) : null;
+
+        // image_path / image_disk are what the order item stores; the URL is resolved on read.
+        return [
+            'image_url' => $image ? Media::url($image->path, $image->disk) : null,
+            'image_path' => $image?->path,
+            'image_disk' => $image?->disk,
+        ];
+    }
+
     /**
      * Photo of the ordered colour: the image tagged with that colour in the admin, else one
      * whose alt text ends in "– Colour" (older convention). Falls back to the primary image.
      */
-    private function imageUrl(Product $product, ?string $colour): ?string
+    private function imageFor(Product $product, ?string $colour): ?ProductImage
     {
         $image = $colour
             ? ($product->images->first(fn (ProductImage $image) => $image->colour !== null && $this->same($image->colour, $colour))
@@ -169,7 +181,7 @@ class CartQuoteService
             : null;
         $image ??= $product->images->first();
 
-        return $image ? Media::url($image->path, $image->disk) : null;
+        return $image;
     }
 
     /**
