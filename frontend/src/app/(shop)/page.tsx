@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import { unstable_rethrow } from "next/navigation";
 import { Gift, HandHeart, MessageCircle, ShieldCheck, Sparkles, Star, Truck } from "lucide-react";
 import { getHome, getSettings } from "@/lib/api";
+import CategoryCircleImage from "@/components/home/CategoryCircleImage";
 import CategoryCircles from "@/components/home/CategoryCircles";
 import GalleryGrid from "@/components/home/GalleryGrid";
 import HeroCarousel from "@/components/home/HeroCarousel";
@@ -17,8 +19,10 @@ import { CatalogProductGrid } from "@/components/shop/CatalogProductCard";
 import { HANDMADE_SLUG, collectionHref } from "@/lib/collections";
 import { countDesigns, getCollection } from "@/lib/collections.server";
 import { getNewArrivalHighlights, imageAlt, type CatalogItem } from "@/lib/catalog";
-import { getLiveCatalog } from "@/lib/live-catalog";
-import { HOME_IMAGES } from "@/lib/home-content";
+import { getLiveCatalog, getLiveProducts } from "@/lib/live-catalog";
+import { FEATURED_PICKS, HOME_IMAGES, categoryCirclePhoto } from "@/lib/home-content";
+import { COLLECTION_META } from "@/lib/collections";
+import type { Product } from "@/lib/types";
 
 /**
  * Homepage. Sections built from the photo collections in public/images are static
@@ -102,7 +106,7 @@ export default function HomePage() {
 
 /** API catalogue: bead & charm collections, categories and featured products. */
 async function CatalogTop() {
-  const home = await getHome();
+  const [home, featured] = await Promise.all([getHome(), getFeaturedPieces()]);
   const general = home.categories.filter((c) => !c.section);
   const beads = home.categories.filter((c) => c.section === "beads");
   const charms = home.categories.filter((c) => c.section === "charms");
@@ -123,11 +127,11 @@ async function CatalogTop() {
 
       {general.length > 0 && (
         <Section eyebrow="Explore" title="Shop by Category" href="/shop">
-          <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
+          <div className="no-scrollbar -mx-4 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:scroll-px-0 sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
             {general.map((c) => (
               <Link key={c.id} href={`/categories/${c.slug}`} className="group w-28 shrink-0 snap-start text-center sm:w-auto">
                 <div className="relative mx-auto aspect-square overflow-hidden rounded-full border border-line bg-cream">
-                  {c.image_url && <Image src={c.image_url} alt={c.name} fill sizes="140px" className="object-cover transition duration-500 group-hover:scale-105" />}
+                  <CategoryCircleImage src={categoryCirclePhoto(c)} slug={c.slug} alt={c.name} sizes="140px" className="object-cover transition duration-500 group-hover:scale-105" />
                 </div>
                 <p className="mt-3 text-[13px] leading-tight text-ink/85 group-hover:text-gold-dark">{c.name}</p>
               </Link>
@@ -136,13 +140,35 @@ async function CatalogTop() {
         </Section>
       )}
 
-      {home.featured.length > 0 && (
+      {featured.length > 0 && (
         <Section eyebrow="Curated for you" title="Featured Pieces" href="/shop?featured=1">
-          <ProductGrid products={home.featured} />
+          <ProductGrid products={featured} />
         </Section>
       )}
     </>
   );
+}
+
+const PHOTO_COLLECTIONS = new Set(Object.values(COLLECTION_META).map((m) => m.slug));
+
+/**
+ * Featured Pieces, shown only with real product photos: products featured in the admin that belong to
+ * the photographed catalogue, then the hand-picked FEATURED_PICKS, up to 8. Demo products (generated
+ * artwork, no catalogue code) are left out. Disabled or hidden products drop out automatically.
+ */
+async function getFeaturedPieces(): Promise<Product[]> {
+  let products: Product[];
+  try {
+    products = await getLiveProducts();
+  } catch (e) {
+    unstable_rethrow(e);
+    return [];
+  }
+  const isPhoto = (p: Product) => !!p.image_url && (!!p.catalog_code || PHOTO_COLLECTIONS.has(p.category?.slug ?? ""));
+  const bySlug = new Map(products.map((p) => [p.slug, p]));
+  const picks = [...products.filter((p) => p.is_featured && isPhoto(p)), ...FEATURED_PICKS.map((slug) => bySlug.get(slug))];
+  const seen = new Set<number>();
+  return picks.filter((p): p is Product => !!p && !seen.has(p.id) && !!seen.add(p.id)).slice(0, 8);
 }
 
 /** Latest enabled new arrivals from the admin – one per collection in turn. */

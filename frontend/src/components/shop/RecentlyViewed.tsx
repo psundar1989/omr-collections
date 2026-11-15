@@ -29,7 +29,7 @@ export default function RecentlyViewed({ excludeId, title = "Recently Viewed" }:
   return (
     <section className="container-x mt-16">
       <h2 className="heading-display mb-5 text-2xl sm:text-3xl">{title}</h2>
-      <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
+      <div className="no-scrollbar -mx-4 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-2">
         {shown.map((p) => (
           <Link key={p.id} href={`/products/${p.slug}`} className="w-36 shrink-0 snap-start sm:w-44">
             <div className="relative aspect-square overflow-hidden rounded-xl bg-cream">

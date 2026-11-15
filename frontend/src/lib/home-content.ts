@@ -1,5 +1,5 @@
 import { HANDMADE_SLUG, collectionHref, type CollectionImage } from "./collections";
-import { imageAlt, requireProduct, type CatalogItem } from "./catalog";
+import { getProductByImage, imageAlt, requireProduct, type CatalogItem } from "./catalog";
 
 /**
  * Hand-picked homepage imagery, referenced by catalogue product slug so names always
@@ -94,3 +94,51 @@ export const HOME_IMAGES = {
     pick("kemp-stone-bridal-jasmine-bun"),
   ],
 };
+
+/** A specific product photo (e.g. one colour of a bracelet), named after its product. Fails the build if the file is not in products.json. */
+function photo(src: string): CollectionImage & { href: string } {
+  const p = getProductByImage(src);
+  if (!p) throw new Error(`Unknown catalogue photo "${src}" – check src/data/products.json`);
+  return { src, alt: `${p.name} – ${p.collectionName}`, file: src.split("/").pop()!, href: p.href };
+}
+
+/**
+ * Real product photos for the "Shop by Category" circles, keyed by category slug. They replace the
+ * generated bead-ring artwork the demo seeder stored for these categories; an image uploaded for the
+ * category in the admin still takes precedence (see categoryCirclePhoto).
+ */
+export const CATEGORY_PHOTOS: Record<string, CollectionImage & { href: string }> = {
+  "handmade-bracelets": photo("/images/handmade/bracelets/evil-eye-bead-bracelet-red-white.jpg"),
+  "beaded-bracelets": photo("/images/handmade/bracelets/crackle-glass-bead-bracelet-with-gold-spacers-pink.jpg"),
+  "gold-plated-jewellery": photo("/images/handmade/traditional-earrings/antique-gold-mango-ruby-emerald-jhumka.jpg"),
+  necklaces: photo("/images/handmade/invisible-chains/red-lotus-pearl-invisible-chain.jpg"),
+  earrings: photo("/images/handmade/traditional-earrings/ruby-emerald-pearl-chandbali-earrings.png"),
+  "handmade-accessories": photo("/images/handmade/alligator-clips/iridescent-pink-petal-red-rose-alligator-clip.jpg"),
+  "gift-collections": photo("/images/handmade/haldi-kumkum-sets/assorted-haldi-kumkum-return-gift-collection.jpg"),
+  "customised-products": photo("/images/handmade/bracelets/personalised-name-bead-bracelet-baby-pink.jpg"),
+};
+
+/**
+ * Image for a category circle: the admin-uploaded image if there is one, otherwise the real product
+ * photo above. The demo seeder's generated artwork (stored as categories/<slug>.jpg) counts as "none".
+ */
+export function categoryCirclePhoto(c: { slug: string; image_url: string | null }): string | null {
+  const real = CATEGORY_PHOTOS[c.slug]?.src;
+  const seeded = !c.image_url || c.image_url.split("?")[0].endsWith(`/categories/${c.slug}.jpg`);
+  return seeded && real ? real : c.image_url;
+}
+
+/**
+ * Real photographed products that fill "Featured Pieces" after the products featured in the admin
+ * (none of these photos appears elsewhere on the homepage). Validated at build time.
+ */
+export const FEATURED_PICKS: string[] = [
+  "bottle-green-pearl-and-kundan-silk-thread-jhumka",
+  "royal-blue-and-gold-kundan-silk-thread-bangle-pair",
+  "green-kundan-jasmine-hair-flower-design-2",
+  "pink-and-green-lotus-ring",
+  "lilac-silk-thread-jhumka-with-purple-stone-stud",
+  "purple-kundan-stone-silk-thread-bangle-set",
+  "kundan-flower-crystal-hairband",
+  "champagne-heart-and-green-kundan-brooch-pin",
+].map((slug) => requireProduct(slug).slug);

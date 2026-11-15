@@ -168,15 +168,18 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                   onClick={() => go(i)}
                   aria-label={`Show slide ${i + 1}: ${s.collectionName}`}
                   aria-current={i === index ? "true" : undefined}
-                  className={cn("relative h-1.5 overflow-hidden rounded-full transition-all duration-500", i === index ? "w-10 bg-brown/15" : "w-2.5 bg-brown/25 hover:bg-brown/45")}
+                  className={cn("group flex h-8 items-center transition-all duration-500", i === index ? "w-10" : "w-2.5")}
                 >
-                  {i === index && (
-                    <span
-                      key={`${index}-${playing}`}
-                      className={cn("absolute inset-0 origin-left rounded-full bg-gold", playing ? "animate-carousel-progress" : "")}
-                      style={{ "--carousel-interval": `${INTERVAL}ms` } as React.CSSProperties}
-                    />
-                  )}
+                  {/* Visual bar stays 6px tall; the button around it gives a 32px tap target. */}
+                  <span className={cn("relative h-1.5 w-full overflow-hidden rounded-full transition-colors", i === index ? "bg-brown/15" : "bg-brown/25 group-hover:bg-brown/45")}>
+                    {i === index && (
+                      <span
+                        key={`${index}-${playing}`}
+                        className={cn("absolute inset-0 origin-left rounded-full bg-gold", playing ? "animate-carousel-progress" : "")}
+                        style={{ "--carousel-interval": `${INTERVAL}ms` } as React.CSSProperties}
+                      />
+                    )}
+                  </span>
                 </button>
               ))}
             </div>

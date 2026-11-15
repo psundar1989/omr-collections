@@ -10,6 +10,7 @@ import { MAX_QTY } from "@/lib/config";
 import { ApiError, placeOrder } from "@/lib/client-api";
 import { customPieceLink } from "@/lib/custom-order";
 import { WhatsAppIcon } from "@/components/ui/Icons";
+import { openWhatsAppTab } from "@/lib/whatsapp-window";
 import Price from "./Price";
 import CustomerDetailsForm, { useCustomerDetails, validateCustomer } from "./CustomerDetailsForm";
 import OrderPlaced from "./OrderPlaced";
@@ -110,16 +111,15 @@ export default function PurchasePanel({ product, onAdded, customPieceHref }: { p
     if (Object.keys(errs).length) return;
     rememberCustomer(customer);
     setOrdering(true);
-    // Open the tab synchronously so popup blockers allow it; on mobile this hands over to the app.
-    const win = window.open("", "_blank");
+    // Open (or reuse) the WhatsApp tab synchronously so popup blockers allow it; on mobile this hands over to the app.
+    const wa = openWhatsAppTab();
     try {
       const order = await placeOrder([{ key: "buy-now", product_id: product.id, variant_id: variant?.id ?? null, colour: selectedColour, size: selectedSize, quantity: qty }], customer, "buy_now");
-      if (win) win.location.href = order.whatsapp_url;
-      else window.location.href = order.whatsapp_url;
+      wa.go(order.whatsapp_url);
       setPlaced(order);
       setCheckout(false);
     } catch (e) {
-      win?.close();
+      wa.cancel();
       if (e instanceof ApiError && Object.keys(e.errors).length) {
         setCustomerErrors(Object.fromEntries(Object.entries(e.errors).map(([k, v]) => [k, v[0]])));
       }

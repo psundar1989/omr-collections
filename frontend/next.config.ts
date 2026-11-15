@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
+    // 90 is used for the brand logo so its fine lettering stays crisp.
+    qualities: [75, 90],
     remotePatterns: [
       { protocol: apiUrl.protocol.replace(":", "") as "http" | "https", hostname: apiUrl.hostname, port: apiUrl.port, pathname: "/storage/**" },
       // Future S3 / Cloudinary hosts, e.g. NEXT_PUBLIC_IMAGE_HOSTS=res.cloudinary.com,my-bucket.s3.ap-south-1.amazonaws.com

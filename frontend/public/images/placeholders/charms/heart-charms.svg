@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<defs>
+<radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#fdf0f2"/><stop offset="1" stop-color="#f4cdd4"/></radialGradient>
+<radialGradient id="shade" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></radialGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e2a4"/><stop offset=".45" stop-color="#d4a94e"/><stop offset=".75" stop-color="#a87a2c"/><stop offset="1" stop-color="#e9c97a"/></linearGradient>
+<linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fafafa"/><stop offset=".5" stop-color="#b9bcc2"/><stop offset="1" stop-color="#e6e8eb"/></linearGradient>
+<filter id="drop" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#4a2e1f" flood-opacity=".25"/></filter>
+
+</defs>
+<rect width="400" height="400" fill="url(#bg)"/>
+<ellipse cx="200" cy="8" rx="7" ry="9" fill="none" stroke="url(#gold)" stroke-width="3.5"/><ellipse cx="200" cy="24" rx="5" ry="9" fill="none" stroke="url(#gold)" stroke-width="3.5"/><ellipse cx="200" cy="40" rx="7" ry="9" fill="none" stroke="url(#gold)" stroke-width="3.5"/><ellipse cx="200" cy="56" rx="5" ry="9" fill="none" stroke="url(#gold)" stroke-width="3.5"/><circle cx="200" cy="92" r="14" fill="none" stroke="url(#gold)" stroke-width="6"/><g filter="url(#drop)"><path d="M200 340 C80 260 60 200 80 160 C100 115 170 110 200 160 C230 110 300 115 320 160 C340 200 320 260 200 340z" fill="url(#gold)"/><path d="M200 318 C100 250 84 202 100 168 C118 132 172 130 200 178 C228 130 282 132 300 168 C316 202 300 250 200 318z" fill="#c8203f"/><path d="M200 318 C100 250 84 202 100 168 C118 132 172 130 200 178 C228 130 282 132 300 168 C316 202 300 250 200 318z" fill="url(#shade)" opacity=".65"/><ellipse cx="135" cy="175" rx="22" ry="10" fill="#fff" opacity=".7" transform="rotate(-40 135 175)"/></g>
+</svg>

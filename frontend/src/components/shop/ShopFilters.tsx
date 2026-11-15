@@ -78,7 +78,7 @@ export default function ShopFilters({ categories, current, lockedCategory, bound
             const active = current.min_price === a && current.max_price === b;
             return (
               <button key={label} onClick={() => { setMin(a ?? ""); setMax(b ?? ""); update({ min_price: a, max_price: b }); }}
-                className={cn("chip px-2.5 py-1 text-xs", active ? "border-ink bg-ink text-ivory" : "border-line bg-white")}>{label}</button>
+                className={cn("chip px-3 py-2 text-xs lg:px-2.5 lg:py-1", active ? "border-ink bg-ink text-ivory" : "border-line bg-white")}>{label}</button>
             );
           })}
         </div>
@@ -135,7 +135,7 @@ export default function ShopFilters({ categories, current, lockedCategory, bound
         <div className={cn("absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-ivory p-6 transition-transform", open ? "translate-y-0" : "translate-y-full")}>
           <div className="mb-5 flex items-center justify-between">
             <p className="heading-display text-2xl">Filters</p>
-            <button onClick={() => setOpen(false)} className="rounded-full p-2" aria-label="Close filters"><X className="h-5 w-5" /></button>
+            <button type="button" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-cream" aria-label="Close filters"><X className="h-5 w-5" /></button>
           </div>
           {panel}
           <button className="btn-primary mt-8 w-full" onClick={() => setOpen(false)}>Show {total} products</button>

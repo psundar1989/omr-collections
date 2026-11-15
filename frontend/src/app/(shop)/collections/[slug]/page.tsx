@@ -129,7 +129,7 @@ function Related({ items }: { items: Collection[] }) {
   if (items.length === 0) return null;
   return (
     <Section eyebrow="Keep exploring" title="More Collections" href="/collections" linkLabel="All collections">
-      <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
+      <div className="no-scrollbar -mx-4 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0">
         {items.slice(0, 4).map((r) => (
           <Link key={r.slug} href={r.href} className="group w-44 shrink-0 snap-start sm:w-auto" data-reveal>
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-cream ring-1 ring-line">

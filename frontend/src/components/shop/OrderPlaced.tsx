@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import type { PlacedOrder } from "@/lib/types";
 import { WhatsAppIcon } from "@/components/ui/Icons";
+import { openWhatsAppLink, WHATSAPP_WINDOW } from "@/lib/whatsapp-window";
 
 /** Shown after an order is stored: the order number, a way back to WhatsApp, and tracking. */
 export default function OrderPlaced({ order, compact = false }: { order: PlacedOrder; compact?: boolean }) {
@@ -16,7 +17,7 @@ export default function OrderPlaced({ order, compact = false }: { order: PlacedO
         Keep your order number to track delivery.
       </p>
       <div className={compact ? "mt-3 flex flex-wrap gap-2" : "mt-6 flex flex-wrap justify-center gap-3"}>
-        <a href={order.whatsapp_url} target="_blank" rel="noopener noreferrer" className="btn-whatsapp px-5 py-2.5">
+        <a href={order.whatsapp_url} target={WHATSAPP_WINDOW} onClick={(e) => openWhatsAppLink(e, order.whatsapp_url)} className="btn-whatsapp px-5 py-2.5">
           <WhatsAppIcon className="h-4 w-4" /> Open WhatsApp
         </a>
         <Link href={`/track-order?order=${encodeURIComponent(order.order_number)}`} className="btn-outline px-5 py-2.5">Track order</Link>

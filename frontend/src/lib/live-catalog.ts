@@ -21,16 +21,20 @@ export type LiveCatalog = {
  * goes through the API (cart quote), so nothing can be ordered from the fallback.
  */
 export const getLiveCatalog = cache(async (): Promise<LiveCatalog> => {
-  // Request-time data: prerendering stops here, the listing streams in per request.
-  await connection();
   try {
-    const res = await fetch(`${SERVER_API_URL}/catalog`, { headers: { Accept: "application/json" }, cache: "no-store" });
-    if (!res.ok) throw new Error(`API ${res.status} on /catalog`);
-    const body = (await res.json()) as { data: Product[] };
-    return { items: body.data.map(fromApiProduct), live: true };
+    return { items: (await getLiveProducts()).map(fromApiProduct), live: true };
   } catch (e) {
     unstable_rethrow(e); // let Next.js' internal interrupts through
     console.error("[catalog] API unavailable, using static products.json", e);
     return { items: getCatalog(), live: false };
   }
+});
+
+/** The raw API products behind getLiveCatalog (same single request per render). Throws if the API is down. */
+export const getLiveProducts = cache(async (): Promise<Product[]> => {
+  // Request-time data: prerendering stops here, the listing streams in per request.
+  await connection();
+  const res = await fetch(`${SERVER_API_URL}/catalog`, { headers: { Accept: "application/json" }, cache: "no-store" });
+  if (!res.ok) throw new Error(`API ${res.status} on /catalog`);
+  return ((await res.json()) as { data: Product[] }).data;
 });

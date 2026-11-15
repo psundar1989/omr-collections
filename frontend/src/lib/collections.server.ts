@@ -14,6 +14,8 @@ import unlisted from "@/data/unlisted-images.json";
  */
 const PUBLIC_IMAGES = path.join(process.cwd(), "public", "images");
 const IMAGE_EXT = /\.(jpe?g|png|webp|avif)$/i;
+/** Site assets in public/images that are not product collections. */
+const NON_COLLECTION_FOLDERS = new Set(["logo", "placeholders"]);
 
 function listDirs(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
@@ -75,7 +77,7 @@ function sortCollections(list: Collection[]): Collection[] {
 /** Top-level collections (every folder in public/images except the handmade root). */
 export function getSignatureCollections(): Collection[] {
   return sortCollections(
-    listDirs(PUBLIC_IMAGES).filter((d) => d !== HANDMADE_FOLDER).map((d) => build(d, "signature")).filter((c): c is Collection => c !== null),
+    listDirs(PUBLIC_IMAGES).filter((d) => d !== HANDMADE_FOLDER && !NON_COLLECTION_FOLDERS.has(d)).map((d) => build(d, "signature")).filter((c): c is Collection => c !== null),
   );
 }
 

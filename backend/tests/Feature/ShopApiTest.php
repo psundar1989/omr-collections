@@ -213,7 +213,7 @@ class ShopApiTest extends TestCase
             'items' => [['product_id' => $product->id, 'quantity' => 1]],
         ])->assertOk()->json('data.message');
 
-        $this->assertStringContainsString("Product Image:\nhttps://cdn.example/primary.jpg\n", $message);
+        $this->assertStringContainsString("Product Images:\nhttps://cdn.example/primary.jpg\n", $message);
         $this->assertStringNotContainsString('gallery.jpg', $message);
         $this->assertStringNotContainsString('other-product.jpg', $message);
     }

@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { apiRequest, ApiError } from "@/lib/client-api";
 import { readPrefill, type CustomOrderPrefill } from "@/lib/custom-order";
 import { WhatsAppIcon } from "@/components/ui/Icons";
+import { openWhatsAppLink, openWhatsAppTab, WHATSAPP_WINDOW } from "@/lib/whatsapp-window";
 
 const TYPES = ["Bracelet", "Beaded Bracelet", "Necklace", "Earrings", "Anklet", "Gift Hamper", "Rakhi", "Other accessory"];
 
@@ -48,17 +49,16 @@ export default function CustomOrderForm({ prefill }: { prefill?: CustomOrderPref
     if (Object.keys(errs).length) return;
 
     setBusy(true);
-    const win = window.open("", "_blank");
+    const wa = openWhatsAppTab();
     try {
       const fd = new FormData();
       Object.entries(form).forEach(([k, v]) => v.trim() && fd.append(k, v.trim()));
       if (file) fd.append("reference_image", file);
       const r = await apiRequest<{ data: { whatsapp_url: string } }>("/custom-orders", { method: "POST", body: fd });
       setDone({ url: r.data.whatsapp_url });
-      if (win) win.location.href = r.data.whatsapp_url;
-      else window.location.href = r.data.whatsapp_url;
+      wa.go(r.data.whatsapp_url);
     } catch (err) {
-      win?.close();
+      wa.cancel();
       if (err instanceof ApiError) {
         setErrors({ form: err.message, ...Object.fromEntries(Object.entries(err.errors).map(([k, v]) => [k, v[0]])) });
       }
@@ -73,7 +73,7 @@ export default function CustomOrderForm({ prefill }: { prefill?: CustomOrderPref
         <CheckCircle2 className="h-12 w-12 text-whatsapp" strokeWidth={1.4} />
         <h2 className="heading-display mt-4 text-3xl">Request ready!</h2>
         <p className="mt-2 max-w-sm text-muted">WhatsApp should have opened with your request. Please press <strong>Send</strong> in WhatsApp so we receive it.</p>
-        <a href={done.url} target="_blank" rel="noopener noreferrer" className="btn-whatsapp mt-6"><WhatsAppIcon className="h-4 w-4" /> Open WhatsApp again</a>
+        <a href={done.url} target={WHATSAPP_WINDOW} onClick={(e) => openWhatsAppLink(e, done.url)} className="btn-whatsapp mt-6"><WhatsAppIcon className="h-4 w-4" /> Open WhatsApp again</a>
         <button className="mt-4 text-sm text-gold-dark underline" onClick={() => { setDone(null); setForm({ ...form, description: "" }); pick(null); }}>Send another request</button>
       </div>
     );

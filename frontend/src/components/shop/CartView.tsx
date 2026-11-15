@@ -9,6 +9,7 @@ import type { PlacedOrder, Quote, QuoteLine } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { MAX_QTY } from "@/lib/config";
 import { WhatsAppIcon } from "@/components/ui/Icons";
+import { openWhatsAppTab } from "@/lib/whatsapp-window";
 import ProductImage from "./ProductImage";
 import CustomerDetailsForm, { useCustomerDetails, validateCustomer } from "./CustomerDetailsForm";
 import OrderPlaced from "./OrderPlaced";
@@ -69,16 +70,15 @@ export default function CartView() {
     rememberCustomer(customer);
     setOrdering(true);
     setError(null);
-    // Open the tab synchronously so popup blockers allow it, then point it at WhatsApp.
-    const win = window.open("", "_blank");
+    // Open (or reuse) the WhatsApp tab synchronously so popup blockers allow it, then point it at WhatsApp.
+    const wa = openWhatsAppTab();
     try {
       const order = await submitOrder(toQuoteItems(cart.items), customer, "cart");
-      if (win) win.location.href = order.whatsapp_url;
-      else window.location.href = order.whatsapp_url;
+      wa.go(order.whatsapp_url);
       setPlaced(order);
       cart.clear();
     } catch (e) {
-      win?.close();
+      wa.cancel();
       if (e instanceof ApiError && e.errors) setFieldErrors(Object.fromEntries(Object.entries(e.errors).map(([k, v]) => [k, v[0]])));
       setError(e instanceof Error ? e.message : "Something went wrong.");
       // Refresh line errors (e.g. an item sold out meanwhile).

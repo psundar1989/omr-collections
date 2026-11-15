@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { getSettings } from "@/lib/api";
@@ -16,7 +17,7 @@ export default async function SiteFooter() {
       <footer className="mt-20 border-t border-line bg-cream/60">
         <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="heading-display text-3xl">{s.business_name}</p>
+            <Image src={s.logo_url || "/images/logo/logo-omr.webp"} alt={s.business_name} width={1186} height={601} quality={90} sizes="200px" className="h-24 w-auto object-contain" />
             <p className="mt-3 text-sm leading-relaxed text-muted">{s.footer_description}</p>
             <div className="mt-5 flex gap-2">
               {s.instagram_url && <Social href={s.instagram_url} label="Instagram"><InstagramIcon className="h-4 w-4" /></Social>}
@@ -27,21 +28,21 @@ export default async function SiteFooter() {
           </div>
           <div>
             <p className="eyebrow">Shop</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li><Link className="text-ink/80 hover:text-gold-dark" href="/shop">All Products</Link></li>
+            <ul className="mt-4 space-y-1 text-sm lg:space-y-2">
+              <li><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href="/shop">All Products</Link></li>
               {categories.map((c) => (
-                <li key={c.slug}><Link className="text-ink/80 hover:text-gold-dark" href={`/shop?category=${c.slug}`}>{c.name}</Link></li>
+                <li key={c.slug}><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href={`/shop?category=${c.slug}`}>{c.name}</Link></li>
               ))}
             </ul>
           </div>
           <div>
             <p className="eyebrow">Help</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li><Link className="text-ink/80 hover:text-gold-dark" href="/cart">Your Cart</Link></li>
-              <li><Link className="text-ink/80 hover:text-gold-dark" href="/track-order">Track Your Order</Link></li>
-              <li><Link className="text-ink/80 hover:text-gold-dark" href="/wishlist">Wishlist</Link></li>
-              <li><Link className="text-ink/80 hover:text-gold-dark" href="/custom-order">Custom Handmade Orders</Link></li>
-              <li><Link className="text-ink/80 hover:text-gold-dark" href="/shop?on_sale=1">Offers</Link></li>
+            <ul className="mt-4 space-y-1 text-sm lg:space-y-2">
+              <li><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href="/cart">Your Cart</Link></li>
+              <li><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href="/track-order">Track Your Order</Link></li>
+              <li><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href="/wishlist">Wishlist</Link></li>
+              <li><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href="/custom-order">Custom Handmade Orders</Link></li>
+              <li><Link className="inline-block py-1 text-ink/80 hover:text-gold-dark lg:py-0" href="/shop?on_sale=1">Offers</Link></li>
             </ul>
           </div>
           <div>
@@ -54,13 +55,13 @@ export default async function SiteFooter() {
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-whatsapp mt-5"><WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp</a>
           </div>
         </div>
-        <div className="border-t border-line py-5 text-center text-xs text-muted">
+        <div className="border-t border-line px-4 pb-24 pt-5 text-center text-xs text-muted sm:pb-5">
           © {year} {s.business_name}. Handmade in India · Orders are confirmed on WhatsApp · No online payment collected on this website.
         </div>
       </footer>
 
       <a href={wa} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
-        className="fixed bottom-5 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/15 transition hover:scale-105">
+        className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/15 transition hover:scale-105 sm:right-5">
         <WhatsAppIcon className="h-7 w-7" />
       </a>
     </>
