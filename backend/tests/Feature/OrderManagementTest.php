@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\User;
+use App\Support\Media;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Http\UploadedFile;
@@ -119,13 +120,55 @@ class OrderManagementTest extends TestCase
         Sanctum::actingAs($this->admin);
         $this->getJson('/api/admin/orders?status=pending&search=98765')
             ->assertOk()->assertJsonPath('data.0.order_number', $order->order_number)
-            ->assertJsonPath('data.0.total_quantity', 3)->assertJsonPath('status_counts.pending', 1);
+            ->assertJsonPath('data.0.total_quantity', 3)->assertJsonPath('status_counts.pending', 1)
+            ->assertJsonPath('data.0.items.0.product_name', $p->name)
+            ->assertJsonPath('data.0.items.0.quantity', 3)
+            ->assertJsonPath('data.0.items.0.sku', $order->items->first()->sku)
+            ->assertJsonPath('data.0.customer_name', 'Priya Raman')
+            ->assertJsonStructure(['data' => [['address', 'landmark', 'city', 'state', 'pincode', 'items' => [['image_url', 'product_name']]]]]);
 
         $this->getJson("/api/admin/orders/{$order->id}")->assertOk()
             ->assertJsonPath('data.customer_name', 'Priya Raman')
             ->assertJsonPath('data.items.0.quantity', 3)
             ->assertJsonPath('data.items.0.unit_price', '500.00')
             ->assertJsonPath('data.next_statuses', [Order::CONFIRMED, Order::CANCELLED]);
+    }
+
+    /**
+     * The admin orders table renders its PRODUCT column from the list endpoint, so each order there
+     * must carry its item snapshots (name, SKU, quantity, image). Mirrors ORD-000027: a catalogue
+     * product whose photo is served by the storefront (static disk), plus a second product with no photo.
+     */
+    public function test_admin_order_list_includes_every_item_with_name_sku_quantity_and_image(): void
+    {
+        $clip = $this->product(['name' => 'Satin Scrunchie Banana Hair Clip', 'sku' => 'OMR-FH-005', 'colours' => ['Lavender']]);
+        $clip->images()->create([
+            'path' => 'images/handmade/fabric-hair-accessories/satin-scrunchie-banana-hair-clip-lavender.jpg',
+            'disk' => Media::STATIC_DISK, 'alt_text' => 'Satin Scrunchie Banana Hair Clip – Lavender', 'is_primary' => true,
+        ]);
+        $plain = $this->product(['name' => 'Plain Bangle']);
+        $order = $this->place([
+            ['product_id' => $clip->id, 'colour' => 'Lavender', 'quantity' => 1],
+            ['product_id' => $plain->id, 'quantity' => 2],
+        ]);
+        Sanctum::actingAs($this->admin);
+
+        $this->getJson('/api/admin/orders?search='.$order->order_number)->assertOk()
+            ->assertJsonCount(2, 'data.0.items')
+            ->assertJsonPath('data.0.items.0.product_name', 'Satin Scrunchie Banana Hair Clip')
+            ->assertJsonPath('data.0.items.0.sku', 'OMR-FH-005-LAV')
+            ->assertJsonPath('data.0.items.0.quantity', 1)
+            ->assertJsonPath('data.0.items.0.image_url', '/images/handmade/fabric-hair-accessories/satin-scrunchie-banana-hair-clip-lavender.jpg')
+            ->assertJsonPath('data.0.items.1.product_name', 'Plain Bangle')
+            ->assertJsonPath('data.0.items.1.quantity', 2)
+            ->assertJsonPath('data.0.items.1.image_url', null)
+            ->assertJsonMissingPath('data.0.items.0.image_path')
+            ->assertJsonPath('data.0.items_count', 2)
+            ->assertJsonPath('data.0.total_quantity', 3)
+            ->assertJsonPath('data.0.address', '12, 3rd Cross Street, Velachery')
+            ->assertJsonPath('data.0.landmark', 'Near Phoenix Mall')
+            ->assertJsonPath('data.0.city', 'Chennai')
+            ->assertJsonPath('data.0.pincode', '600042');
     }
 
     public function test_full_lifecycle_with_delivery_person_stock_and_history(): void

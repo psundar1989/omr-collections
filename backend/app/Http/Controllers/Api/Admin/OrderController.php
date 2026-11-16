@@ -21,7 +21,7 @@ class OrderController extends Controller
         $v += $request->validate(['per_page' => 'nullable|integer|min:5|max:100']);
 
         $page = $this->query($v)
-            ->with('deliveryPerson:id,name,phone')
+            ->with(['deliveryPerson:id,name,phone', 'items:id,order_id,product_id,product_variant_id,product_name,product_slug,sku,image_url,image_path,image_disk,colour,size,quantity'])
             ->withCount('items')->withSum('items as total_quantity', 'quantity')
             ->latest('id')
             ->paginate($v['per_page'] ?? 20);
