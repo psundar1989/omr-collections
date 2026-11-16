@@ -52,7 +52,7 @@ npm run dev                   # or: npm run build && npm start
 ```
 
 Admin: http://localhost:3000/admin/login with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `backend/.env`
-(defaults `admin@example.in` / `ChangeMe@123` — **change it** under Settings → Change password).
+(defaults `sundaramoorthicr@gmail.com` / `omrcollections@kalai` — **change it** under Settings → Change password).
 
 Then set your real **WhatsApp number** in Admin → Settings (e.g. `919876543210`; a bare
 10-digit number gets `91` added).

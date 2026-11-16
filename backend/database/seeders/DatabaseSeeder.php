@@ -10,8 +10,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@example.in')],
-            ['name' => 'Store Admin', 'password' => env('ADMIN_PASSWORD', 'ChangeMe@123'), 'is_admin' => true]
+            ['email' => env('ADMIN_EMAIL', 'sundaramoorthicr@gmail.com')],
+            ['name' => 'Store Admin', 'password' => env('ADMIN_PASSWORD', 'omrcollections@kalai'), 'is_admin' => true]
         );
 
         if (! app()->environment('production') || env('SEED_DEMO_DATA', false)) {

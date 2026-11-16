@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { adminTokenStore, useAdminToken } from "@/lib/store";
 import { apiRequest } from "@/lib/client-api";
 import { cn } from "@/lib/format";
-import { ToastProvider } from "./ui";
+import { ConfirmDialog, ToastProvider } from "./ui";
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -30,6 +30,8 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const token = useAdminToken();
   const [auth, setAuth] = useState<{ token: string; user: { name: string; email: string } } | null>(null);
   const [open, setOpen] = useState(false);
+  const [confirmingLogout, setConfirmingLogout] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
   const isLogin = pathname === "/admin/login";
 
   useEffect(() => {
@@ -59,11 +61,23 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
     return <div className="flex min-h-screen items-center justify-center bg-[#f7f5f1]"><Loader2 className="h-6 w-6 animate-spin text-gold" /></div>;
   }
 
+  /** Revoke the Sanctum token server-side, then drop all local admin auth state. */
   const logout = async () => {
+    setLoggingOut(true);
     await apiRequest("/admin/logout", { method: "POST", token: adminTokenStore.get() }).catch(() => undefined);
     adminTokenStore.set(null);
+    setAuth(null);
+    setConfirmingLogout(false);
+    setOpen(false);
+    setLoggingOut(false);
     router.replace("/admin/login");
   };
+
+  const logoutButton = (
+    <button type="button" onClick={() => setConfirmingLogout(true)} className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-ink/75 transition hover:bg-rose/10 hover:text-rose">
+      <LogOut className="h-4 w-4" /> Logout
+    </button>
+  );
 
   const active = (href: string) => (href === "/admin" ? pathname === "/admin" : pathname === href || (pathname.startsWith(href + "/") && !NAV.some((n) => n.href !== href && n.href.startsWith(href) && pathname.startsWith(n.href))));
 
@@ -86,27 +100,41 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           <div className="border-t border-line pt-3 text-xs text-muted">
             <p className="truncate px-2">{user.email}</p>
             <Link href="/" target="_blank" className="mt-2 flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-cream"><ExternalLink className="h-3.5 w-3.5" /> View store</Link>
-            <button onClick={logout} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-cream"><LogOut className="h-3.5 w-3.5" /> Log out</button>
+            {logoutButton}
           </div>
         </aside>
 
         <header className="sticky top-0 z-30 flex items-center justify-between border-b border-line bg-white px-4 py-3 lg:hidden">
           <button onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
           <span className="font-semibold">Store Admin</span>
-          <button onClick={logout} aria-label="Log out"><LogOut className="h-4 w-4" /></button>
+          <button onClick={() => setConfirmingLogout(true)} aria-label="Logout"><LogOut className="h-4 w-4" /></button>
         </header>
         {open && (
           <div className="fixed inset-0 z-40 lg:hidden">
             <div className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} />
-            <aside className="absolute inset-y-0 left-0 w-64 bg-white p-4">
+            <aside className="absolute inset-y-0 left-0 flex w-64 flex-col bg-white p-4">
               <div className="mb-4 flex justify-between"><span className="font-semibold">Menu</span><button onClick={() => setOpen(false)} aria-label="Close"><X className="h-5 w-5" /></button></div>
-              {nav}
+              <div className="flex-1 overflow-y-auto">{nav}</div>
+              <div className="border-t border-line pt-3 text-xs text-muted">
+                <p className="truncate px-2">{user.email}</p>
+                {logoutButton}
+              </div>
             </aside>
           </div>
         )}
 
         <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
+      {confirmingLogout && (
+        <ConfirmDialog
+          title="Logout"
+          message="Are you sure you want to logout?"
+          confirmLabel="Logout"
+          busy={loggingOut}
+          onConfirm={logout}
+          onCancel={() => setConfirmingLogout(false)}
+        />
+      )}
     </ToastProvider>
   );
 }
