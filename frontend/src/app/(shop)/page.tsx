@@ -18,9 +18,9 @@ import RecentlyViewed from "@/components/shop/RecentlyViewed";
 import { CatalogProductGrid } from "@/components/shop/CatalogProductCard";
 import { HANDMADE_SLUG, collectionHref } from "@/lib/collections";
 import { countDesigns, getCollection } from "@/lib/collections.server";
-import { getNewArrivalHighlights, imageAlt, type CatalogItem } from "@/lib/catalog";
+import { getNewArrivalHighlights } from "@/lib/catalog";
 import { getLiveCatalog, getLiveProducts } from "@/lib/live-catalog";
-import { FEATURED_PICKS, HOME_IMAGES, categoryCirclePhoto } from "@/lib/home-content";
+import { FEATURED_PICKS, HOME_IMAGES, acrylicGallery, categoryCirclePhoto } from "@/lib/home-content";
 import { COLLECTION_META } from "@/lib/collections";
 import type { Product } from "@/lib/types";
 
@@ -207,23 +207,10 @@ async function CatalogBottom() {
   );
 }
 
-/** Real product photos for the gallery when no Instagram images are set: the newest product of each collection. */
-function galleryFallback(list: CatalogItem[]) {
-  const seen = new Set<string>();
-  return [...list]
-    .filter((p) => p.photographedAt && !p.homepageBanner)
-    .sort((a, b) => b.photographedAt!.localeCompare(a.photographedAt!))
-    .filter((p) => !seen.has(p.collection) && seen.add(p.collection))
-    .slice(0, 12)
-    .map((p) => ({ src: p.image, alt: imageAlt(p), link: p.href }));
-}
-
 /** Settings-driven sections: promise, testimonials and the Instagram gallery. */
 async function TrustAndGallery() {
-  const [s, catalog] = await Promise.all([getSettings(), getLiveCatalog()]);
-  const gallery = s.instagram_images.length > 0
-    ? s.instagram_images.slice(0, 12).map((img, i) => ({ src: img.image_url, alt: `Acrylic beads jewellery ${i + 1}`, link: img.link }))
-    : galleryFallback(catalog.items);
+  const s = await getSettings();
+  const gallery = acrylicGallery(s.instagram_images);
 
   return (
     <>

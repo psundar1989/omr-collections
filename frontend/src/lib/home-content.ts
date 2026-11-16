@@ -129,6 +129,38 @@ export function categoryCirclePhoto(c: { slug: string; image_url: string | null 
 }
 
 /**
+ * Real product photos for the "Acrylic Beads Gallery" (12 tiles, one bead product each). They replace
+ * the generated artwork the demo seeder stored as storage/gallery/acrylic-<n>.jpg (saved with a
+ * hard-coded localhost URL, so it never loads on the live site). Validated at build time.
+ */
+export const ACRYLIC_GALLERY: (CollectionImage & { href: string })[] = [
+  "/images/handmade/bracelets/personalised-name-bead-bracelet-sky-blue.jpg",
+  "/images/handmade/bracelets/evil-eye-bead-bracelet-purple-white.jpg",
+  "/images/handmade/bracelets/crackle-glass-bead-bracelet-teal-gold.jpg",
+  "/images/handmade/bracelets/jade-bead-bracelet-with-gold-spacers-royal-blue.jpg",
+  "/images/handmade/bracelets/two-tone-jade-bead-bracelet-purple-pink.jpg",
+  "/images/handmade/bracelets/jade-bead-stretch-bracelet-mint-green.jpg",
+  "/images/handmade/bracelets/black-and-white-bead-bracelet.jpg",
+  "/images/handmade/bracelets/couple-evil-eye-bead-bracelet-set.jpg",
+  "/images/handmade/bracelets/crackle-glass-bead-bracelet-with-gold-spacers-magenta.jpg",
+  "/images/handmade/keychains/pink-bead-grape-keychain.jpg",
+  "/images/handmade/keychains/blue-bead-grape-keychain.jpg",
+  "/images/handmade/alligator-clips/pink-and-blue-beaded-butterfly-alligator-clip.jpg",
+].map(photo);
+
+/**
+ * Tiles for the Acrylic Beads Gallery: the Instagram images set in Admin → Settings, or the real
+ * product photos above. The demo seeder's generated images (…/gallery/acrylic-<n>.jpg) count as "none".
+ */
+export function acrylicGallery(images: { image_url: string; link?: string | null }[]): { src: string; alt: string; link?: string | null }[] {
+  const custom = images.filter((img) => img.image_url && !/\/gallery\/acrylic-\d+\.jpg(\?|$)/.test(img.image_url));
+  if (custom.length > 0) {
+    return custom.slice(0, 12).map((img, i) => ({ src: img.image_url, alt: `Acrylic beads jewellery ${i + 1}`, link: img.link || null }));
+  }
+  return ACRYLIC_GALLERY.map((p) => ({ src: p.src, alt: p.alt, link: p.href }));
+}
+
+/**
  * Real photographed products that fill "Featured Pieces" after the products featured in the admin
  * (none of these photos appears elsewhere on the homepage). Validated at build time.
  */

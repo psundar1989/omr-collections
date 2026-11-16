@@ -31,9 +31,9 @@ export default function Gallery({ images, name }: { images: Img[]; name: string 
   };
 
   return (
-    <div className="flex flex-col-reverse gap-3 lg:flex-row">
+    <div className="flex flex-col-reverse gap-3 lg:flex-row lg:max-h-[min(70vh,640px)]">
       {images.length > 1 && (
-        <div className="no-scrollbar flex gap-2 overflow-x-auto lg:max-h-[min(80vh,640px)] lg:w-20 lg:flex-col lg:overflow-y-auto">
+        <div className="no-scrollbar flex gap-2 overflow-x-auto lg:max-h-[min(70vh,640px)] lg:w-20 lg:flex-col lg:overflow-y-auto">
           {images.map((img, i) => (
             <button key={img.id} onClick={() => show(i)} aria-label={img.colour ? `Show ${img.colour}` : `Show image ${i + 1}`} title={img.colour ?? undefined}
               className={cn("relative aspect-square w-16 shrink-0 overflow-hidden rounded-xl border-2 bg-cream lg:w-full", i === active ? "border-gold" : "border-transparent opacity-70 hover:opacity-100")}>

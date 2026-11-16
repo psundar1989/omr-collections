@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight, Download, Search, UserX } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, ImageOff, Search, UserX } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useAdminApi, errorMessage } from "@/lib/admin-api";
 import { STATUS_TONE, downloadWithToken, type AdminOrder, type DeliveryPerson } from "@/lib/admin-orders";
@@ -117,12 +117,14 @@ export default function OrdersPage() {
 
       {!data ? <Spinner /> : (
         <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-          <table className="w-full min-w-[960px] text-sm">
+          <table className="w-full min-w-[1360px] text-sm">
             <thead className="border-b border-line bg-ivory text-left text-xs uppercase tracking-wider text-muted">
               <tr>
                 <th className="px-4 py-3">Order</th>
                 <th className="px-3 py-3">Customer</th>
+                <th className="px-3 py-3">Product</th>
                 <th className="px-3 py-3">Deliver to</th>
+                <th className="px-3 py-3">Delivery address</th>
                 <th className="px-3 py-3">Items</th>
                 <th className="px-3 py-3 text-right">Total</th>
                 <th className="px-3 py-3">Payment</th>
@@ -138,7 +140,30 @@ export default function OrdersPage() {
                     <p className="text-xs text-muted">{formatDate(o.created_at)}</p>
                   </td>
                   <td className="px-3 py-3"><p>{o.customer_name}</p><p className="text-xs text-muted">{o.phone}</p></td>
+                  <td className="px-3 py-3">
+                    <div className="space-y-2">
+                      {(o.items ?? []).map((i) => {
+                        const name = i.product_name?.trim();
+                        return (
+                        <div key={i.id} className="flex items-center gap-2">
+                          <ProductThumb src={i.image_url} name={name || "Product"} />
+                          <div className="min-w-0">
+                            {name && <p className="max-w-48 truncate" title={name}>{name}</p>}
+                            {i.sku && <p className="text-xs text-muted">SKU: {i.sku}</p>}
+                            {(i.colour || i.size) && <p className="text-xs text-muted">{[i.colour, i.size].filter(Boolean).join(" / ")}</p>}
+                          </div>
+                        </div>
+                        );
+                      })}
+                    </div>
+                  </td>
                   <td className="px-3 py-3"><p>{o.city}</p><p className="text-xs text-muted">{o.pincode}</p></td>
+                  <td className="max-w-64 px-3 py-3 text-xs">
+                    <p className="whitespace-pre-line">{o.address}</p>
+                    {o.landmark && <p className="text-muted">Landmark: {o.landmark}</p>}
+                    <p>{[o.city, o.state].filter(Boolean).join(", ")}</p>
+                    <p>{o.pincode}</p>
+                  </td>
                   <td className="px-3 py-3">{o.total_quantity} <span className="text-xs text-muted">({o.items_count} line{o.items_count === 1 ? "" : "s"})</span></td>
                   <td className="px-3 py-3 text-right font-medium">{formatPrice(+o.total)}{o.has_price_on_request && <p className="text-[11px] font-normal text-gold-dark">+ on request</p>}</td>
                   <td className="px-3 py-3"><Badge tone={o.payment_status === "paid" ? "green" : o.payment_status === "refunded" ? "neutral" : "gold"}>{o.payment_status}</Badge></td>
@@ -146,7 +171,7 @@ export default function OrdersPage() {
                   <td className="px-3 py-3"><Badge tone={STATUS_TONE[o.status]}>{o.status_label}</Badge></td>
                 </tr>
               ))}
-              {data.data.length === 0 && <tr><td colSpan={8} className="py-12 text-center text-muted">No orders match these filters.</td></tr>}
+              {data.data.length === 0 && <tr><td colSpan={10} className="py-12 text-center text-muted">No orders match these filters.</td></tr>}
             </tbody>
           </table>
         </div>
@@ -161,4 +186,14 @@ export default function OrdersPage() {
       )}
     </>
   );
+}
+
+/** Snapshot photo of an ordered product; a placeholder when it is missing or no longer loads. */
+function ProductThumb({ src, name }: { src: string | null; name: string }) {
+  const [broken, setBroken] = useState(false);
+  if (!src || broken) {
+    return <span role="img" aria-label="No product image" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cream text-sand"><ImageOff className="h-4 w-4" strokeWidth={1.5} /></span>;
+  }
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt={name} onError={() => setBroken(true)} className="h-10 w-10 shrink-0 rounded-lg object-cover" />;
 }
